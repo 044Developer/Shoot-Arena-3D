@@ -153,6 +153,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Standalone: com.044Games.Shoot-Arena-3D
     iPhone: com.044Games.Shoot-Arena-3D
   buildNumber:
     Standalone: 0
