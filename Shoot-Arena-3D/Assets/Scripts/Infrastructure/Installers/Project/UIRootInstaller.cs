@@ -2,6 +2,10 @@ using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Container;
 using ShootArena.Infrastructure.Modules.UIPanels.Container.Implementation;
 using ShootArena.Infrastructure.Modules.UIPanels.Implementation;
+using ShootArena.Infrastructure.Modules.UIWindows;
+using ShootArena.Infrastructure.Modules.UIWindows.Container;
+using ShootArena.Infrastructure.Modules.UIWindows.Container.Implementation;
+using ShootArena.Infrastructure.Modules.UIWindows.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Root;
 using ShootArena.Infrastructure.MonoComponents.UI.Root.Implementation;
 using Zenject;
@@ -30,6 +34,7 @@ public class UIRootInstaller : MonoInstaller
     private void BindUIModules()
     {
         BindPanelsModule();
+        BindWindowsModule();
     }
 
     private void BindPanelsModule()
@@ -42,6 +47,19 @@ public class UIRootInstaller : MonoInstaller
         Container
             .Bind<IUIPanelsModule>()
             .To<UIPanelsModule>()
+            .AsSingle();
+    }
+
+    private void BindWindowsModule()
+    {
+        Container
+            .Bind<IUIWindowsContainer>()
+            .To<UIWindowsContainer>()
+            .AsSingle();
+
+        Container
+            .Bind<IUIWindowsModule>()
+            .To<UIWindowsModule>()
             .AsSingle();
     }
 
