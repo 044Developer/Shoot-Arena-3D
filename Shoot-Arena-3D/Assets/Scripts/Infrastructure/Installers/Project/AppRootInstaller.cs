@@ -5,6 +5,8 @@ using ShootArena.Infrastructure.Modules.AssetProvider;
 using ShootArena.Infrastructure.Modules.AssetProvider.Implementation;
 using ShootArena.Infrastructure.Modules.CustomFactory;
 using ShootArena.Infrastructure.Modules.CustomFactory.Implementation;
+using ShootArena.Infrastructure.Modules.CustomLogger;
+using ShootArena.Infrastructure.Modules.CustomLogger.Implementation;
 using ShootArena.Infrastructure.Modules.SceneLoader;
 using ShootArena.Infrastructure.Modules.SceneLoader.Implementation;
 using ShootArena.Infrastructure.MonoComponents.CoroutineRunner;
@@ -32,11 +34,20 @@ public class AppRootInstaller : MonoInstaller
 
     private void BindModules()
     {
+        BindCustomLogger();
         BindCoroutineRunner();
         BindAssetProvider();
         BindCustomFactory();
         BindSceneLoader();
         BindAppStateMachine();
+    }
+
+    private void BindCustomLogger()
+    {
+        Container
+            .Bind<ICustomLoggerModule>()
+            .To<CustomLoggerModule>()
+            .AsSingle();
     }
 
     private void BindCoroutineRunner()
