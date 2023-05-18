@@ -1,6 +1,10 @@
 using ShootArena.Infrastructure;
 using ShootArena.Infrastructure.Modules.AppStateMachine;
 using ShootArena.Infrastructure.Modules.AppStateMachine.Implementation;
+using ShootArena.Infrastructure.Modules.AssetProvider;
+using ShootArena.Infrastructure.Modules.AssetProvider.Implementation;
+using ShootArena.Infrastructure.Modules.CustomFactory;
+using ShootArena.Infrastructure.Modules.CustomFactory.Implementation;
 using ShootArena.Infrastructure.Modules.SceneLoader;
 using ShootArena.Infrastructure.Modules.SceneLoader.Implementation;
 using ShootArena.Infrastructure.MonoComponents.CoroutineRunner;
@@ -29,6 +33,8 @@ public class AppRootInstaller : MonoInstaller
     private void BindModules()
     {
         BindCoroutineRunner();
+        BindAssetProvider();
+        BindCustomFactory();
         BindSceneLoader();
         BindAppStateMachine();
     }
@@ -39,6 +45,22 @@ public class AppRootInstaller : MonoInstaller
             .Bind<ICoroutineRunner>()
             .To<CoroutineRunner>()
             .FromNewComponentOnNewGameObject()
+            .AsSingle();
+    }
+
+    private void BindAssetProvider()
+    {
+        Container
+            .Bind<IAssetProviderModule>()
+            .To<AssetProviderModule>()
+            .AsSingle();
+    }
+
+    public void BindCustomFactory()
+    {
+        Container
+            .Bind<ICustomFactoryModule>()
+            .To<CustomFactoryModule>()
             .AsSingle();
     }
 
