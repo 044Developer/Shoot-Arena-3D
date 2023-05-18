@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc95ed995a7d44307a33c672a4f0dc0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiRootPrefab: {fileID: 5536355889947235863, guid: 38686e7bf26e0417c9043e7838b0e541, type: 3}
 --- !u!1 &5482421559025665364
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 123c691d55c044e0e8584d2bbf8e075b, type: 2}
   _monoInstallers:
   - {fileID: 4482371478539757886}
   - {fileID: 229476909998906387}

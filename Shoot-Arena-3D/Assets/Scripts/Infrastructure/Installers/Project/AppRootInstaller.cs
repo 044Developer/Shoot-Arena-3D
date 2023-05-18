@@ -9,6 +9,8 @@ using ShootArena.Infrastructure.Modules.CustomLogger;
 using ShootArena.Infrastructure.Modules.CustomLogger.Implementation;
 using ShootArena.Infrastructure.Modules.SceneLoader;
 using ShootArena.Infrastructure.Modules.SceneLoader.Implementation;
+using ShootArena.Infrastructure.Modules.XMLReader;
+using ShootArena.Infrastructure.Modules.XMLReader.Implementation;
 using ShootArena.Infrastructure.MonoComponents.CoroutineRunner;
 using ShootArena.Infrastructure.MonoComponents.CoroutineRunner.Implementation;
 using Zenject;
@@ -40,6 +42,7 @@ public class AppRootInstaller : MonoInstaller
         BindCustomFactory();
         BindSceneLoader();
         BindAppStateMachine();
+        BindXMLReader();
     }
 
     private void BindCustomLogger()
@@ -88,6 +91,14 @@ public class AppRootInstaller : MonoInstaller
         Container
             .Bind<IAppStateMachine>()
             .To<AppStateMachine>()
+            .AsSingle();
+    }
+
+    private void BindXMLReader()
+    {
+        Container
+            .Bind<IXMLReaderModule>()
+            .To<XMLReaderModule>()
             .AsSingle();
     }
 
