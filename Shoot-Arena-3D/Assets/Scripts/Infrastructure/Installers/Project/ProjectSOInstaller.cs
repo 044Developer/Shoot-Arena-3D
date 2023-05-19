@@ -1,4 +1,4 @@
-using ShootArena.Infrastructure.MonoComponents.StaticContainers.Contianers.Scenario;
+using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Scenario;
 using UnityEngine;
 using Zenject;
 

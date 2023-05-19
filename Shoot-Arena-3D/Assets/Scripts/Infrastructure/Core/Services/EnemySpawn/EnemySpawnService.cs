@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Model;
-using ShootArena.Infrastructure.Core.Level.Data;
 using ShootArena.Infrastructure.Core.Level.Model;
+using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.Factory;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using UnityEngine;
@@ -15,6 +15,8 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
         private readonly LevelSessionModel _levelSessionModel = null;
         private readonly ISpawnPositionService _spawnPositionService = null;
         private readonly IEnemyFactoryService _enemyFactoryService = null;
+        private readonly ILevelTimingRuntimeData _levelTimingRuntimeData = null;
+        private readonly ILevelEnemiesRuntimeData _enemiesRuntimeData = null;
 
         private Queue<IEnemy> _meleeEnemyPool = null;
         private Queue<IEnemy> _rangeEnemyPool = null;
@@ -22,12 +24,16 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
         public EnemySpawnService(
             LevelSessionModel levelSessionModel,
             ISpawnPositionService spawnPositionService,
-            IEnemyFactoryService enemyFactoryService
-            )
+            IEnemyFactoryService enemyFactoryService,
+            ILevelTimingRuntimeData levelTimingRuntimeData,
+            ILevelEnemiesRuntimeData enemiesRuntimeData
+        )
         {
             _levelSessionModel = levelSessionModel;
             _spawnPositionService = spawnPositionService;
             _enemyFactoryService = enemyFactoryService;
+            _levelTimingRuntimeData = levelTimingRuntimeData;
+            _enemiesRuntimeData = enemiesRuntimeData;
         }
 
         public void SetUp()
@@ -38,10 +44,11 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
 
         public void Tick()
         {
-            if (_levelSessionModel.IsLevelPaused)
+            return;
+            if (_levelTimingRuntimeData.IsLevelPaused)
                 return;
 
-            if (_levelSessionModel.TimeToNextRespawn > 0)
+            if (_levelTimingRuntimeData.TimeToNextRespawn > 0)
                 return;
             
             ActivateNewEnemies();
@@ -138,13 +145,13 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
         {
             int currentActiveEnemies = 0;
             int enemiesCountToRespawn = 0;
-            bool isRespawnRateAggressive = _levelSessionModel.CurrentRespawnRate <=
+            bool isRespawnRateAggressive = _levelTimingRuntimeData.CurrentRespawnRate <=
                                            _levelSessionModel.LevelConfigurationData.MinRespawnRate;
             
             switch (type)
             {
                 case EnemyType.MeleeEnemy:
-                    currentActiveEnemies = _levelSessionModel.TotalActiveMeleeEnemiesCount;
+                    currentActiveEnemies = _enemiesRuntimeData.TotalActiveMeleeEnemiesCount;
 
                     if (isRespawnRateAggressive)
                     {
@@ -158,7 +165,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
                     
                     return enemiesCountToRespawn;
                 case EnemyType.RangeEnemy:
-                    currentActiveEnemies = _levelSessionModel.TotalActiveRangeEnemiesCount;
+                    currentActiveEnemies = _enemiesRuntimeData.TotalActiveRangeEnemiesCount;
                     
                     if (isRespawnRateAggressive)
                     {
@@ -179,12 +186,12 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
 
         private void UpdateSpawnRate()
         {
-            if (_levelSessionModel.CurrentRespawnRate > _levelSessionModel.LevelConfigurationData.MinRespawnRate)
+            if (_levelTimingRuntimeData.CurrentRespawnRate > _levelSessionModel.LevelConfigurationData.MinRespawnRate)
             {
-                _levelSessionModel.CurrentRespawnRate -= _levelSessionModel.LevelConfigurationData.SpawnDecreaseStep;
+                _levelTimingRuntimeData.CurrentRespawnRate -= _levelSessionModel.LevelConfigurationData.SpawnDecreaseStep;
             }
 
-            _levelSessionModel.TimeToNextRespawn = _levelSessionModel.CurrentRespawnRate;
+            _levelTimingRuntimeData.TimeToNextRespawn = _levelTimingRuntimeData.CurrentRespawnRate;
         }
     }
 }

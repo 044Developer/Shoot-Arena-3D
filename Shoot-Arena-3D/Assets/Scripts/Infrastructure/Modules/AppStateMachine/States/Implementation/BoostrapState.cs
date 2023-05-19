@@ -14,7 +14,7 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
         
         public void Enter()
         {
-            _stateMachine.Enter<SceneLoadState, string, LoadSceneMode, Action>("Main", LoadSceneMode.Additive, null);
+            _stateMachine.Enter<SceneLoadState, string, LoadSceneMode, Action>("Core", LoadSceneMode.Additive, null);
         }
         
         public void Exit()

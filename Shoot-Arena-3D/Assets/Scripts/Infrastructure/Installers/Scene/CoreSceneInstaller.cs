@@ -1,12 +1,16 @@
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
+using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.Factory;
 using ShootArena.Infrastructure.Core.Services.Initialize;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
 using ShootArena.Infrastructure.Core.Services.LevelUpdate;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer.Implementation;
+using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Core;
 using UnityEngine;
 using Zenject;
 
@@ -14,17 +18,34 @@ namespace ShootArena.Infrastructure.Installers.Scene
 {
     public class CoreSceneInstaller: MonoInstaller
     {
-        [Header("Enemies")]
-        [SerializeField] private MeleeEnemy _meleeEnemy = null;
-        [SerializeField] private RangeEnemy _rangedEnemy = null;
-        
+        [Header("Environment")]
+        [SerializeField] private Transform _worldSpawnPoint = null;
+
+        [Header("Prefabs")]
+        [SerializeField] private CorePrefabsContainer _prefabsContainer = null;
+
         public override void InstallBindings()
         {
+            BindDynamicPrefabContainer();
+            
             BindModels();
+
+            BindRuntimeData();
             
             BindFactories();
             
             BindServices();
+        }
+
+        private void BindDynamicPrefabContainer()
+        {
+            Container
+                .Bind<IDynamicPrefabContainer>()
+                .To<DynamicPrefabsContainer>()
+                .FromComponentInNewPrefab(_prefabsContainer.DynamicPrefabsContainer)
+                .UnderTransform(_worldSpawnPoint)
+                .AsSingle()
+                .NonLazy();
         }
 
         #region Models
@@ -52,6 +73,33 @@ namespace ShootArena.Infrastructure.Installers.Scene
 
         #endregion
 
+        #region RuntimeData
+
+        private void BindRuntimeData()
+        {
+            BindTimersRuntimeData();
+
+            BindLevelEnemiesRuntimeData();
+        }
+
+        private void BindTimersRuntimeData()
+        {
+            Container
+                .Bind<ILevelTimingRuntimeData>()
+                .To<LevelTimingRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindLevelEnemiesRuntimeData()
+        {
+            Container
+                .Bind<ILevelEnemiesRuntimeData>()
+                .To<LevelEnemiesRuntimeData>()
+                .AsSingle();
+        }
+
+        #endregion
+
         #region Factories
         
         private void BindFactories()
@@ -65,7 +113,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
         {
             Container
                 .BindFactory<IEnemyConfigurationData, MeleeEnemy, MeleeEnemy.Factory>()
-                .FromComponentInNewPrefab(_meleeEnemy)
+                .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemy)
                 .AsSingle();
         }
 
@@ -73,7 +121,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
         {
             Container
                 .BindFactory<IEnemyConfigurationData, RangeEnemy, RangeEnemy.Factory>()
-                .FromComponentInNewPrefab(_rangedEnemy)
+                .FromComponentInNewPrefab(_prefabsContainer.RangedEnemy)
                 .AsSingle();
         }
         

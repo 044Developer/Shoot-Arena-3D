@@ -7,7 +7,7 @@ using ShootArena.Infrastructure.Core.Player.Data.Configuration;
 using ShootArena.Infrastructure.Modules.AssetProvider;
 using ShootArena.Infrastructure.Modules.CustomLogger;
 using ShootArena.Infrastructure.Modules.XMLReader.Data;
-using ShootArena.Infrastructure.MonoComponents.StaticContainers.Contianers.Scenario;
+using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Scenario;
 using ShootArena.Infrastructure.MonoComponents.StaticContainers.Data.Scenario;
 using UnityEngine;
 
