@@ -6,6 +6,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     public interface IEnemy
     {
         public IEnemyConfigurationData ConfigurationData { get; }
+        public void SetParent(Transform parent);
         public void SetPosition(Vector3 newPosition);
         public void Initialize();
         public void ActivateEnemy();

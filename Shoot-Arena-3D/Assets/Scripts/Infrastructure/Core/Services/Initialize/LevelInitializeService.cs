@@ -1,4 +1,5 @@
 using ShootArena.Infrastructure.Core.Level.Model;
+using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Modules.XMLReader;
 
 namespace ShootArena.Infrastructure.Core.Services.Initialize
@@ -10,7 +11,8 @@ namespace ShootArena.Infrastructure.Core.Services.Initialize
 
         public LevelInitializeService(
             ILevelConfigDataModel levelConfigDataModel,
-            IXMLReaderModule xmlReaderModule)
+            IXMLReaderModule xmlReaderModule
+            )
         {
             _levelConfigDataModel = levelConfigDataModel;
             _xmlReaderModule = xmlReaderModule;

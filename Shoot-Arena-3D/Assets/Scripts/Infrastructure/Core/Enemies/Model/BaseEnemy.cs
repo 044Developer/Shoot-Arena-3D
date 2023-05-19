@@ -7,6 +7,11 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     {
         public IEnemyConfigurationData ConfigurationData { get; protected set; }
 
+        public void SetParent(Transform parent)
+        {
+            transform.SetParent(parent);
+        }
+
         public virtual void SetPosition(Vector3 newPosition)
         {
         }

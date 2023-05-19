@@ -5,6 +5,8 @@ namespace ShootArena.Infrastructure.Core.Services.LevelTimer
 {
     public class LevelTimerService : ILevelTimerService
     {
+        private const int MSECONDS_IN_SECOND = 60;
+        
         private readonly ILevelTimingRuntimeData _timingRuntimeData = null;
 
         public LevelTimerService(ILevelTimingRuntimeData timingRuntimeData)
@@ -26,8 +28,8 @@ namespace ShootArena.Infrastructure.Core.Services.LevelTimer
         {
             var tick = Time.deltaTime;
             
-            tick = tick * _timingRuntimeData.TimeMultiplier;
-            _timingRuntimeData.CurrenLevelTime += tick;
+            tick *= _timingRuntimeData.TimeMultiplier;
+            _timingRuntimeData.CurrenLevelTime = (_timingRuntimeData.CurrenLevelTime + tick) % MSECONDS_IN_SECOND;
         }
 
         private void RespawnRateTick()

@@ -56,7 +56,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindModels()
         {
             BindLevelModel();
-            BindLevelSessionModel();
         }
 
         private void BindLevelModel()
@@ -64,13 +63,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<ILevelConfigDataModel>()
                 .To<LevelConfigDataModel>()
-                .AsSingle();
-        }
-
-        private void BindLevelSessionModel()
-        {
-            Container
-                .Bind<LevelSessionModel>()
                 .AsSingle();
         }
 
