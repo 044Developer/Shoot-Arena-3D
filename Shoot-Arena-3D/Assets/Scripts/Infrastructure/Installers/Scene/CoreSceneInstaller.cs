@@ -1,16 +1,23 @@
 using ShootArena.Infrastructure.Core.Builders.Level;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
+using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
+using ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.Factory;
+using ShootArena.Infrastructure.Core.Services.Factory.implementation;
 using ShootArena.Infrastructure.Core.Services.Initialize;
+using ShootArena.Infrastructure.Core.Services.Initialize.Implementation;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
+using ShootArena.Infrastructure.Core.Services.LevelTimer.Implementation;
 using ShootArena.Infrastructure.Core.Services.LevelUpdate;
+using ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
+using ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
@@ -132,16 +139,16 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindMeleeEnemyFactory()
         {
             Container
-                .BindFactory<IEnemyConfigurationData, MeleeEnemy, MeleeEnemy.Factory>()
-                .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemy)
+                .BindFactory<IEnemyConfigurationData, MeleeEnemyFacade, MeleeEnemyFacade.Factory>()
+                .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemyFacade)
                 .AsSingle();
         }
 
         private void BindRangeEnemyFactory()
         {
             Container
-                .BindFactory<IEnemyConfigurationData, RangeEnemy, RangeEnemy.Factory>()
-                .FromComponentInNewPrefab(_prefabsContainer.RangedEnemy)
+                .BindFactory<IEnemyConfigurationData, RangeEnemyFacade, RangeEnemyFacade.Factory>()
+                .FromComponentInNewPrefab(_prefabsContainer.RangedEnemyFacade)
                 .AsSingle();
         }
         

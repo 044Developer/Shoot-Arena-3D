@@ -1,9 +1,11 @@
-using UnityEngine;
 using Zenject;
 
-public class BootstrapSceneInstaller : MonoInstaller
+namespace ShootArena.Infrastructure.Installers.Scene
 {
-    public override void InstallBindings()
+    public class BootstrapSceneInstaller : MonoInstaller
     {
+        public override void InstallBindings()
+        {
+        }
     }
 }

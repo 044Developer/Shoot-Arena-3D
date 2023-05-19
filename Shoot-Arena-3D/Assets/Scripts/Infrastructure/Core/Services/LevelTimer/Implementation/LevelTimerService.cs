@@ -1,7 +1,7 @@
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.LevelTimer
+namespace ShootArena.Infrastructure.Core.Services.LevelTimer.Implementation
 {
     public class LevelTimerService : ILevelTimerService
     {

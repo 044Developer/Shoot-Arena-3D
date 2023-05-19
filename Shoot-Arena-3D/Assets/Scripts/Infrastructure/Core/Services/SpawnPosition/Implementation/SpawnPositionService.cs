@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.SpawnPosition
+namespace ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation
 {
     public class SpawnPositionService : ISpawnPositionService
     {

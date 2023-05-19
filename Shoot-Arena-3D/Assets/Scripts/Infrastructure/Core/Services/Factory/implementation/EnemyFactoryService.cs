@@ -1,6 +1,7 @@
 using System;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
+using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
@@ -9,21 +10,21 @@ using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.Factory
+namespace ShootArena.Infrastructure.Core.Services.Factory.implementation
 {
     public class EnemyFactoryService : IEnemyFactoryService
     {
         private readonly ILevelConfigDataModel _levelConfigDataModel = null;
-        private readonly MeleeEnemy.Factory _meleeFactory = null;
-        private readonly RangeEnemy.Factory _rangedFactory = null;
+        private readonly MeleeEnemyFacade.Factory _meleeFactory = null;
+        private readonly RangeEnemyFacade.Factory _rangedFactory = null;
         private readonly ICustomLoggerModule _logger = null;
         private readonly IDynamicPrefabFacade _dynamicPrefabFacade = null;
         private readonly ILevelEnemiesRuntimeData _enemiesRuntimeData = null;
 
         public EnemyFactoryService(
             ILevelConfigDataModel levelConfigDataModel,
-            MeleeEnemy.Factory meleeFactory,
-            RangeEnemy.Factory rangedFactory,
+            MeleeEnemyFacade.Factory meleeFactory,
+            RangeEnemyFacade.Factory rangedFactory,
             ICustomLoggerModule logger,
             IDynamicPrefabFacade dynamicPrefabFacade,
             ILevelEnemiesRuntimeData enemiesRuntimeData

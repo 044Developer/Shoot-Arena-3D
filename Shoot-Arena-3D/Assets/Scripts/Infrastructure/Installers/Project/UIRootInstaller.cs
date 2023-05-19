@@ -10,60 +10,63 @@ using ShootArena.Infrastructure.MonoComponents.UI.Root;
 using ShootArena.Infrastructure.MonoComponents.UI.Root.Implementation;
 using Zenject;
 
-public class UIRootInstaller : MonoInstaller
+namespace ShootArena.Infrastructure.Installers.Project
 {
-    public override void InstallBindings()
+    public class UIRootInstaller : MonoInstaller
     {
-        BindUIRoot();
+        public override void InstallBindings()
+        {
+            BindUIRoot();
         
-        BindUIModules();
-    }
+            BindUIModules();
+        }
 
-    private void BindUIRoot()
-    {
-        Container
-            .Bind<IUIRoot>()
-            .To<UIRoot>()
-            .FromComponentInNewPrefabResource("Prefabs/UI/Root/[----UI_Root----]")
-            .AsSingle()
-            .NonLazy();;
-    }
+        private void BindUIRoot()
+        {
+            Container
+                .Bind<IUIRoot>()
+                .To<UIRoot>()
+                .FromComponentInNewPrefabResource("Prefabs/UI/Root/[----UI_Root----]")
+                .AsSingle()
+                .NonLazy();;
+        }
 
-    #region Modules
+        #region Modules
     
-    private void BindUIModules()
-    {
-        BindPanelsModule();
-        BindWindowsModule();
-    }
+        private void BindUIModules()
+        {
+            BindPanelsModule();
+            BindWindowsModule();
+        }
 
-    private void BindPanelsModule()
-    {
-        Container
-            .Bind<IUIPanelsContainer>()
-            .To<UIPanelsContainer>()
-            .AsSingle();
+        private void BindPanelsModule()
+        {
+            Container
+                .Bind<IUIPanelsContainer>()
+                .To<UIPanelsContainer>()
+                .AsSingle();
 
-        Container
-            .Bind<IUIPanelsModule>()
-            .To<UIPanelsModule>()
-            .AsSingle();
-    }
+            Container
+                .Bind<IUIPanelsModule>()
+                .To<UIPanelsModule>()
+                .AsSingle();
+        }
 
-    private void BindWindowsModule()
-    {
-        Container
-            .Bind<IUIWindowsContainer>()
-            .To<UIWindowsContainer>()
-            .AsSingle();
+        private void BindWindowsModule()
+        {
+            Container
+                .Bind<IUIWindowsContainer>()
+                .To<UIWindowsContainer>()
+                .AsSingle();
 
-        Container
-            .Bind<IUIWindowsModule>()
-            .To<UIWindowsModule>()
-            .AsSingle();
-    }
+            Container
+                .Bind<IUIWindowsModule>()
+                .To<UIWindowsModule>()
+                .AsSingle();
+        }
 
-    #endregion
+        #endregion
     
     
+    }
 }

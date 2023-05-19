@@ -2,7 +2,7 @@ using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
 using Zenject;
 
-namespace ShootArena.Infrastructure.Core.Services.LevelUpdate
+namespace ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation
 {
     public class LevelUpdateService : ITickable
     {

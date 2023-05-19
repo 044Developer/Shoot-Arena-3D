@@ -8,7 +8,7 @@ using ShootArena.Infrastructure.Core.Services.Factory;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
+namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
 {
     public class EnemySpawnService : IEnemySpawnService
     {
