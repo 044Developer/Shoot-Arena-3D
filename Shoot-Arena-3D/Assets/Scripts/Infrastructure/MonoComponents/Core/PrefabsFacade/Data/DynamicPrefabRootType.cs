@@ -1,4 +1,4 @@
-﻿namespace ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer.Data
+﻿namespace ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data
 {
     public enum DynamicPrefabRootType
     {

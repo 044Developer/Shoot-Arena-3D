@@ -5,8 +5,9 @@ using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Modules.CustomLogger;
-using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer;
-using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer.Data;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.Factory
 {
@@ -16,7 +17,7 @@ namespace ShootArena.Infrastructure.Core.Services.Factory
         private readonly MeleeEnemy.Factory _meleeFactory = null;
         private readonly RangeEnemy.Factory _rangedFactory = null;
         private readonly ICustomLoggerModule _logger = null;
-        private readonly IDynamicPrefabContainer _dynamicPrefabContainer = null;
+        private readonly IDynamicPrefabFacade _dynamicPrefabFacade = null;
         private readonly ILevelEnemiesRuntimeData _enemiesRuntimeData = null;
 
         public EnemyFactoryService(
@@ -24,7 +25,7 @@ namespace ShootArena.Infrastructure.Core.Services.Factory
             MeleeEnemy.Factory meleeFactory,
             RangeEnemy.Factory rangedFactory,
             ICustomLoggerModule logger,
-            IDynamicPrefabContainer dynamicPrefabContainer,
+            IDynamicPrefabFacade dynamicPrefabFacade,
             ILevelEnemiesRuntimeData enemiesRuntimeData
             )
         {
@@ -32,7 +33,7 @@ namespace ShootArena.Infrastructure.Core.Services.Factory
             _meleeFactory = meleeFactory;
             _rangedFactory = rangedFactory;
             _logger = logger;
-            _dynamicPrefabContainer = dynamicPrefabContainer;
+            _dynamicPrefabFacade = dynamicPrefabFacade;
             _enemiesRuntimeData = enemiesRuntimeData;
         }
 
@@ -56,8 +57,9 @@ namespace ShootArena.Infrastructure.Core.Services.Factory
                     _logger.LogError("Enemy Factory", $"There is no enemy of type {type}");
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-            
-            tempEnemy.SetParent(_dynamicPrefabContainer.GetPrefabParent(DynamicPrefabRootType.Enemies));
+
+            Transform parent = _dynamicPrefabFacade.GetPrefabParent(DynamicPrefabRootType.Enemies);
+            tempEnemy.SetParent(parent);
 
             return tempEnemy;
         }

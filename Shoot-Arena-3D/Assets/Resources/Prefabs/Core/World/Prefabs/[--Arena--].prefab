@@ -910,6 +910,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 640258857471047004}
+  - component: {fileID: -2250460692191508148}
   m_Layer: 0
   m_Name: '[--Arena--]'
   m_TagString: Untagged
@@ -934,6 +935,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2250460692191508148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640258857471046979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402ee1b29bcd4a09a7a00a947d984413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &640258857630859336
 GameObject:
   m_ObjectHideFlags: 0

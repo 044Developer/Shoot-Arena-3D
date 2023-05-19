@@ -4,13 +4,17 @@ using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
+using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
+using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.Factory;
 using ShootArena.Infrastructure.Core.Services.Initialize;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
 using ShootArena.Infrastructure.Core.Services.LevelUpdate;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
-using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer;
-using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer.Implementation;
+using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade.Implementation;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Core;
 using UnityEngine;
 using Zenject;
@@ -27,7 +31,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
 
         public override void InstallBindings()
         {
-            BindDynamicPrefabContainer();
+            BindLevelEnvironment();
             
             BindModels();
 
@@ -40,16 +44,27 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container.BindInterfacesTo<LevelBuilder>().AsSingle();
         }
 
-        private void BindDynamicPrefabContainer()
+        
+
+        #region Level Environment
+
+        private void BindLevelEnvironment()
+        {
+            BindDynamicPrefabFacade();
+        }
+        
+        private void BindDynamicPrefabFacade()
         {
             Container
-                .Bind<IDynamicPrefabContainer>()
-                .To<DynamicPrefabsContainer>()
-                .FromComponentInNewPrefab(_prefabsContainer.DynamicPrefabsContainer)
+                .Bind<IDynamicPrefabFacade>()
+                .To<DynamicPrefabsFacade>()
+                .FromComponentInNewPrefab(_prefabsContainer.DynamicPrefabsFacade)
                 .UnderTransform(_worldSpawnPoint)
                 .AsSingle()
                 .NonLazy();
         }
+
+        #endregion
 
         #region Models
 
@@ -99,9 +114,19 @@ namespace ShootArena.Infrastructure.Installers.Scene
         
         private void BindFactories()
         {
+            BindArenaFactory();
+            
             BindMeleeEnemyFactory();
             
             BindRangeEnemyFactory();
+        }
+
+        private void BindArenaFactory()
+        {
+            Container
+                .BindFactory<ArenaFacade, ArenaFacade.Factory>()
+                .FromComponentInNewPrefab(_prefabsContainer.ArenaFacade)
+                .AsSingle();
         }
 
         private void BindMeleeEnemyFactory()
@@ -135,6 +160,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
             
             BindEnemyFactoryService();
 
+            BindEnvironmentSpawnService();
+            
             BindEnemySpawnService();
 
             BindLevelUpdateService();
@@ -169,6 +196,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<IEnemyFactoryService>()
                 .To<EnemyFactoryService>()
+                .AsSingle();
+        }
+
+        private void BindEnvironmentSpawnService()
+        {
+            Container
+                .Bind<IEnvironmentSpawnService>()
+                .To<EnvironmentSpawnService>()
                 .AsSingle();
         }
 

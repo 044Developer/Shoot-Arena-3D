@@ -1,10 +1,10 @@
 ﻿using System;
-using ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer.Data;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.MonoComponents.Core.PrefabsContainer.Implementation
+namespace ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Implementation
 {
-    public class DynamicPrefabsContainer : MonoBehaviour, IDynamicPrefabContainer
+    public class DynamicPrefabsFacade : MonoBehaviour, IDynamicPrefabFacade
     {
         [Header("Root Parents")]
         [SerializeField] private Transform _arenaPrefabsRoot = null;
