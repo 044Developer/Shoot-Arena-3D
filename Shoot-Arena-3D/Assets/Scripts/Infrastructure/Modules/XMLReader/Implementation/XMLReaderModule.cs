@@ -1,6 +1,9 @@
 using System;
 using System.Xml;
 using ModestTree;
+using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
+using ShootArena.Infrastructure.Core.Level.Data;
+using ShootArena.Infrastructure.Core.Player.Data.Configuration;
 using ShootArena.Infrastructure.Modules.AssetProvider;
 using ShootArena.Infrastructure.Modules.CustomLogger;
 using ShootArena.Infrastructure.Modules.XMLReader.Data;
@@ -27,6 +30,25 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             _logger = logger;
             _assetProvider = assetProvider;
             _scenarioStaticDataContainer = staticDataContainer;
+        }
+        
+        /*
+         *  Public
+         */
+
+        public ILevelConfigurationData ReadLevelScenario()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPlayerConfigurationData ReadPlayerScenario()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnemyConfigurationData ReadEnemyScenario()
+        {
+            throw new NotImplementedException();
         }
         
         /*

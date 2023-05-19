@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077d53a04f894c419fda9724ff175f0f, type: 3}
   m_Name: XML_Scenario_Container
   m_EditorClassIdentifier: 
-  _scenarioDataList: []
+  _scenarioDataList:
+  - _scenarioType: 1
+    _scenarioPath: Scenario/Core/
+  - _scenarioType: 2
+    _scenarioPath: Scenario/Core/
