@@ -1,4 +1,5 @@
 using System;
+using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
@@ -28,17 +29,23 @@ namespace ShootArena.Infrastructure.Core.Services.Factory
 
         public IEnemy SpawnEnemy(EnemyType type)
         {
+            var config = GetCorrectConfig(type);
             switch (type)
             {
                 case EnemyType.MeleeEnemy:
-                    return _meleeFactory.Create(_levelConfigDataModel.EnemyConfigurationData);
+                    return _meleeFactory.Create(config);
                 case EnemyType.RangeEnemy:
-                    return _rangedFactory.Create(_levelConfigDataModel.EnemyConfigurationData);
+                    return _rangedFactory.Create(config);
                 case EnemyType.None:
                 default:
                     _logger.LogError("Enemy Factory", $"There is no enemy of type {type}");
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+        }
+
+        private IEnemyConfigurationData GetCorrectConfig(EnemyType type)
+        {
+            return _levelConfigDataModel.EnemyConfigurationDataList.Find(config => config.EnemyType == type);
         }
     }
 }

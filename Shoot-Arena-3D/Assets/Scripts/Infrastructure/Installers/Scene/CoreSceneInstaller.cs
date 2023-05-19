@@ -1,3 +1,4 @@
+using ShootArena.Infrastructure.Core.Builders.Level;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
@@ -35,6 +36,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindFactories();
             
             BindServices();
+
+            Container.BindInterfacesTo<LevelBuilder>().AsSingle();
         }
 
         private void BindDynamicPrefabContainer()

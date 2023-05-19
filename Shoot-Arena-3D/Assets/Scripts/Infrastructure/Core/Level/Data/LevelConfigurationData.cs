@@ -17,19 +17,16 @@ namespace ShootArena.Infrastructure.Core.Level.Data
             float startRespawnRate,
             float minRespawnRate,
             float spawnDecreaseStep,
-            int totalEnemiesCountPerRespawn
-            
-            )
+            int totalEnemiesCountPerRespawn,
+            int meleeCountAtLevelValue,
+            int rangeCountAtLevelValue
+        )
         {
             EnemyTypes = enemyTypes;
             StartRespawnRate = startRespawnRate;
             MinRespawnRate = minRespawnRate;
             SpawnDecreaseStep = spawnDecreaseStep;
             TotalEnemiesCountPerRespawn = totalEnemiesCountPerRespawn;
-        }
-
-        public LevelConfigurationData(int meleeCountAtLevelValue, int rangeCountAtLevelValue)
-        {
             MeleeCountAtLevelValue = meleeCountAtLevelValue;
             RangeCountAtLevelValue = rangeCountAtLevelValue;
         }

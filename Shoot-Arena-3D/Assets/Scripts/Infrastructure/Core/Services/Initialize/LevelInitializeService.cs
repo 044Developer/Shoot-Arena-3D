@@ -5,22 +5,21 @@ namespace ShootArena.Infrastructure.Core.Services.Initialize
 {
     public class LevelInitializeService : ILevelInitializeService
     {
-        private readonly LevelConfigDataModel _levelConfigDataModel = null;
+        private readonly ILevelConfigDataModel _levelConfigDataModel = null;
         private readonly IXMLReaderModule _xmlReaderModule = null;
 
         public LevelInitializeService(
-            LevelConfigDataModel levelConfigDataModel,
+            ILevelConfigDataModel levelConfigDataModel,
             IXMLReaderModule xmlReaderModule)
         {
             _levelConfigDataModel = levelConfigDataModel;
             _xmlReaderModule = xmlReaderModule;
-
         }
         
         public void ReadLevelScenario()
         {
             ReadLevelData();
-            ReadPlayerData();
+            //ReadPlayerData();
             ReadEnemiesData();
         }
 
@@ -36,7 +35,7 @@ namespace ShootArena.Infrastructure.Core.Services.Initialize
 
         private void ReadEnemiesData()
         {
-            _levelConfigDataModel.EnemyConfigurationData = _xmlReaderModule.ReadEnemyScenario();
+            _levelConfigDataModel.EnemyConfigurationDataList = _xmlReaderModule.ReadEnemyScenario();
         }
     }
 }

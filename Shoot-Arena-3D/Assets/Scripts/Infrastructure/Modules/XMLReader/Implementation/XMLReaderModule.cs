@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Xml;
 using ModestTree;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
+using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Level.Data;
 using ShootArena.Infrastructure.Core.Player.Data.Configuration;
 using ShootArena.Infrastructure.Modules.AssetProvider;
@@ -38,7 +41,13 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
 
         public ILevelConfigurationData ReadLevelScenario()
         {
-            throw new NotImplementedException();
+            PrepareCurrentScenario(XMLScenarioType.Level);
+            
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("level");
+
+            ILevelConfigurationData result = ParseLevelConfig(parentNode);
+            
+            return result;
         }
 
         public IPlayerConfigurationData ReadPlayerScenario()
@@ -46,9 +55,97 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             throw new NotImplementedException();
         }
 
-        public IEnemyConfigurationData ReadEnemyScenario()
+        public List<IEnemyConfigurationData> ReadEnemyScenario()
         {
-            throw new NotImplementedException();
+            PrepareCurrentScenario(XMLScenarioType.Enemies);
+            
+            List<IEnemyConfigurationData> result = new List<IEnemyConfigurationData>();
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("enemies");
+
+            foreach (XmlNode enemyNode in parentNode.ChildNodes)
+            {
+                IEnemyConfigurationData tempEnemy = ParseEnemyNode(enemyNode);
+                
+                result.Add(tempEnemy);
+            }
+
+            return result;
+        }
+        
+        /*
+         *  Private
+         */
+
+        private ILevelConfigurationData ParseLevelConfig(XmlNode parentNode)
+        {
+            ILevelConfigurationData result;
+            
+            string enemyTypesNodeName = "enemyTypes";
+            string startRespawnRateNodeName = "startRespawnRate";
+            string minRespawnRateNodeName = "minRespawnRate";
+            string spawnDecreaseStepNodeName = "spawnDecreaseStep";
+            string totalEnemiesCountPerRespawnNodeName = "totalEnemiesCountPerRespawn"; 
+            string meleeEnemiesPerRespawnNodeName = "meleeEnemiesPerRespawn"; 
+            string rangeEnemiesPerRespawnNodeName = "rangeEnemiesPerRespawn"; 
+            
+
+            EnemyType enemyTypes = (EnemyType)Enum.Parse(typeof(EnemyType),  ParseNodeAttribute<string>(parentNode, enemyTypesNodeName));
+            float startRespawnRate = ParseNodeAttribute<float>(parentNode, startRespawnRateNodeName);
+            float minRespawnRate = ParseNodeAttribute<float>(parentNode, minRespawnRateNodeName);
+            float spawnDecreaseStep = ParseNodeAttribute<float>(parentNode, spawnDecreaseStepNodeName);
+            int totalEnemiesCountPerRespawn = ParseNodeAttribute<int>(parentNode, totalEnemiesCountPerRespawnNodeName);
+            int meleeEnemiesPerRespawn = ParseNodeAttribute<int>(parentNode, meleeEnemiesPerRespawnNodeName);
+            int rangeEnemiesPerRespawn = ParseNodeAttribute<int>(parentNode, rangeEnemiesPerRespawnNodeName);
+
+            result = new LevelConfigurationData
+            (
+                enemyTypes: enemyTypes,
+                startRespawnRate: startRespawnRate,
+                minRespawnRate: minRespawnRate,
+                spawnDecreaseStep: spawnDecreaseStep,
+                totalEnemiesCountPerRespawn: totalEnemiesCountPerRespawn,
+                meleeCountAtLevelValue: meleeEnemiesPerRespawn,
+                rangeCountAtLevelValue: rangeEnemiesPerRespawn
+            );
+            
+            return result;
+        }
+
+        private IEnemyConfigurationData ParseEnemyNode(XmlNode enemyNode)
+        {
+            IEnemyConfigurationData result;
+            
+            string enemyTypeNodeName = "type";
+            string attackTypeNodeName = "attackType";
+            string moveSpeedNodeName = "moveSpeed";
+            string maxHealthValueNodeName = "maxHealthValue";
+            string dealDamageValueNodeName = "dealDamageValue";
+            string rewardedPointsNodeName = "rewardedPoints";
+            string attackIntervalValueNodeName = "attackIntervalValue";
+            string attackRangeValueNodeName = "attackRangeValue";
+            
+            EnemyType enemyType = (EnemyType)Enum.Parse(typeof(EnemyType),  ParseNodeAttribute<string>(enemyNode, enemyTypeNodeName));
+            EnemyAttackType attackType = (EnemyAttackType)Enum.Parse(typeof(EnemyAttackType),  ParseNodeAttribute<string>(enemyNode, attackTypeNodeName));
+            float moveSpeed = ParseNodeAttribute<float>(enemyNode, moveSpeedNodeName);
+            float maxHealthValue = ParseNodeAttribute<float>(enemyNode, maxHealthValueNodeName);
+            float dealDamageValue = ParseNodeAttribute<float>(enemyNode, dealDamageValueNodeName);
+            float pointsPerEnemyValue = ParseNodeAttribute<float>(enemyNode, rewardedPointsNodeName);
+            float attackIntervalValue = ParseNodeAttribute<float>(enemyNode, attackIntervalValueNodeName);
+            float attackRangeValue = ParseNodeAttribute<float>(enemyNode, attackRangeValueNodeName);
+                
+            result = new EnemyConfigurationData
+            (
+                enemyType: enemyType,
+                attackType: attackType,
+                enemyMoveSpeed: moveSpeed,
+                enemyMaxHealth: maxHealthValue,
+                enemyDealDamageValue: dealDamageValue,
+                pointPerEnemyValue: pointsPerEnemyValue,
+                enemyAttackIntervalValue: attackIntervalValue,
+                enemyAttackRangeValue: attackRangeValue
+            );
+            
+            return result;
         }
         
         /*
@@ -109,7 +206,8 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                     result = (T)Convert.ChangeType(intVal, typeof(T));
                     break;
                 case TypeCode.Single:
-                    float floatVal = (float) Convert.ChangeType(tempAttribute.Value, typeof(float));
+                    float floatVal;// = (float) Convert.ChangeType(tempAttribute.Value, typeof(float));
+                    float.TryParse(node.Attributes.GetNamedItem(attributeName).Value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out floatVal);
                     result = (T) Convert.ChangeType(floatVal, typeof(T));
                     break;
                 case TypeCode.Boolean:
