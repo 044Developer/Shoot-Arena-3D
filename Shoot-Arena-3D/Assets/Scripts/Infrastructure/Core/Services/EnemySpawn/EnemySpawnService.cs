@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Data;
+using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Services.Factory;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
 {
     public class EnemySpawnService : IEnemySpawnService
     {
-        private readonly LevelSessionData _levelSessionData = null;
+        private readonly LevelSessionModel _levelSessionModel = null;
         private readonly ISpawnPositionService _spawnPositionService = null;
         private readonly IEnemyFactoryService _enemyFactoryService = null;
 
@@ -19,12 +20,12 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
         private Queue<IEnemy> _rangeEnemyPool = null;
 
         public EnemySpawnService(
-            LevelSessionData levelSessionData,
+            LevelSessionModel levelSessionModel,
             ISpawnPositionService spawnPositionService,
             IEnemyFactoryService enemyFactoryService
             )
         {
-            _levelSessionData = levelSessionData;
+            _levelSessionModel = levelSessionModel;
             _spawnPositionService = spawnPositionService;
             _enemyFactoryService = enemyFactoryService;
         }
@@ -37,10 +38,10 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
 
         public void Tick()
         {
-            if (_levelSessionData.IsLevelPaused)
+            if (_levelSessionModel.IsLevelPaused)
                 return;
 
-            if (_levelSessionData.TimeToNextRespawn > 0)
+            if (_levelSessionModel.TimeToNextRespawn > 0)
                 return;
             
             ActivateNewEnemies();
@@ -82,12 +83,12 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
 
         private void ActivateNewEnemies()
         {
-            if ((_levelSessionData.LevelConfigurationData.EnemyTypes & EnemyType.MeleeEnemy) == EnemyType.MeleeEnemy)
+            if ((_levelSessionModel.LevelConfigurationData.EnemyTypes & EnemyType.MeleeEnemy) == EnemyType.MeleeEnemy)
             {
                 ActivateMeleeEnemy();
             }
             
-            if ((_levelSessionData.LevelConfigurationData.EnemyTypes & EnemyType.RangeEnemy) == EnemyType.RangeEnemy)
+            if ((_levelSessionModel.LevelConfigurationData.EnemyTypes & EnemyType.RangeEnemy) == EnemyType.RangeEnemy)
             {
                 ActivateRangeEnemy();
             }
@@ -137,35 +138,35 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
         {
             int currentActiveEnemies = 0;
             int enemiesCountToRespawn = 0;
-            bool isRespawnRateAggressive = _levelSessionData.CurrentRespawnRate <=
-                                           _levelSessionData.LevelConfigurationData.MinRespawnRate;
+            bool isRespawnRateAggressive = _levelSessionModel.CurrentRespawnRate <=
+                                           _levelSessionModel.LevelConfigurationData.MinRespawnRate;
             
             switch (type)
             {
                 case EnemyType.MeleeEnemy:
-                    currentActiveEnemies = _levelSessionData.TotalActiveMeleeEnemiesCount;
+                    currentActiveEnemies = _levelSessionModel.TotalActiveMeleeEnemiesCount;
 
                     if (isRespawnRateAggressive)
                     {
-                        enemiesCountToRespawn = _levelSessionData.LevelConfigurationData.MeleeCountAtLevelValue;
+                        enemiesCountToRespawn = _levelSessionModel.LevelConfigurationData.MeleeCountAtLevelValue;
                     }
                     else
                     {
-                        enemiesCountToRespawn = _levelSessionData.LevelConfigurationData.MeleeCountAtLevelValue -
+                        enemiesCountToRespawn = _levelSessionModel.LevelConfigurationData.MeleeCountAtLevelValue -
                                                 currentActiveEnemies;
                     }
                     
                     return enemiesCountToRespawn;
                 case EnemyType.RangeEnemy:
-                    currentActiveEnemies = _levelSessionData.TotalActiveRangeEnemiesCount;
+                    currentActiveEnemies = _levelSessionModel.TotalActiveRangeEnemiesCount;
                     
                     if (isRespawnRateAggressive)
                     {
-                        enemiesCountToRespawn = _levelSessionData.LevelConfigurationData.RangeCountAtLevelValue;
+                        enemiesCountToRespawn = _levelSessionModel.LevelConfigurationData.RangeCountAtLevelValue;
                     }
                     else
                     {
-                        enemiesCountToRespawn = _levelSessionData.LevelConfigurationData.RangeCountAtLevelValue -
+                        enemiesCountToRespawn = _levelSessionModel.LevelConfigurationData.RangeCountAtLevelValue -
                                                 currentActiveEnemies;
                     }
                     
@@ -178,12 +179,12 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn
 
         private void UpdateSpawnRate()
         {
-            if (_levelSessionData.CurrentRespawnRate > _levelSessionData.LevelConfigurationData.MinRespawnRate)
+            if (_levelSessionModel.CurrentRespawnRate > _levelSessionModel.LevelConfigurationData.MinRespawnRate)
             {
-                _levelSessionData.CurrentRespawnRate -= _levelSessionData.LevelConfigurationData.SpawnDecreaseStep;
+                _levelSessionModel.CurrentRespawnRate -= _levelSessionModel.LevelConfigurationData.SpawnDecreaseStep;
             }
 
-            _levelSessionData.TimeToNextRespawn = _levelSessionData.CurrentRespawnRate;
+            _levelSessionModel.TimeToNextRespawn = _levelSessionModel.CurrentRespawnRate;
         }
     }
 }

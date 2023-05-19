@@ -16,7 +16,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
     {
         [Header("Enemies")]
         [SerializeField] private MeleeEnemy _meleeEnemy = null;
-        [SerializeField] private MeleeEnemy _rangedEnemy = null;
+        [SerializeField] private RangeEnemy _rangedEnemy = null;
         
         public override void InstallBindings()
         {
@@ -32,6 +32,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindModels()
         {
             BindLevelModel();
+            BindLevelSessionModel();
         }
 
         private void BindLevelModel()
@@ -39,6 +40,13 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<ILevelConfigDataModel>()
                 .To<LevelConfigDataModel>()
+                .AsSingle();
+        }
+
+        private void BindLevelSessionModel()
+        {
+            Container
+                .Bind<LevelSessionModel>()
                 .AsSingle();
         }
 

@@ -1,20 +1,21 @@
 using ShootArena.Infrastructure.Core.Level.Data;
+using ShootArena.Infrastructure.Core.Level.Model;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.LevelTimer
 {
     public class LevelTimerService : ILevelTimerService
     {
-        private readonly LevelSessionData _levelSessionData = null;
+        private readonly LevelSessionModel _levelSessionModel = null;
 
-        public LevelTimerService(LevelSessionData levelSessionData)
+        public LevelTimerService(LevelSessionModel levelSessionModel)
         {
-            _levelSessionData = levelSessionData;
+            _levelSessionModel = levelSessionModel;
         }
 
         public void Tick()
         {
-            if (_levelSessionData.IsLevelPaused)
+            if (_levelSessionModel.IsLevelPaused)
                 return;
             
             LevelTimerTick();
@@ -25,19 +26,19 @@ namespace ShootArena.Infrastructure.Core.Services.LevelTimer
         {
             var tick = Time.deltaTime;
             
-            tick = tick * _levelSessionData.TimeMultiplier;
-            _levelSessionData.CurrenLevelTime += tick;
+            tick = tick * _levelSessionModel.TimeMultiplier;
+            _levelSessionModel.CurrenLevelTime += tick;
         }
 
         private void RespawnRateTick()
         {
-            if (_levelSessionData.TimeToNextRespawn <= 0)
+            if (_levelSessionModel.TimeToNextRespawn <= 0)
                 return;
 
             var tick = Time.deltaTime;
             
-            tick = tick * _levelSessionData.TimeMultiplier;
-            _levelSessionData.TimeToNextRespawn -= tick;
+            tick = tick * _levelSessionModel.TimeMultiplier;
+            _levelSessionModel.TimeToNextRespawn -= tick;
         }
     }
 }
