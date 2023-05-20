@@ -1,10 +1,10 @@
 using ShootArena.Infrastructure.Core.Builders.Level;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
-using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.Implementation;
+using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
@@ -15,13 +15,25 @@ using ShootArena.Infrastructure.Core.Services.Initialize;
 using ShootArena.Infrastructure.Core.Services.Initialize.Implementation;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
 using ShootArena.Infrastructure.Core.Services.LevelTimer.Implementation;
-using ShootArena.Infrastructure.Core.Services.LevelUpdate;
 using ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation;
+using ShootArena.Infrastructure.Core.Services.OutOfBounds;
+using ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerDieService;
+using ShootArena.Infrastructure.Core.Services.PlayerDieService.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerHealth;
+using ShootArena.Infrastructure.Core.Services.PlayerHealth.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerInputService;
+using ShootArena.Infrastructure.Core.Services.PlayerInputService.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerSetUp;
+using ShootArena.Infrastructure.Core.Services.PlayerSetUp.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerShoot;
+using ShootArena.Infrastructure.Core.Services.PlayerShoot.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerSpawn;
+using ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
-using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Core;
 using UnityEngine;
@@ -98,6 +110,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindTimersRuntimeData();
 
             BindLevelEnemiesRuntimeData();
+
+            BindPlayerRuntimeData();
         }
 
         private void BindTimersRuntimeData()
@@ -113,6 +127,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<ILevelEnemiesRuntimeData>()
                 .To<LevelEnemiesRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindPlayerRuntimeData()
+        {
+            Container
+                .Bind<IPlayerRuntimeData>()
+                .To<PlayerRuntimeData>()
                 .AsSingle();
         }
 
@@ -182,6 +204,20 @@ namespace ShootArena.Infrastructure.Installers.Scene
             
             BindEnemySpawnService();
 
+            BindOutOfBoundsService();
+
+            BindPlayerSetUpService();
+            
+            BindPlayerInputService();
+
+            BindPlayerSpawnService();
+
+            BindPlayerDieService();
+
+            BindPlayerShootService();
+
+            BindPlayerHealthService();
+            
             BindLevelUpdateService();
         }
 
@@ -224,6 +260,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
                 .To<EnvironmentSpawnService>()
                 .AsSingle();
         }
+        
+        private void BindPlayerSetUpService()
+        {
+            Container
+                .Bind<IPlayerSetUpService>()
+                .To<PlayerSetUpService>()
+                .AsSingle();
+        }
 
         private void BindEnemySpawnService()
         {
@@ -233,6 +277,59 @@ namespace ShootArena.Infrastructure.Installers.Scene
                 .AsSingle();
         }
 
+        private void BindPlayerHealthService()
+        {
+            Container
+                .Bind<IPlayerHealthService>()
+                .To<PlayerHealthService>()
+                .AsSingle();
+        }
+
+        private void BindPlayerShootService()
+        {
+            Container
+                .Bind<IPlayerShootService>()
+                .To<PlayerShootService>()
+                .AsSingle();
+        }
+
+        private void BindPlayerDieService()
+        {
+            Container
+                .Bind<IPlayerDieService>()
+                .To<PlayerDieService>()
+                .AsSingle();
+        }
+
+        private void BindPlayerSpawnService()
+        {
+            Container
+                .Bind<IPlayerSpawnService>()
+                .To<PlayerSpawnService>()
+                .AsSingle();
+        }
+
+        private void BindPlayerInputService()
+        {
+            Container
+                .Bind<IPlayerMobileInputService>()
+                .To<PlayerMobileInputService>()
+                .AsSingle();
+            
+            Container
+                .Bind<IPlayerStandaloneInputService>()
+                .To<PlayerStandaloneInputService>()
+                .AsSingle();
+        }
+
+        private void BindOutOfBoundsService()
+        {
+            Container
+                .Bind<IOutOfBoundsService>()
+                .To<OutOfBoundsService>()
+                .AsSingle();
+        }
+        
         private void BindLevelUpdateService()
         {
             Container
