@@ -20,7 +20,7 @@ namespace ShootArena.Infrastructure.Core.Services.Initialize.Implementation
         public void ReadLevelScenario()
         {
             ReadLevelData();
-            //ReadPlayerData();
+            ReadPlayerData();
             ReadEnemiesData();
         }
 

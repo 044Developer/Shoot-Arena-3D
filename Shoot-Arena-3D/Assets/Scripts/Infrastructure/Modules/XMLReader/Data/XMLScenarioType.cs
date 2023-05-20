@@ -4,6 +4,7 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Data
     {
         None,
         Enemies,
-        Level
+        Level,
+        Player
     }
 }

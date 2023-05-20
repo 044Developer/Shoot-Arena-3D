@@ -52,7 +52,13 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
 
         public IPlayerConfigurationData ReadPlayerScenario()
         {
-            throw new NotImplementedException();
+            PrepareCurrentScenario(XMLScenarioType.Player);
+            
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("player");
+
+            IPlayerConfigurationData result = ParsePlayerConfig(parentNode);
+            
+            return result;
         }
 
         public List<IEnemyConfigurationData> ReadEnemyScenario()
@@ -145,6 +151,40 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                 enemyAttackRangeValue: attackRangeValue
             );
             
+            return result;
+        }
+
+        private IPlayerConfigurationData ParsePlayerConfig(XmlNode parentNode)
+        {
+            IPlayerConfigurationData result;
+            
+            string playerMoveSpeedNodeName = "moveSpeed";
+            string playerRotationSpeedNodeName = "rotationSpeed";
+            string playerShootRateNodeName = "shootRate";
+            string playerStartHealthNodeName = "startHealthValue";
+            string playerMaxHealthNodeName = "maxHealthValue";
+            string playerStartStrengthNodeName = "startStrengthValue";
+            string playerMaxStrengthNodeName = "maxStrengthValue";
+
+            float playerMoveSpeed = ParseNodeAttribute<float>(parentNode, playerMoveSpeedNodeName);
+            float playerRotationSpeed = ParseNodeAttribute<float>(parentNode, playerRotationSpeedNodeName);
+            float playerShootRate = ParseNodeAttribute<float>(parentNode, playerShootRateNodeName);
+            float playerStartHealthRate = ParseNodeAttribute<float>(parentNode, playerStartHealthNodeName);
+            float playerMaxHealthRate = ParseNodeAttribute<float>(parentNode, playerMaxHealthNodeName);
+            float playerStartStrengthRate = ParseNodeAttribute<float>(parentNode, playerStartStrengthNodeName);
+            float playerMaxStrengthRate = ParseNodeAttribute<float>(parentNode, playerMaxStrengthNodeName);
+
+            result = new PlayerConfigurationData
+            (
+                playerMoveSpeed: playerMoveSpeed,
+                playerRotationSpeed: playerRotationSpeed,
+                playerShootRate: playerShootRate,
+                playerStartHealthValue: playerStartHealthRate,
+                playerMaxHealthValue: playerMaxHealthRate,
+                playerStartStrengthValue: playerStartStrengthRate,
+                playerMaxStrengthValue: playerMaxStrengthRate
+            );
+
             return result;
         }
         

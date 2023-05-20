@@ -17,3 +17,5 @@ MonoBehaviour:
     _scenarioPath: Scenario/Core/enemies_scenario
   - _scenarioType: 2
     _scenarioPath: Scenario/Core/level_scenario
+  - _scenarioType: 3
+    _scenarioPath: Scenario/Core/player_scenario

@@ -4,6 +4,7 @@ using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
@@ -122,6 +123,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindFactories()
         {
             BindArenaFactory();
+
+            BindPlayerFactory();
             
             BindMeleeEnemyFactory();
             
@@ -133,6 +136,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .BindFactory<ArenaFacade, ArenaFacade.Factory>()
                 .FromComponentInNewPrefab(_prefabsContainer.ArenaFacade)
+                .AsSingle();
+        }
+
+        private void BindPlayerFactory()
+        {
+            Container
+                .BindFactory<PlayerFacade, PlayerFacade.Factory>()
+                .FromComponentInNewPrefab(_prefabsContainer.PlayerFacade)
                 .AsSingle();
         }
 
