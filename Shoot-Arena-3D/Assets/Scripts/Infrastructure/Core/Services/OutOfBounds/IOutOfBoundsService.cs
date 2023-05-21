@@ -2,6 +2,6 @@
 {
     public interface IOutOfBoundsService
     {
-        
+        void Tick();
     }
 }
