@@ -23,6 +23,8 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSetUp.Implementation
             _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue = _levelConfigDataModel.PlayerConfigurationData.PlayerStartStrengthValue;
             _playerRuntimeData.PlayerControlData.CurrentMoveSpeed = _levelConfigDataModel.PlayerConfigurationData.PlayerMoveSpeed;
             _playerRuntimeData.PlayerControlData.CurrentRotationSpeed = _levelConfigDataModel.PlayerConfigurationData.PlayerRotationSpeed;
+            _playerRuntimeData.PlayerControlData.MinRotateHeight = _levelConfigDataModel.PlayerConfigurationData.PlayerRotationMinHeight;
+            _playerRuntimeData.PlayerControlData.MaxRotateHeight = _levelConfigDataModel.PlayerConfigurationData.PlayerRotationMaxHeight;
         }
     }
 }

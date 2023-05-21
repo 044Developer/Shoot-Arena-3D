@@ -1,2 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<player moveSpeed="5" rotationSpeed="2" shootRate="" startHealthValue="100" maxHealthValue="100" startStrengthValue="50" maxStrengthValue="100" />
+<player moveSpeed="2" rotationSpeed="200" minRotateHeight="10" maxRotateHeight="60" shootRate="" startHealthValue="100" maxHealthValue="100" startStrengthValue="50" maxStrengthValue="100" />

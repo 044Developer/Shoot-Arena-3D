@@ -6,6 +6,11 @@ namespace ShootArena.Infrastructure.Core.Player.Implementation
 {
     public class PlayerFacade : MonoBehaviour, IPlayer
     {
+        [SerializeField] private CharacterController _characterController = null;
+
+        public Transform Transform => this.gameObject.transform;
+        public CharacterController CharacterController => _characterController;
+
         [Inject]
         public void Construct()
         {

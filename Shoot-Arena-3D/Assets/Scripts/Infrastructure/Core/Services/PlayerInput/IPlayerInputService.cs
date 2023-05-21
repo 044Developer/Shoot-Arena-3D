@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.PlayerInputService
+namespace ShootArena.Infrastructure.Core.Services.PlayerInput
 {
     public interface IPlayerInputService
     {

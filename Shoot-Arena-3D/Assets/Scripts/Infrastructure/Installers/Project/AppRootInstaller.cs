@@ -6,6 +6,8 @@ using ShootArena.Infrastructure.Modules.CustomFactory;
 using ShootArena.Infrastructure.Modules.CustomFactory.Implementation;
 using ShootArena.Infrastructure.Modules.CustomLogger;
 using ShootArena.Infrastructure.Modules.CustomLogger.Implementation;
+using ShootArena.Infrastructure.Modules.DeviceCheck;
+using ShootArena.Infrastructure.Modules.DeviceCheck.Implementation;
 using ShootArena.Infrastructure.Modules.SceneLoader;
 using ShootArena.Infrastructure.Modules.SceneLoader.Implementation;
 using ShootArena.Infrastructure.Modules.XMLReader;
@@ -37,6 +39,7 @@ namespace ShootArena.Infrastructure.Installers.Project
 
         private void BindModules()
         {
+            BindCurrentDeviceCheck();
             BindCustomLogger();
             BindCoroutineRunner();
             BindAssetProvider();
@@ -101,6 +104,14 @@ namespace ShootArena.Infrastructure.Installers.Project
                 .Bind<IXMLReaderModule>()
                 .To<XMLReaderModule>()
                 .AsSingle();
+        }
+
+        private void BindCurrentDeviceCheck()
+        {
+            Container
+                .BindInterfacesAndSelfTo<DeviceCheckModule>()
+                .AsSingle();
+
         }
 
         #endregion

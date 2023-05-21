@@ -18,12 +18,14 @@ using ShootArena.Infrastructure.Core.Services.LevelTimer.Implementation;
 using ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation;
 using ShootArena.Infrastructure.Core.Services.OutOfBounds;
 using ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation;
-using ShootArena.Infrastructure.Core.Services.PlayerDieService;
-using ShootArena.Infrastructure.Core.Services.PlayerDieService.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerControl;
+using ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerDie;
+using ShootArena.Infrastructure.Core.Services.PlayerDie.Implementation;
 using ShootArena.Infrastructure.Core.Services.PlayerHealth;
 using ShootArena.Infrastructure.Core.Services.PlayerHealth.Implementation;
-using ShootArena.Infrastructure.Core.Services.PlayerInputService;
-using ShootArena.Infrastructure.Core.Services.PlayerInputService.Implementation;
+using ShootArena.Infrastructure.Core.Services.PlayerInput;
+using ShootArena.Infrastructure.Core.Services.PlayerInput.Implementation;
 using ShootArena.Infrastructure.Core.Services.PlayerSetUp;
 using ShootArena.Infrastructure.Core.Services.PlayerSetUp.Implementation;
 using ShootArena.Infrastructure.Core.Services.PlayerShoot;
@@ -210,6 +212,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
             
             BindPlayerInputService();
 
+            BindPlayerControllService();
+
             BindPlayerSpawnService();
 
             BindPlayerDieService();
@@ -319,6 +323,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<IPlayerStandaloneInputService>()
                 .To<PlayerStandaloneInputService>()
+                .AsSingle();
+        }
+
+        private void BindPlayerControllService()
+        {
+            Container
+                .Bind<IPlayerControlService>()
+                .To<PlayerControlService>()
                 .AsSingle();
         }
 

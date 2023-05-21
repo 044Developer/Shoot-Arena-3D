@@ -160,6 +160,8 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             
             string playerMoveSpeedNodeName = "moveSpeed";
             string playerRotationSpeedNodeName = "rotationSpeed";
+            string minRotateHeightNodeName = "minRotateHeight";
+            string maxRotateHeightNodeName = "maxRotateHeight";
             string playerShootRateNodeName = "shootRate";
             string playerStartHealthNodeName = "startHealthValue";
             string playerMaxHealthNodeName = "maxHealthValue";
@@ -168,6 +170,8 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
 
             float playerMoveSpeed = ParseNodeAttribute<float>(parentNode, playerMoveSpeedNodeName);
             float playerRotationSpeed = ParseNodeAttribute<float>(parentNode, playerRotationSpeedNodeName);
+            float playerRotationMinHeight = ParseNodeAttribute<float>(parentNode, minRotateHeightNodeName);
+            float playerRotationMaxHeight = ParseNodeAttribute<float>(parentNode, maxRotateHeightNodeName);
             float playerShootRate = ParseNodeAttribute<float>(parentNode, playerShootRateNodeName);
             float playerStartHealthRate = ParseNodeAttribute<float>(parentNode, playerStartHealthNodeName);
             float playerMaxHealthRate = ParseNodeAttribute<float>(parentNode, playerMaxHealthNodeName);
@@ -178,6 +182,8 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             (
                 playerMoveSpeed: playerMoveSpeed,
                 playerRotationSpeed: playerRotationSpeed,
+                playerMinRotateHeight: playerRotationMinHeight,
+                playerMaxRotateHeight: playerRotationMaxHeight,
                 playerShootRate: playerShootRate,
                 playerStartHealthValue: playerStartHealthRate,
                 playerMaxHealthValue: playerMaxHealthRate,
