@@ -1,15 +1,19 @@
 ﻿using ShootArena.Infrastructure.Core.Player.RuntimeData;
-using UnityEngine;
+using ShootArena.Infrastructure.Core.Services.PlayerSpawn;
 
 namespace ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation
 {
     public class OutOfBoundsService : IOutOfBoundsService
     {
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
+        private readonly IPlayerSpawnService _playerSpawnService = null;
 
-        public OutOfBoundsService(IPlayerRuntimeData playerRuntimeData)
+        public OutOfBoundsService(
+            IPlayerRuntimeData playerRuntimeData,
+            IPlayerSpawnService playerSpawnService)
         {
             _playerRuntimeData = playerRuntimeData;
+            _playerSpawnService = playerSpawnService;
         }
         
         public void Tick()
@@ -26,14 +30,10 @@ namespace ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation
         private bool HasActivePlayer() => 
             _playerRuntimeData.Player != null;
 
-        private bool IsPlayerAboveArena()
-        {
-            return _playerRuntimeData.Player.Transform.position.y > 0;
-        }
+        private bool IsPlayerAboveArena() => 
+            _playerRuntimeData.Player.Transform.position.y > 0;
 
-        private void RespawnPlayer()
-        {
-            _playerRuntimeData.Player.SetPosition(Vector3.zero);
-        }
+        private void RespawnPlayer() => 
+            _playerSpawnService.RespawnPlayer();
     }
 }
