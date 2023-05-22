@@ -6,5 +6,6 @@
         public float CurrentRotationSpeed { get; set; }
         public float MinRotateHeight { get; set; }
         public float MaxRotateHeight { get; set; }
+        public bool IsRespawning { get; set; } = false;
     }
 }

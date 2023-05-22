@@ -5,6 +5,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
+        public Transform Transform => this.gameObject.transform;
         public IEnemyConfigurationData ConfigurationData { get; protected set; }
 
         public void SetParent(Transform parent)
@@ -14,6 +15,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         public virtual void SetPosition(Vector3 newPosition)
         {
+            transform.localPosition = newPosition;
         }
 
         public virtual void Initialize()

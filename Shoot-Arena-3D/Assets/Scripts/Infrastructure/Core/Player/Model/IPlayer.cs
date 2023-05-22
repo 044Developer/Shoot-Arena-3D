@@ -8,5 +8,6 @@ namespace ShootArena.Infrastructure.Core.Player.Model
         CharacterController CharacterController { get; }
         void SetParent(Transform parent);
         void SetPosition(Vector3 position);
+        bool IsPlayerGrounded();
     }
 }

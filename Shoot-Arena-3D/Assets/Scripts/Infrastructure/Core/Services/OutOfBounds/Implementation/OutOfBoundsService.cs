@@ -23,6 +23,9 @@ namespace ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation
 
             if (IsPlayerAboveArena())
                 return;
+
+            if (IsPlayerRespawning())
+                return;
             
             RespawnPlayer();
         }
@@ -30,10 +33,16 @@ namespace ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation
         private bool HasActivePlayer() => 
             _playerRuntimeData.Player != null;
 
-        private bool IsPlayerAboveArena() => 
-            _playerRuntimeData.Player.Transform.position.y > 0;
+        private bool IsPlayerAboveArena() =>
+            _playerRuntimeData.Player.IsPlayerGrounded();
 
-        private void RespawnPlayer() => 
+        private bool IsPlayerRespawning() => 
+            _playerRuntimeData.PlayerControlData.IsRespawning;
+
+        private void RespawnPlayer()
+        {
+            _playerRuntimeData.PlayerControlData.IsRespawning = true;
             _playerSpawnService.RespawnPlayer();
+        }
     }
 }

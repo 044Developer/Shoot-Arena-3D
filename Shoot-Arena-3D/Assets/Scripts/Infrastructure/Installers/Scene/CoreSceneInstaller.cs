@@ -114,6 +114,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindLevelEnemiesRuntimeData();
 
             BindPlayerRuntimeData();
+
+            BindAreaRuntimeData();
         }
 
         private void BindTimersRuntimeData()
@@ -137,6 +139,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<IPlayerRuntimeData>()
                 .To<PlayerRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindAreaRuntimeData()
+        {
+            Container
+                .Bind<ILevelAreaRuntimeData>()
+                .To<LevelAreaRuntimeData>()
                 .AsSingle();
         }
 

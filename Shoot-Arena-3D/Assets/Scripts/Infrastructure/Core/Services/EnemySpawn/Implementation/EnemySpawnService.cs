@@ -115,6 +115,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
                 IEnemy tempEnemy = _meleeEnemyPool.Dequeue();
                 tempEnemy.SetPosition(tempPos);
                 tempEnemy.ActivateEnemy();
+                _enemiesRuntimeData.AllActiveEnemies.Add(tempEnemy);
             }
         }
 
@@ -133,6 +134,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
                 IEnemy tempEnemy = _rangeEnemyPool.Dequeue();
                 tempEnemy.SetPosition(tempPos);
                 tempEnemy.ActivateEnemy();
+                _enemiesRuntimeData.AllActiveEnemies.Add(tempEnemy);
             }
         }
         
