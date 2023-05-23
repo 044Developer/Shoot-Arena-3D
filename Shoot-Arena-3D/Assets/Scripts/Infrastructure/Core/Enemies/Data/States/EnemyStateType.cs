@@ -6,6 +6,7 @@
         SearchState,
         MoveToState,
         TargetReached,
+        PrepareAttackState,
         AttackState,
         RechargeState,
         DieState

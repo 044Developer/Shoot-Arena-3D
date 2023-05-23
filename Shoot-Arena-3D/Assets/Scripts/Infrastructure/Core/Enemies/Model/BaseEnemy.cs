@@ -9,7 +9,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
-        [SerializeField] private NavMeshAgent _navMeshAgent = null;
+        [SerializeField] protected NavMeshAgent navMeshAgent = null;
         [SerializeField] private GameObject _enemyBody = null;
         
         public Transform Transform => this.gameObject.transform;
@@ -47,16 +47,16 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         public virtual void ActivateEnemy()
         {
             _enemyBody.SetActive(true);
-            _navMeshAgent.enabled = true;
+            navMeshAgent.enabled = true;
             
-            _navMeshAgent.speed = ConfigurationData.EnemyMoveSpeed;
-            _navMeshAgent.stoppingDistance = ConfigurationData.EnemyAttackRangeValue;
+            navMeshAgent.speed = ConfigurationData.EnemyMoveSpeed;
+            navMeshAgent.stoppingDistance = ConfigurationData.EnemyAttackRangeValue;
             ChangeState(EnemyStateType.MoveToState);
         }
 
         public virtual void DeactivateEnemy()
         {
-            _navMeshAgent.enabled = false;
+            navMeshAgent.enabled = false;
             _enemyBody.SetActive(false);
         }
 
@@ -68,6 +68,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         {
             if (_currentEnemyState == EnemyStateType.DieState)
                 return;
+            
+            Debug.Log($"CURRENT STATE = {_currentEnemyState}");
 
             EnemyMove();
 
@@ -85,7 +87,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         public virtual void MoveToTarget()
         {
-            _navMeshAgent.SetDestination(playerRuntime.Player.Transform.position);
+            navMeshAgent.SetDestination(playerRuntime.Player.Transform.position);
         }
 
         public virtual void CheckAttackDistance()
@@ -95,11 +97,18 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
             ChangeState(
                 distance > ConfigurationData.EnemyAttackRangeValue
                 ? EnemyStateType.MoveToState
-                : EnemyStateType.AttackState
+                : EnemyStateType.PrepareAttackState
                 );
         }
 
-        public abstract void Attack();
+        public virtual void PrepareAttack()
+        {
+            ChangeState(EnemyStateType.AttackState);
+        }
+
+        public virtual void Attack()
+        {
+        }
 
         public virtual void Recharge()
         {
@@ -130,6 +139,9 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
                 case EnemyStateType.TargetReached:
                     CheckAttackDistance();
                     break;
+                case EnemyStateType.PrepareAttackState:
+                    PrepareAttack();
+                    break;
                 case EnemyStateType.AttackState:
                     Attack();
                     break;
@@ -150,7 +162,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
             if (_currentEnemyState != EnemyStateType.MoveToState)
                 return;
             
-            _navMeshAgent.SetDestination(playerRuntime.Player.Transform.position);
+            navMeshAgent.SetDestination(playerRuntime.Player.Transform.position);
 
             if (!IsEnemyReachedTarget())
                 return;
@@ -175,7 +187,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         private bool IsEnemyReachedTarget()
         {
-            return _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance;
+            return navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
         }
     }
 }

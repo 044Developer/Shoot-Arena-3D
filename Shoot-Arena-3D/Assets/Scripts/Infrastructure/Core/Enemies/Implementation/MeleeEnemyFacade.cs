@@ -14,7 +14,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
             ConfigurationData = configurationData;
             playerRuntime = playerRuntimeData;
         }
-        
+
         public override void Attack()
         {
             ChangeState(EnemyStateType.DieState);

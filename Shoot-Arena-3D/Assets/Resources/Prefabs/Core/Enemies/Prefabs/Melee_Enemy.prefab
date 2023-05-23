@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a370361d67e34caeac90faaaef955172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMeshAgent: {fileID: 930248158}
+  navMeshAgent: {fileID: 930248158}
   _enemyBody: {fileID: 2314093726021813203}
 --- !u!195 &930248158
 NavMeshAgent:

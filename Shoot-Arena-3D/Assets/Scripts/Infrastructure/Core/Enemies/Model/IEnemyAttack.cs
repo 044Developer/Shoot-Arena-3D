@@ -5,6 +5,7 @@
         void SearchTarget();
         void MoveToTarget();
         void CheckAttackDistance();
+        void PrepareAttack();
         void Attack();
         void Recharge();
         void Die();
