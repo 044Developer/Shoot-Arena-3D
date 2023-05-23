@@ -5,6 +5,7 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Container
 {
     public interface IUIPanelsContainer
     {
+        void Initialize();
         public IPanelConfigModel GetPanelConfig(UIPanelType type);
     }
 }

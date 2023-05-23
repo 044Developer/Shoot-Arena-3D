@@ -161,11 +161,11 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         {
             if (_currentEnemyState != EnemyStateType.MoveToState)
                 return;
-            
-            navMeshAgent.SetDestination(playerRuntime.Player.Transform.position);
 
             if (!IsEnemyReachedTarget())
                 return;
+            
+            navMeshAgent.destination = playerRuntime.Player.Transform.position;
             
             ChangeState(EnemyStateType.TargetReached);
         }

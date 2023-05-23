@@ -39,12 +39,20 @@ namespace ShootArena.Infrastructure.Modules.UIWindows.Implementation
          *  Public
          */
 
-        public void ShowWindow<TWindow>(UIWindowType windowType) where TWindow : IUIView
+        public void Initialize()
+        {
+            _windowsContainer.Initialize();
+        }
+
+        public void ShowWindow<TWindow>(UIWindowType windowType, Action onWindowOpenAction = null, Action onWindowClosedAction = null) where TWindow : IUIView
         {
             var tempConfig = ReadConfig(windowType);
 
             if (tempConfig == null)
                 return;
+
+            tempConfig.OnWindowOpenAction = onWindowOpenAction;
+            tempConfig.OnWindowCloseAction = onWindowClosedAction;
             
             SpawnImpl<TWindow>(tempConfig);
             OpenImpl(tempConfig);

@@ -4,12 +4,20 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Base
 {
     public abstract class UIViewBase : MonoBehaviour, IUIView
     {
-        public abstract void Initialize();
+        public virtual void Initialize()
+        {
+        }
 
-        public abstract void Show();
+        public virtual void Show()
+        {
+        }
 
-        public abstract void Close();
+        public virtual void Close()
+        {
+        }
 
-        public abstract void Dispose();
+        public virtual void Dispose()
+        {
+        }
     }
 }

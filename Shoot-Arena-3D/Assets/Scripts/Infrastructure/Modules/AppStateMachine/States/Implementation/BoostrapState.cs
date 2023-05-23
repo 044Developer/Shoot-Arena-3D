@@ -2,6 +2,10 @@ using System;
 using DG.Tweening;
 using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
+using ShootArena.Infrastructure.Modules.UIPanels;
+using ShootArena.Infrastructure.Modules.UIPanels.Data;
+using ShootArena.Infrastructure.Modules.UIWindows;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Implementation;
 using UnityEngine.SceneManagement;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation
@@ -10,18 +14,24 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
     {
         private readonly IAppStateMachine _stateMachine = null;
         private readonly IDeviceCheckModule _deviceCheckModule = null;
+        private readonly IUIPanelsModule _panelsModule = null;
+        private readonly IUIWindowsModule _windowsModule = null;
 
-        public BoostrapState(IAppStateMachine stateMachine, IDeviceCheckModule deviceCheckModule)
+        public BoostrapState(IAppStateMachine stateMachine, IDeviceCheckModule deviceCheckModule, IUIPanelsModule panelsModule, IUIWindowsModule windowsModule)
         {
             _stateMachine = stateMachine;
             _deviceCheckModule = deviceCheckModule;
+            _panelsModule = panelsModule;
+            _windowsModule = windowsModule;
         }
         
         public void Enter()
         {
             SetUp();
             
-            _stateMachine.Enter<SceneLoadState, string, LoadSceneMode, Action>("Core", LoadSceneMode.Additive, null);
+            _panelsModule.ShowPanel<SplashScreenPanel>(UIPanelType.Splash);
+            
+            _stateMachine.Enter<SceneLoadState, string, LoadSceneMode, Action>("Main", LoadSceneMode.Additive, null);
         }
         
         public void Exit()
@@ -30,9 +40,14 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
 
         private void SetUp()
         {
-            _deviceCheckModule.CheckCurrentDevice();
-
+            RegisterDevice();
+            RegisterUI();
             RegisterDoTween();
+        }
+
+        private void RegisterDevice()
+        {
+            _deviceCheckModule.CheckCurrentDevice();
         }
 
         private void RegisterDoTween()
@@ -49,6 +64,12 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             }
 
             DOTween.defaultAutoPlay = AutoPlay.None;
+        }
+
+        private void RegisterUI()
+        {
+            _panelsModule.Initialize();
+            _windowsModule.Initialize();
         }
     }
 }

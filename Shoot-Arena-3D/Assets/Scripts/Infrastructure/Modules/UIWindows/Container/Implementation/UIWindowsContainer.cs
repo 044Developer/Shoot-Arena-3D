@@ -4,11 +4,10 @@ using ShootArena.Infrastructure.Modules.CustomLogger;
 using ShootArena.Infrastructure.Modules.UIWindows.Data;
 using ShootArena.Infrastructure.Modules.UIWindows.Models;
 using ShootArena.Infrastructure.MonoComponents.UI.Root.Data;
-using Zenject;
 
 namespace ShootArena.Infrastructure.Modules.UIWindows.Container.Implementation
 {
-    public class UIWindowsContainer : IUIWindowsContainer, IInitializable
+    public class UIWindowsContainer : IUIWindowsContainer
     {
         private readonly ICustomLoggerModule _logger = null;
         private readonly Dictionary<UIWindowType, IWindowConfigModel> _cachedWindowConfigs = null;
@@ -40,7 +39,8 @@ namespace ShootArena.Infrastructure.Modules.UIWindows.Container.Implementation
 
         private void RegisterConfigs()
         {
-            RegisterNewWindowConfig(UIWindowType.Pause, "Pause_Window", UIRootType.Windows);
+            RegisterNewWindowConfig(UIWindowType.Pause, "Prefabs/UI/Windows/Pause_Window", UIRootType.Windows);
+            RegisterNewWindowConfig(UIWindowType.Loose, "Prefabs/UI/Windows/Lose_Window", UIRootType.Windows);
         }
 
         private void RegisterNewWindowConfig(UIWindowType type, string prefabPath, UIRootType rootLayer)

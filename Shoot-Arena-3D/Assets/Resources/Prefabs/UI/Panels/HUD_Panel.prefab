@@ -967,6 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4492855694034672263}
+  - component: {fileID: 2116996292}
   m_Layer: 5
   m_Name: HUD_Panel
   m_TagString: Untagged
@@ -995,6 +996,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2116996292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4492855694034672256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf5fb8c37314242ad37357a6bede931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModel:
+    _statsHolder: {fileID: 1564502713}
+    _playerHpProgressBackRect: {fileID: 158393158}
+    _playerHpProgressRect: {fileID: 662521717}
+    _playerUltProgressBackRect: {fileID: 1269607687}
+    _playerUltProgressRect: {fileID: 640275758}
+    _fireButton: {fileID: 1637824160}
+    _ultButton: {fileID: 355242003}
 --- !u!1 &4492855694388362199
 GameObject:
   m_ObjectHideFlags: 0

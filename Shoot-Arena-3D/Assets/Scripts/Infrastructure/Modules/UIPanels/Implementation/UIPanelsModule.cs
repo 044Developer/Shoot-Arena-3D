@@ -39,12 +39,20 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
          *  Public
          */
 
-        public void ShowPanel<TPanel>(UIPanelType panelType) where TPanel : IUIView
+        public void Initialize()
         {
-            var tempConfig = ReadConfig(panelType);
+            _panelsContainer.Initialize();
+        }
+
+        public void ShowPanel<TPanel>(UIPanelType panelType, Action onPanelOpenAction = null, Action onPanelClosedAction = null) where TPanel : IUIView
+        {
+            IPanelConfigModel tempConfig = ReadConfig(panelType);
 
             if (tempConfig == null)
                 return;
+
+            tempConfig.OnPanelOpenAction = onPanelOpenAction;
+            tempConfig.OnPanelClosedAction = onPanelClosedAction;
             
             SpawnImpl<TPanel>(tempConfig);
             OpenImpl(tempConfig);
@@ -55,7 +63,7 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
             if (!IsPanelOpened(panelType))
                 return;
 
-            var tempConfig = _openedPanels.Find(model => model.PanelType == panelType);
+            IPanelConfigModel tempConfig = _openedPanels.Find(model => model.PanelType == panelType);
             
             CloseImpl(tempConfig);
         }
@@ -71,8 +79,8 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
 
         private void SpawnImpl<TPanel>(IPanelConfigModel configModel) where TPanel : IUIView
         {
-            var parent = ConvertRootTypeToParent(configModel.RootLayerType);
-            var temp = _customFactory.Create<TPanel>(configModel.PrefabPath, parent);
+            Transform parent = ConvertRootTypeToParent(configModel.RootLayerType);
+            TPanel temp = _customFactory.Create<TPanel>(configModel.PrefabPath, parent);
 
             configModel.Implementation = temp;
         }
@@ -84,6 +92,7 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
             
             configModel.Implementation.Initialize();
             configModel.Implementation.Show();
+            configModel.OnPanelOpenAction?.Invoke();
             
             _openedPanels.Add(configModel);
         }
@@ -95,6 +104,7 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
             
             configModel.Implementation.Dispose();
             configModel.Implementation.Close();
+            configModel.OnPanelClosedAction?.Invoke();
             
             configModel.Implementation = null;
             _openedPanels.Remove(configModel);

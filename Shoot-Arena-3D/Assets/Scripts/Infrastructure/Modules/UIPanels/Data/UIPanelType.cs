@@ -5,6 +5,7 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Data
         None,
         Loading,
         Menu,
-        HUD
+        HUD,
+        Splash
     }
 }

@@ -4,6 +4,8 @@ using ShootArena.Infrastructure.Modules.AppStateMachine.States;
 using ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation;
 using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.SceneLoader;
+using ShootArena.Infrastructure.Modules.UIPanels;
+using ShootArena.Infrastructure.Modules.UIWindows;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
 {
@@ -12,11 +14,16 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
         private Dictionary<Type, IAppExitableState> _gameStates = null;
         private IAppExitableState _activeState = null;
 
-        public AppStateMachine(ISceneLoaderModule sceneLoader, IDeviceCheckModule deviceCheckModule)
+        public AppStateMachine(
+            ISceneLoaderModule sceneLoader,
+            IDeviceCheckModule deviceCheckModule,
+            IUIPanelsModule panelsModule,
+            IUIWindowsModule windowsModule
+            )
         {
             _gameStates = new Dictionary<Type, IAppExitableState>()
             {
-                [typeof(BoostrapState)] = new BoostrapState(this, deviceCheckModule),
+                [typeof(BoostrapState)] = new BoostrapState(this, deviceCheckModule, panelsModule, windowsModule),
                 [typeof(SceneLoadState)] = new SceneLoadState(sceneLoader),
                 [typeof(GamePlayScene)] = new GamePlayScene(),
                 [typeof(GamePauseState)] = new GamePauseState(),
