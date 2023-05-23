@@ -10,18 +10,30 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
         [SerializeField] private NavMeshAgent _navMeshAgent = null;
+        [SerializeField] private GameObject _enemyBody = null;
         
         public Transform Transform => this.gameObject.transform;
         public IEnemyConfigurationData ConfigurationData { get; protected set; }
-
+        
         protected IPlayerRuntimeData playerRuntime = null;
+
+        private Action<IEnemy> _onEnemyDieAction = null;
         private EnemyStateType _currentEnemyState = EnemyStateType.None;
         private float _currentRechargeTime = 0f;
 
         /*
          *  Set Up Logic
          */
-        
+
+        public virtual void Initialize()
+        {
+        }
+
+        public void SetEnemyDieAction(Action<IEnemy> onEnemyDieAction)
+        {
+            _onEnemyDieAction = onEnemyDieAction;
+        }
+
         public void SetParent(Transform parent)
         {
             transform.SetParent(parent);
@@ -34,8 +46,18 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         public virtual void ActivateEnemy()
         {
+            _enemyBody.SetActive(true);
+            _navMeshAgent.enabled = true;
+            
             _navMeshAgent.speed = ConfigurationData.EnemyMoveSpeed;
+            _navMeshAgent.stoppingDistance = ConfigurationData.EnemyAttackRangeValue;
             ChangeState(EnemyStateType.MoveToState);
+        }
+
+        public virtual void DeactivateEnemy()
+        {
+            _navMeshAgent.enabled = false;
+            _enemyBody.SetActive(false);
         }
 
         public virtual void Dispose()
@@ -44,8 +66,9 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         private void Update()
         {
-            Debug.Log($"CURRENT STATE = {_currentEnemyState}");
-            
+            if (_currentEnemyState == EnemyStateType.DieState)
+                return;
+
             EnemyMove();
 
             EnemyRecharge();
@@ -85,6 +108,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         public virtual void Die()
         {
+            _onEnemyDieAction?.Invoke(this);
         }
         
         /*

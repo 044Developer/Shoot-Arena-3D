@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 930248158}
+  _enemyBody: {fileID: 2314093726021813203}
 --- !u!195 &930248158
 NavMeshAgent:
   m_ObjectHideFlags: 0

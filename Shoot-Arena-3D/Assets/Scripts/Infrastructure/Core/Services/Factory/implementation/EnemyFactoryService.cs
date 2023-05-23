@@ -61,6 +61,7 @@ namespace ShootArena.Infrastructure.Core.Services.Factory.implementation
 
             Transform parent = _dynamicPrefabFacade.GetPrefabParent(DynamicPrefabRootType.Enemies);
             tempEnemy.SetParent(parent);
+            tempEnemy.Initialize();
 
             return tempEnemy;
         }

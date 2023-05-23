@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
+using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
@@ -63,6 +64,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
             for (int i = 0; i < count; i++)
             {
                 var tempEnemy = _enemyFactoryService.SpawnEnemy(type);
+                tempEnemy.SetEnemyDieAction(DeactivateEnemy);
                 CacheEnemyToPool(tempEnemy);
             }
         }
@@ -136,6 +138,23 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
                 tempEnemy.ActivateEnemy();
                 _enemiesRuntimeData.AllActiveEnemies.Add(tempEnemy);
             }
+        }
+
+        private void DeactivateEnemy(IEnemy enemyToDeactivate)
+        {
+            enemyToDeactivate.DeactivateEnemy();
+            _enemiesRuntimeData.AllActiveEnemies.Remove(enemyToDeactivate);
+
+            if (enemyToDeactivate is MeleeEnemyFacade)
+            {
+                _enemiesRuntimeData.TotalActiveMeleeEnemiesCount--;
+            }
+            else
+            {
+                _enemiesRuntimeData.TotalActiveRangeEnemiesCount--;
+            }
+            
+            CacheEnemyToPool(enemyToDeactivate);
         }
         
         /*
