@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Modules.AppStateMachine.States;
 using ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation;
+using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.SceneLoader;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
@@ -11,11 +12,11 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
         private Dictionary<Type, IAppExitableState> _gameStates = null;
         private IAppExitableState _activeState = null;
 
-        public AppStateMachine(ISceneLoaderModule sceneLoader)
+        public AppStateMachine(ISceneLoaderModule sceneLoader, IDeviceCheckModule deviceCheckModule)
         {
             _gameStates = new Dictionary<Type, IAppExitableState>()
             {
-                [typeof(BoostrapState)] = new BoostrapState(this),
+                [typeof(BoostrapState)] = new BoostrapState(this, deviceCheckModule),
                 [typeof(SceneLoadState)] = new SceneLoadState(sceneLoader),
                 [typeof(GamePlayScene)] = new GamePlayScene(),
                 [typeof(GamePauseState)] = new GamePauseState(),

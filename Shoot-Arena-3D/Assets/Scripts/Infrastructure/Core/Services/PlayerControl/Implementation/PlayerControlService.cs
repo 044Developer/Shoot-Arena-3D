@@ -1,7 +1,7 @@
 ﻿using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.PlayerInput;
+using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
-using ShootArena.Infrastructure.Modules.DeviceCheck.Implementation;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
@@ -19,7 +19,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
         (
             IPlayerMobileInputService mobileInputService,
             IPlayerStandaloneInputService standaloneInputService,
-            DeviceCheckModule deviceCheckModule,
+            IDeviceCheckModule deviceCheckModule,
             IPlayerRuntimeData playerRuntimeData
         )
         {

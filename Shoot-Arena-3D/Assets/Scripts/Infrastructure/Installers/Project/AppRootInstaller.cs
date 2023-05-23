@@ -109,7 +109,8 @@ namespace ShootArena.Infrastructure.Installers.Project
         private void BindCurrentDeviceCheck()
         {
             Container
-                .BindInterfacesAndSelfTo<DeviceCheckModule>()
+                .Bind<IDeviceCheckModule>()
+                .To<DeviceCheckModule>()
                 .AsSingle();
 
         }
