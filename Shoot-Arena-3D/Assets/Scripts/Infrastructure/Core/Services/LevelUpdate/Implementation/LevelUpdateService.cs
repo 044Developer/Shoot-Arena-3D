@@ -1,4 +1,5 @@
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
+using ShootArena.Infrastructure.Core.Services.EnemyState;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
 using ShootArena.Infrastructure.Core.Services.OutOfBounds;
 using ShootArena.Infrastructure.Core.Services.PlayerControl;

@@ -1,4 +1,5 @@
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
+using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Enemies.View;
 using UnityEngine;
 using Zenject;
@@ -8,7 +9,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
         [SerializeField] private EnemyView _enemyView = null;
-        
+
+        public IEnemyRuntimeData EnemyRuntimeData { get; } = new EnemyRuntimeData();
         public IEnemyView EnemyView => _enemyView;
         public IEnemyConfigurationData ConfigurationData { get; protected set; }
         public IMemoryPool MemoryPool { get; protected set; }
@@ -17,6 +19,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         
         protected void SetUpEnemy(Vector3 spawnPosition, Transform parent)
         {
+            EnemyRuntimeData.Enemy = this;
             EnemyView.EnemyBody.SetActive(true);
             EnemyView.NavMeshAgent.enabled = true;
             EnemyView.EnemyTransform.position = spawnPosition;

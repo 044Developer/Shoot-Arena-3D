@@ -1,30 +1,35 @@
-﻿using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
+﻿using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
+using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 {
     public class EnemyMoveToState : BaseEnemyState
     {
-        public override void Tick()
-        {
-            base.Tick();
-            /*
-            if (_currentEnemyState != EnemyStateType.MoveToState)
-                return;
+        private readonly IEnemyStateService _enemyStateService = null;
+        private readonly IEnemyRuntimeData _enemyRuntimeData = null;
 
+        public EnemyMoveToState(
+            IEnemyStateService enemyStateService,
+            IEnemyRuntimeData enemyRuntimeData
+            )
+        {
+            _enemyStateService = enemyStateService;
+            _enemyRuntimeData = enemyRuntimeData;
+        }
+
+        public override void Tick()
+        {   
+            _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.destination = _enemyRuntimeData.Player.Transform.position;
+            
             if (!IsEnemyReachedTarget())
                 return;
             
-            EnemyView.NavMeshAgent.destination = playerRuntime.Player.Transform.position;
-            
-            ChangeState(EnemyStateType.TargetReached);
-            
-            
-
+            _enemyStateService.EnterState<EnemyPrepareAttackState>();
+        }
+        
         private bool IsEnemyReachedTarget()
         {
-            return EnemyView.NavMeshAgent.remainingDistance <= EnemyView.NavMeshAgent.stoppingDistance;
-        }
-            */
+            return _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.remainingDistance <= _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.stoppingDistance;
         }
     }
 }

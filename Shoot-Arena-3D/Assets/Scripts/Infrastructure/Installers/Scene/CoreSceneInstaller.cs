@@ -5,14 +5,13 @@ using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.EnemyDie;
-using ShootArena.Infrastructure.Core.Services.EnemyDie.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemyState;
 using ShootArena.Infrastructure.Core.Services.EnemyState.Implementation;
+using ShootArena.Infrastructure.Core.Services.EnemyState.States;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.Initialize;
@@ -178,7 +177,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .BindFactory<IEnemyConfigurationData, Vector3, Transform, MeleeEnemyFacade, MeleeEnemyFacade.Factory>()
                 .FromPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, MeleeEnemyFacade, MeleeFacadePool>(poolBinder => poolBinder
-                    .WithInitialSize(5)
                     .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemyFacade));
         }
 
@@ -187,7 +185,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .BindFactory<IEnemyConfigurationData, Vector3, Transform, RangeEnemyFacade, RangeEnemyFacade.Factory>()
                 .FromPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, RangeEnemyFacade, RangeEnemyFacadePool>(poolBinder => poolBinder
-                    .WithInitialSize(5)
                     .FromComponentInNewPrefab(_prefabsContainer.RangedEnemyFacade));
         }
         
@@ -209,9 +206,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
 
             BindEnemyRegistryService();
 
-            BindEnemyDieService();
-
-            BindEnemyStateService();
+            BindStateService();
             
             BindSpawnPositionService();
             
@@ -255,21 +250,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
                 .To<EnemyRegistryService>()
                 .AsSingle();
         }
-
-        private void BindEnemyDieService()
-        {
-            Container
-                .Bind<IEnemyDieService>()
-                .To<EnemyDieService>()
-                .AsSingle();
-        }
-
-        private void BindEnemyStateService()
+        
+        private void BindStateService()
         {
             Container
                 .Bind<IEnemyStateService>()
                 .To<EnemyStateService>()
-                .AsTransient();
+                .AsSingle()
+                .Lazy();
         }
 
         private void BindSpawnPositionService()

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<level enemyTypes="MeleeEnemy, RangeEnemy" startRespawnRate="5" minRespawnRate="2" spawnDecreaseStep="0.2" totalEnemiesCountPerRespawn="5" meleeEnemiesPerRespawn="4" rangeEnemiesPerRespawn="1" />
+<level enemyTypes="MeleeEnemy, RangeEnemy" startRespawnRate="5" minRespawnRate="2" spawnDecreaseStep="0.2" totalEnemiesCountPerRespawn="1" meleeEnemiesPerRespawn="0" rangeEnemiesPerRespawn="1" />

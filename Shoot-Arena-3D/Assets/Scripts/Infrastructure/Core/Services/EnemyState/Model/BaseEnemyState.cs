@@ -1,6 +1,6 @@
 ﻿namespace ShootArena.Infrastructure.Core.Services.EnemyState.Model
 {
-    public class BaseEnemyState : IEnemyState
+    public abstract class BaseEnemyState : IEnemyState
     {
         public virtual void Enter()
         {
