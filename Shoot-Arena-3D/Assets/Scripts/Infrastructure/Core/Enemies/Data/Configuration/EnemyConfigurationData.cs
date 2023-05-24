@@ -7,6 +7,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Data.Configuration
         public EnemyType EnemyType { get; }
         public EnemyAttackType AttackType { get; }
         public float EnemyMoveSpeed { get; }
+        public float EnemyJumpHeight { get; }
+        public float EnemyAttackSpeed { get; }
         public float EnemyMaxHealth { get; }
         public float EnemyDealDamageValue { get; }
         public float PointPerEnemyValue { get; }
@@ -21,7 +23,10 @@ namespace ShootArena.Infrastructure.Core.Enemies.Data.Configuration
             float enemyDealDamageValue,
             float pointPerEnemyValue,
             float enemyAttackIntervalValue,
-            float enemyAttackRangeValue)
+            float enemyAttackRangeValue,
+            float enemyJumpHeight,
+            float enemyAttackSpeed
+                )
         {
             EnemyType = enemyType;
             AttackType = attackType;
@@ -31,6 +36,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Data.Configuration
             PointPerEnemyValue = pointPerEnemyValue;
             EnemyAttackIntervalValue = enemyAttackIntervalValue;
             EnemyAttackRangeValue = enemyAttackRangeValue;
+            EnemyJumpHeight = enemyJumpHeight;
+            EnemyAttackSpeed = enemyAttackSpeed;
         }
     }
 }

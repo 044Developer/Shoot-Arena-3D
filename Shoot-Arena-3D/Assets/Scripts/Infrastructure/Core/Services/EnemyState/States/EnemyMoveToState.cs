@@ -1,5 +1,6 @@
 ﻿using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 {
@@ -19,6 +20,9 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 
         public override void Tick()
         {   
+            base.Tick();
+            
+            Debug.Log("ENEMY MOVE TICK");
             _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.destination = _enemyRuntimeData.Player.Transform.position;
             
             if (!IsEnemyReachedTarget())

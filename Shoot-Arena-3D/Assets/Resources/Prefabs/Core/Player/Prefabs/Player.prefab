@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 406579299297443081}
+  _playerTransform: {fileID: 5639910054625003542}
 --- !u!143 &406579299297443081
 CharacterController:
   m_ObjectHideFlags: 0

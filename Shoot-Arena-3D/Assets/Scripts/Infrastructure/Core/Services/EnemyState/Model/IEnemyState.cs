@@ -4,5 +4,6 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.Model
     {
         void Enter();
         void Exit();
+        void Tick();
     }
 }

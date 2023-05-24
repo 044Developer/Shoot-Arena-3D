@@ -4,10 +4,11 @@ using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
 using ShootArena.Infrastructure.Core.Services.EnemyState.States;
+using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
 {
-    public class EnemyStateService : IEnemyStateService
+    public class EnemyStateService : IEnemyStateService, ITickable
     {
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         
@@ -29,7 +30,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
                 [typeof(EnemySearchState)] = new EnemySearchState(this, _playerRuntimeData, enemyRuntimeData),
                 [typeof(EnemyMoveToState)] = new EnemyMoveToState(this, enemyRuntimeData),
                 [typeof(EnemyPrepareAttackState)] = new EnemyPrepareAttackState(this, enemyRuntimeData),
-                [typeof(EnemyAttackState)] = new EnemyAttackState(this, enemyRuntimeData),
+                [typeof(EnemyAttackState)] = new EnemyAttackState(this, enemyRuntimeData, _playerRuntimeData),
                 [typeof(EnemyRechargeState)] = new EnemyRechargeState(this, enemyRuntimeData),
                 [typeof(EnemyDieState)] = new EnemyDieState(enemyRuntimeData)
             };
@@ -65,6 +66,11 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
         {
             _currentState?.Exit();
             _currentState = null;
+        }
+
+        public void Tick()
+        {
+            _currentState?.Tick();
         }
     }
 }

@@ -129,6 +129,8 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             string rewardedPointsNodeName = "rewardedPoints";
             string attackIntervalValueNodeName = "attackIntervalValue";
             string attackRangeValueNodeName = "attackRangeValue";
+            string jumpHeightValueNodeName = "jumpHeight";
+            string attackSpeedValueNodeName = "attackSpeed";
             
             EnemyType enemyType = (EnemyType)Enum.Parse(typeof(EnemyType),  ParseNodeAttribute<string>(enemyNode, enemyTypeNodeName));
             EnemyAttackType attackType = (EnemyAttackType)Enum.Parse(typeof(EnemyAttackType),  ParseNodeAttribute<string>(enemyNode, attackTypeNodeName));
@@ -138,6 +140,8 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             float pointsPerEnemyValue = ParseNodeAttribute<float>(enemyNode, rewardedPointsNodeName);
             float attackIntervalValue = ParseNodeAttribute<float>(enemyNode, attackIntervalValueNodeName);
             float attackRangeValue = ParseNodeAttribute<float>(enemyNode, attackRangeValueNodeName);
+            float jumpHeightValue = ParseNodeAttribute<float>(enemyNode, jumpHeightValueNodeName);
+            float attackSpeedValue = ParseNodeAttribute<float>(enemyNode, attackSpeedValueNodeName);
                 
             result = new EnemyConfigurationData
             (
@@ -148,7 +152,9 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                 enemyDealDamageValue: dealDamageValue,
                 pointPerEnemyValue: pointsPerEnemyValue,
                 enemyAttackIntervalValue: attackIntervalValue,
-                enemyAttackRangeValue: attackRangeValue
+                enemyAttackRangeValue: attackRangeValue,
+                enemyJumpHeight: jumpHeightValue,
+                enemyAttackSpeed: attackSpeedValue
             );
             
             return result;

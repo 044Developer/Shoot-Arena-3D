@@ -29,6 +29,8 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 
         public override void Tick()
         {
+            base.Tick();
+            
             if (!HasRecharged())
             {
                 _currentRechargeTime += Time.deltaTime;

@@ -254,9 +254,9 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindStateService()
         {
             Container
-                .Bind<IEnemyStateService>()
+                .Bind(typeof(IEnemyStateService), typeof(ITickable))
                 .To<EnemyStateService>()
-                .AsSingle()
+                .AsTransient()
                 .Lazy();
         }
 

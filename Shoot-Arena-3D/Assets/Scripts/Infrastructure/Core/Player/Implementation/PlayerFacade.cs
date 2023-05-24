@@ -7,8 +7,9 @@ namespace ShootArena.Infrastructure.Core.Player.Implementation
     public class PlayerFacade : MonoBehaviour, IPlayer
     {
         [SerializeField] private CharacterController _characterController = null;
-
-        public Transform Transform => this.gameObject.transform;
+        [SerializeField] private Transform _playerTransform = null;
+        
+        public Transform Transform => _playerTransform;
         public CharacterController CharacterController => _characterController;
 
         [Inject]
