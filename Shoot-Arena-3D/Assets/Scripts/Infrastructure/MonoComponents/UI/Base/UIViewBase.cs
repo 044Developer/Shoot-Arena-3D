@@ -14,6 +14,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Base
 
         public virtual void Close()
         {
+            Destroy(this.gameObject);
         }
 
         public virtual void Dispose()

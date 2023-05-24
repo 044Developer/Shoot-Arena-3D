@@ -38,6 +38,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
 
         private void SetUpAnimation()
         {
+            _viewModel.ProgressBarRect.sizeDelta = new Vector2(0f, _viewModel.ProgressBarRect.sizeDelta.y);
+            
             float progressWidth = GetProgressWidth();
             Vector2 progressEndValue = new Vector2(progressWidth, _viewModel.ProgressBarRect.sizeDelta.y);
 
@@ -47,12 +49,15 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
             _loadingBarSequence.AppendCallback(OnLoadingAnimationFinished);
         }
 
-        private void OnLoadingAnimationFinished() => 
-            _panelsModule.ClosePanel(UIPanelType.Loading);
+        private void OnLoadingAnimationFinished() =>
+            CloseLoadingPanel();
 
         private float GetProgressWidth()
         {
             return _viewModel.ProgressBarBackRect.sizeDelta.x;
         }
+
+        private void CloseLoadingPanel() => 
+            _panelsModule.ClosePanel(UIPanelType.Loading);
     }
 }

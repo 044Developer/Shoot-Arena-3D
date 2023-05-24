@@ -30,9 +30,8 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
         {
             SetUp();
             
-            _panelsModule.ShowPanel<SplashScreenPanel>(UIPanelType.Splash);
-            
-            _stateMachine.Enter<SceneLoadState, SceneType, LoadSceneMode, Action>(SceneType.Main, LoadSceneMode.Additive, null);
+            ShowSplash();
+            LoadMainScene();
         }
         
         public void Exit()
@@ -72,5 +71,11 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             _panelsModule.Initialize();
             _windowsModule.Initialize();
         }
+
+        private void ShowSplash() => 
+            _panelsModule.ShowPanel<SplashScreenPanel>(UIPanelType.Splash);
+
+        private void LoadMainScene() => 
+            _stateMachine.Enter<SceneLoadState, SceneType, LoadSceneMode, Action>(SceneType.Main, LoadSceneMode.Additive, null);
     }
 }
