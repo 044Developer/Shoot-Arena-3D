@@ -47,12 +47,15 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
             _loadingBarSequence.AppendCallback(OnLoadingAnimationFinished);
         }
 
-        private void OnLoadingAnimationFinished() => 
-            _panelsModule.ClosePanel(UIPanelType.Loading);
+        private void OnLoadingAnimationFinished() =>
+            CloseLoadingPanel();
 
         private float GetProgressWidth()
         {
             return _viewModel.ProgressBarBackRect.sizeDelta.x;
         }
+
+        private void CloseLoadingPanel() => 
+            _panelsModule.ClosePanel(UIPanelType.Loading);
     }
 }

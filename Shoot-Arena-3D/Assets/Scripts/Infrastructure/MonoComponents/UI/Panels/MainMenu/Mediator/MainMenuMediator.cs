@@ -1,18 +1,28 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
+using ShootArena.Infrastructure.Modules.AppStateMachine;
+using ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Base;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.ViewModel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
 {
     public class MainMenuMediator : IMainMenuMediator
     {
-        private const string GIT_HUB_URL = "";
-        private const string LINKED_IN_URL = "";
-        private const string TELEGRAM_URL = "";
+        private readonly IAppStateMachine _stateMachine = null;
+        private const string GIT_HUB_URL = "https://github.com/044Developer";
+        private const string LINKED_IN_URL = "https://www.linkedin.com/in/kyrylo-sydorenko-049248135/";
+        private const string TELEGRAM_URL = "https://t.me/o44Developer";
         
         private IMainMenuViewModel _viewModel = null;
         private Sequence _logoAnimationSequence = null;
+
+        public MainMenuMediator(IAppStateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+        }
         
         public void SetModel(IUIViewModel viewModel)
         {
@@ -32,21 +42,27 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
 
         public void OnPlayButtonClicked()
         {
+            _stateMachine.Enter<SceneLoadState, string, LoadSceneMode, Action>("Core", LoadSceneMode.Additive, null);
         }
 
         public void OnGitHubButtonClicked()
         {
-            Application.OpenURL(GIT_HUB_URL);
+            OpenUrl(GIT_HUB_URL);
         }
 
         public void OnLinkedInButtonClicked()
         {
-            Application.OpenURL(LINKED_IN_URL);
+            OpenUrl(LINKED_IN_URL);
         }
 
         public void OnTelegramButtonClicked()
         {
-            Application.OpenURL(TELEGRAM_URL);
+            OpenUrl(TELEGRAM_URL);
+        }
+
+        private void OpenUrl(string path)
+        {
+            Application.OpenURL(path);
         }
 
         private void SetUpAnimation()

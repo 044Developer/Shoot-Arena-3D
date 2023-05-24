@@ -47,12 +47,23 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Mediat
 
         private void OnSplashScreenAnimationEnd()
         {
-            _panelsModule.ShowPanel<LoadingScreenPanel>(UIPanelType.Loading, 
-                 onPanelClosedAction: () =>
-                {
-                    _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu);
-                });
+            ShowLoadingScreen();
             
+            CloseSplash();
+        }
+
+        private void ShowLoadingScreen()
+        {
+            _panelsModule.ShowPanel<LoadingScreenPanel>(UIPanelType.Loading, onPanelClosedAction: OnLoadingScreenCloseAction);
+        }
+
+        private void OnLoadingScreenCloseAction()
+        {
+            _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu);
+        }
+
+        private void CloseSplash()
+        {
             _panelsModule.ClosePanel(UIPanelType.Splash);
         }
     }
