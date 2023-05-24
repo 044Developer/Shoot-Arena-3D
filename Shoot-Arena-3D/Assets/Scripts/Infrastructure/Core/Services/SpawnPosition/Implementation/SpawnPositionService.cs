@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
+using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation
@@ -15,17 +16,17 @@ namespace ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation
         
         private readonly ILevelAreaRuntimeData _levelAreaRuntimeData = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
-        private readonly ILevelEnemiesRuntimeData _enemiesRuntimeData = null;
+        private readonly IEnemyRegistryService _enemyRegistryService = null;
 
         public SpawnPositionService(
             ILevelAreaRuntimeData levelAreaRuntimeData,
             IPlayerRuntimeData playerRuntimeData,
-            ILevelEnemiesRuntimeData enemiesRuntimeData
+            IEnemyRegistryService enemyRegistryService
             )
         {
             _levelAreaRuntimeData = levelAreaRuntimeData;
             _playerRuntimeData = playerRuntimeData;
-            _enemiesRuntimeData = enemiesRuntimeData;
+            _enemyRegistryService = enemyRegistryService;
         }
         
         /*
@@ -87,9 +88,9 @@ namespace ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation
                 result.Add(obst.localPosition);
             }
             
-            foreach (IEnemy enemy in _enemiesRuntimeData.AllActiveEnemies)
+            foreach (IEnemy enemy in _enemyRegistryService.AllEnemies)
             {
-                result.Add(enemy.Transform.localPosition);
+                result.Add(enemy.EnemyView.EnemyTransform.localPosition);
             }
 
             return result;

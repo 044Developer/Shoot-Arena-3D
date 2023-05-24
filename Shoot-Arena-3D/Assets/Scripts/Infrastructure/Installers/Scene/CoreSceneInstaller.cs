@@ -5,8 +5,14 @@ using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
+using ShootArena.Infrastructure.Core.Services.EnemyDie;
+using ShootArena.Infrastructure.Core.Services.EnemyDie.Implementation;
+using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
+using ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation;
+using ShootArena.Infrastructure.Core.Services.EnemyState;
+using ShootArena.Infrastructure.Core.Services.EnemyState.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.Initialize;
@@ -64,8 +70,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container.BindInterfacesTo<LevelBuilder>().AsSingle();
         }
 
-        
-
         #region Level Environment
 
         private void BindLevelEnvironment()
@@ -109,8 +113,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
         {
             BindTimersRuntimeData();
 
-            BindLevelEnemiesRuntimeData();
-
             BindPlayerRuntimeData();
 
             BindAreaRuntimeData();
@@ -121,14 +123,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<ILevelTimingRuntimeData>()
                 .To<LevelTimingRuntimeData>()
-                .AsSingle();
-        }
-
-        private void BindLevelEnemiesRuntimeData()
-        {
-            Container
-                .Bind<ILevelEnemiesRuntimeData>()
-                .To<LevelEnemiesRuntimeData>()
                 .AsSingle();
         }
 
@@ -182,8 +176,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindMeleeEnemyFactory()
         {
             Container
-                .BindFactory<IEnemyConfigurationData, MeleeEnemyFacade, MeleeEnemyFacade.Factory>()
-                .FromPoolableMemoryPool<IEnemyConfigurationData, MeleeEnemyFacade, MeleeFacadePool>(poolBinder => poolBinder
+                .BindFactory<IEnemyConfigurationData, Vector3, Transform, MeleeEnemyFacade, MeleeEnemyFacade.Factory>()
+                .FromPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, MeleeEnemyFacade, MeleeFacadePool>(poolBinder => poolBinder
                     .WithInitialSize(5)
                     .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemyFacade));
         }
@@ -191,17 +185,17 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindRangeEnemyFactory()
         {
             Container
-                .BindFactory<IEnemyConfigurationData, RangeEnemyFacade, RangeEnemyFacade.Factory>()
-                .FromPoolableMemoryPool<IEnemyConfigurationData, RangeEnemyFacade, RangeEnemyFacadePool>(poolBinder => poolBinder
+                .BindFactory<IEnemyConfigurationData, Vector3, Transform, RangeEnemyFacade, RangeEnemyFacade.Factory>()
+                .FromPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, RangeEnemyFacade, RangeEnemyFacadePool>(poolBinder => poolBinder
                     .WithInitialSize(5)
                     .FromComponentInNewPrefab(_prefabsContainer.RangedEnemyFacade));
         }
         
-        class MeleeFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, IMemoryPool, MeleeEnemyFacade>
+        class MeleeFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, IMemoryPool, MeleeEnemyFacade>
         {
         }
         
-        class RangeEnemyFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, IMemoryPool, RangeEnemyFacade>
+        class RangeEnemyFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, IMemoryPool, RangeEnemyFacade>
         {
         }
 
@@ -212,6 +206,12 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindServices()
         {
             LevelTimerService();
+
+            BindEnemyRegistryService();
+
+            BindEnemyDieService();
+
+            BindEnemyStateService();
             
             BindSpawnPositionService();
             
@@ -246,6 +246,30 @@ namespace ShootArena.Infrastructure.Installers.Scene
                 .Bind<ILevelTimerService>()
                 .To<LevelTimerService>()
                 .AsSingle();
+        }
+
+        private void BindEnemyRegistryService()
+        {
+            Container
+                .Bind<IEnemyRegistryService>()
+                .To<EnemyRegistryService>()
+                .AsSingle();
+        }
+
+        private void BindEnemyDieService()
+        {
+            Container
+                .Bind<IEnemyDieService>()
+                .To<EnemyDieService>()
+                .AsSingle();
+        }
+
+        private void BindEnemyStateService()
+        {
+            Container
+                .Bind<IEnemyStateService>()
+                .To<EnemyStateService>()
+                .AsTransient();
         }
 
         private void BindSpawnPositionService()
