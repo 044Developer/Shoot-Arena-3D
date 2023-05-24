@@ -17,3 +17,5 @@ MonoBehaviour:
   _playerFacade: {fileID: 14681402421048235, guid: 996d4e97a11edad4cb9a7d49f90d9c6f, type: 3}
   _meleeEnemyFacade: {fileID: 2314093726992474086, guid: a9313315cbeaf1c418ab6b2227a0bc1d, type: 3}
   _rangedEnemyFacade: {fileID: 4656408076496224482, guid: d7f402acc095b7641bf20701d715e3fc, type: 3}
+  _playerBullet: {fileID: 9143157606687989002, guid: 45581fcbda3fcd14c9138b6138299ae8, type: 3}
+  _enemyBullet: {fileID: 7133590761632263798, guid: c7594bc93ac69ad46b91701d18e3ec2f, type: 3}

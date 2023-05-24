@@ -1,6 +1,7 @@
 ﻿using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
+using ShootArena.Infrastructure.Core.Services.BulletSpawn;
 using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
 using UnityEngine;
 
@@ -14,15 +15,22 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
         private readonly IEnemyStateService _enemyStateService = null;
         private readonly IEnemyRuntimeData _enemyRuntimeData = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
+        private readonly IBulletSpawnService _bulletSpawnService = null;
 
         private bool _hasJumped = false;
         private Vector3 _jumpPos = Vector3.zero;
         
-        public EnemyAttackState(IEnemyStateService enemyStateService, IEnemyRuntimeData enemyRuntimeData, IPlayerRuntimeData playerRuntimeData)
+        public EnemyAttackState(
+            IEnemyStateService enemyStateService,
+            IEnemyRuntimeData enemyRuntimeData,
+            IPlayerRuntimeData playerRuntimeData,
+            IBulletSpawnService bulletSpawnService
+            )
         {
             _enemyStateService = enemyStateService;
             _enemyRuntimeData = enemyRuntimeData;
             _playerRuntimeData = playerRuntimeData;
+            _bulletSpawnService = bulletSpawnService;
         }
 
         public override void Enter()
@@ -105,6 +113,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 
         private void AttackRange()
         {
+            _bulletSpawnService.SpawnEnemyBullet(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.Transform);
             _enemyStateService.EnterState<EnemyRechargeState>();
         }
 

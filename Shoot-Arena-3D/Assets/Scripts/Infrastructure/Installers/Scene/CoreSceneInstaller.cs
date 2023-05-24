@@ -1,10 +1,14 @@
 using ShootArena.Infrastructure.Core.Builders.Level;
+using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
+using ShootArena.Infrastructure.Core.Bullet.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
+using ShootArena.Infrastructure.Core.Services.BulletSpawn;
+using ShootArena.Infrastructure.Core.Services.BulletSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
@@ -155,6 +159,10 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindMeleeEnemyFactory();
             
             BindRangeEnemyFactory();
+            
+            BindPlayerBulletFactory();
+            
+            BindEnemyBulletFactory();
         }
 
         private void BindArenaFactory()
@@ -190,12 +198,42 @@ namespace ShootArena.Infrastructure.Installers.Scene
                     .FromSubContainerResolve()
                     .ByNewPrefabInstaller<EnemyInstaller>(_prefabsContainer.RangedEnemyFacade));
         }
+
+        private void BindPlayerBulletFactory()
+        {
+            Container
+                .BindFactory<IBulletConfigurationData, Vector3, Vector3, PlayerBulletFacade, PlayerBulletFacade.Factory>()
+                .FromPoolableMemoryPool<IBulletConfigurationData, Vector3, Vector3, PlayerBulletFacade, PlayerBulletFacadePool>(poolBinder => poolBinder
+                    .WithInitialSize(20)
+                    .FromSubContainerResolve()
+                    .ByNewPrefabInstaller<BulletInstaller>(_prefabsContainer.PlayerBullet)
+                    .UnderTransformGroup("Bullets"));
+        }
+
+        private void BindEnemyBulletFactory()
+        {
+            Container
+                .BindFactory<IBulletConfigurationData, Vector3, Transform, EnemyBulletFacade, EnemyBulletFacade.Factory>()
+                .FromPoolableMemoryPool<IBulletConfigurationData, Vector3, Transform, EnemyBulletFacade, EnemyBulletFacadePool>(poolBinder => poolBinder
+                    .WithInitialSize(20)
+                    .FromSubContainerResolve()
+                    .ByNewPrefabInstaller<BulletInstaller>(_prefabsContainer.EnemyBullet)
+                    .UnderTransformGroup("Bullets"));
+        }
         
         class MeleeFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, IMemoryPool, MeleeEnemyFacade>
         {
         }
         
         class RangeEnemyFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, Vector3, Transform, IMemoryPool, RangeEnemyFacade>
+        {
+        }
+
+        class PlayerBulletFacadePool : MonoPoolableMemoryPool<IBulletConfigurationData, Vector3, Vector3, IMemoryPool, PlayerBulletFacade>
+        {
+        }
+
+        class EnemyBulletFacadePool : MonoPoolableMemoryPool<IBulletConfigurationData, Vector3, Transform, IMemoryPool, EnemyBulletFacade>
         {
         }
 
@@ -234,6 +272,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindPlayerHealthService();
             
             BindLevelUpdateService();
+
+            BindBulletSpawnService();
         }
 
         private void LevelTimerService()
@@ -357,6 +397,14 @@ namespace ShootArena.Infrastructure.Installers.Scene
         {
             Container
                 .BindInterfacesAndSelfTo<LevelUpdateService>()
+                .AsSingle();
+        }
+
+        private void BindBulletSpawnService()
+        {
+            Container
+                .Bind<IBulletSpawnService>()
+                .To<BulletSpawnService>()
                 .AsSingle();
         }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using ModestTree;
+using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
+using ShootArena.Infrastructure.Core.Bullet.Data.Type;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Level.Data;
@@ -77,7 +79,24 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
 
             return result;
         }
-        
+
+        public List<IBulletConfigurationData> ReadBulletScenario()
+        {
+            PrepareCurrentScenario(XMLScenarioType.Bullet);
+            
+            List<IBulletConfigurationData> result = new List<IBulletConfigurationData>();
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("bullets");
+            
+            foreach (XmlNode bulletNode in parentNode.ChildNodes)
+            {
+                IBulletConfigurationData tempBullet = ParseBulletConfiguration(bulletNode);
+                
+                result.Add(tempBullet);
+            }
+
+            return result;
+        }
+
         /*
          *  Private
          */
@@ -197,6 +216,28 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                 playerMaxStrengthValue: playerMaxStrengthRate
             );
 
+            return result;
+        }
+
+        private IBulletConfigurationData ParseBulletConfiguration(XmlNode bulletNode)
+        {
+            IBulletConfigurationData result;
+            
+            string bulletTypeNodeName = "type";
+            string bulletSpeedNodeName = "speed";
+            string bulletLifeTimeNodeName = "speed";
+            
+            BulletType bulletType = (BulletType)Enum.Parse(typeof(BulletType),  ParseNodeAttribute<string>(bulletNode, bulletTypeNodeName));
+            float bulletSpeed = ParseNodeAttribute<float>(bulletNode, bulletSpeedNodeName);
+            float bulletLifeTime = ParseNodeAttribute<float>(bulletNode, bulletLifeTimeNodeName);
+                
+            result = new BulletConfigurationData
+            (
+                bulletType: bulletType,
+                bulletSpeed: bulletSpeed,
+                bulletLifeTime: bulletLifeTime
+            );
+            
             return result;
         }
         

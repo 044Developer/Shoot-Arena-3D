@@ -2,7 +2,6 @@ using System;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
-using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;

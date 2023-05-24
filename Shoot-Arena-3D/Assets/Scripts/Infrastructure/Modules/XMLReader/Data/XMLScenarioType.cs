@@ -5,6 +5,7 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Data
         None,
         Enemies,
         Level,
-        Player
+        Player,
+        Bullet
     }
 }

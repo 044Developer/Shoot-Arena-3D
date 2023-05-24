@@ -14,7 +14,6 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
         [Inject]
         public void Construct(
             EnemyIdleState idleState,
-            EnemySearchState searchState,
             EnemyMoveToState moveToState,
             EnemyPrepareAttackState prepareAttackState,
             EnemyAttackState attackState,
@@ -25,7 +24,6 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
             _enemyStates = new Dictionary<Type, IEnemyState>
             {
                 [typeof(EnemyIdleState)] = idleState,
-                [typeof(EnemySearchState)] = searchState,
                 [typeof(EnemyMoveToState)] = moveToState,
                 [typeof(EnemyPrepareAttackState)] = prepareAttackState,
                 [typeof(EnemyAttackState)] = attackState,

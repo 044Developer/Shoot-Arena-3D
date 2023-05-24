@@ -41,10 +41,6 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
                 .AsSingle();
             
             Container
-                .Bind<EnemySearchState>()
-                .AsSingle();
-            
-            Container
                 .Bind<EnemyMoveToState>()
                 .AsSingle();
             

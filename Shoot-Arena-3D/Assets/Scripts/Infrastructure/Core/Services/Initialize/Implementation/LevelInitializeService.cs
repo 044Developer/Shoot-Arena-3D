@@ -22,6 +22,7 @@ namespace ShootArena.Infrastructure.Core.Services.Initialize.Implementation
             ReadLevelData();
             ReadPlayerData();
             ReadEnemiesData();
+            ReadBulletsData();
         }
 
         private void ReadLevelData()
@@ -37,6 +38,11 @@ namespace ShootArena.Infrastructure.Core.Services.Initialize.Implementation
         private void ReadEnemiesData()
         {
             _levelConfigDataModel.EnemyConfigurationDataList = _xmlReaderModule.ReadEnemyScenario();
+        }
+
+        private void ReadBulletsData()
+        {
+            _levelConfigDataModel.bulletConfigurationData = _xmlReaderModule.ReadBulletScenario();
         }
     }
 }

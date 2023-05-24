@@ -19,3 +19,5 @@ MonoBehaviour:
     _scenarioPath: Scenario/Core/level_scenario
   - _scenarioType: 3
     _scenarioPath: Scenario/Core/player_scenario
+  - _scenarioType: 4
+    _scenarioPath: Scenario/Core/bullet_scenario

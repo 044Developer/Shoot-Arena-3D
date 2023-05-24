@@ -35,7 +35,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
             
             _enemyRegistryService.AddEnemy(this);
             
-            _enemyStateService.EnterState<EnemySearchState>();
+            _enemyStateService.EnterState<EnemyIdleState>();
         }
 
         public void OnDespawned()
