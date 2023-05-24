@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ProjectSOInstaller
   m_EditorClassIdentifier: 
   _scenarioStaticDataContainer: {fileID: 11400000, guid: 0ddca03fd3ea64909b6db93c147e7920, type: 2}
+  _scenesStaticDataContainer: {fileID: 11400000, guid: bb8382270ec82e04ba4a6ddd21638fa9, type: 2}

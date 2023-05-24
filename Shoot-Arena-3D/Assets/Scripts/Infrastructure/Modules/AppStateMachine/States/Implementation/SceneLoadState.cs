@@ -1,10 +1,11 @@
 using System;
 using ShootArena.Infrastructure.Modules.SceneLoader;
+using ShootArena.Infrastructure.Modules.SceneLoader.Data;
 using UnityEngine.SceneManagement;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation
 {
-    public class SceneLoadState : IThreePayloadedState<string, LoadSceneMode, Action>
+    public class SceneLoadState : IThreePayloadedState<SceneType, LoadSceneMode, Action>
     {
         private readonly ISceneLoaderModule _sceneLoader = null;
 
@@ -13,9 +14,9 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             _sceneLoader = sceneLoader;
         }
         
-        public void Enter(string sceneName, LoadSceneMode loadMode, Action onCompleteAction)
+        public void Enter(SceneType sceneType, LoadSceneMode loadMode, Action onCompleteAction)
         {
-            _sceneLoader.Load(sceneName, loadMode, onCompleteAction);
+            _sceneLoader.Load(sceneType, loadMode, onCompleteAction);
         }
 
         public void Exit()

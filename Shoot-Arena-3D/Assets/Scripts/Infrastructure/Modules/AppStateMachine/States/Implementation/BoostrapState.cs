@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
+using ShootArena.Infrastructure.Modules.SceneLoader.Data;
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.Modules.UIWindows;
@@ -31,7 +32,7 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             
             _panelsModule.ShowPanel<SplashScreenPanel>(UIPanelType.Splash);
             
-            _stateMachine.Enter<SceneLoadState, string, LoadSceneMode, Action>("Main", LoadSceneMode.Additive, null);
+            _stateMachine.Enter<SceneLoadState, SceneType, LoadSceneMode, Action>(SceneType.Main, LoadSceneMode.Additive, null);
         }
         
         public void Exit()
