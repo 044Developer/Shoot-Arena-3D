@@ -9,8 +9,6 @@ using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn;
 using ShootArena.Infrastructure.Core.Services.EnvironmentSpawn.Implementation;
-using ShootArena.Infrastructure.Core.Services.Factory;
-using ShootArena.Infrastructure.Core.Services.Factory.implementation;
 using ShootArena.Infrastructure.Core.Services.Initialize;
 using ShootArena.Infrastructure.Core.Services.Initialize.Implementation;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
@@ -185,18 +183,27 @@ namespace ShootArena.Infrastructure.Installers.Scene
         {
             Container
                 .BindFactory<IEnemyConfigurationData, MeleeEnemyFacade, MeleeEnemyFacade.Factory>()
-                .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemyFacade)
-                .AsSingle();
+                .FromPoolableMemoryPool<IEnemyConfigurationData, MeleeEnemyFacade, MeleeFacadePool>(poolBinder => poolBinder
+                    .WithInitialSize(5)
+                    .FromComponentInNewPrefab(_prefabsContainer.MeleeEnemyFacade));
         }
 
         private void BindRangeEnemyFactory()
         {
             Container
                 .BindFactory<IEnemyConfigurationData, RangeEnemyFacade, RangeEnemyFacade.Factory>()
-                .FromComponentInNewPrefab(_prefabsContainer.RangedEnemyFacade)
-                .AsSingle();
+                .FromPoolableMemoryPool<IEnemyConfigurationData, RangeEnemyFacade, RangeEnemyFacadePool>(poolBinder => poolBinder
+                    .WithInitialSize(5)
+                    .FromComponentInNewPrefab(_prefabsContainer.RangedEnemyFacade));
         }
         
+        class MeleeFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, IMemoryPool, MeleeEnemyFacade>
+        {
+        }
+        
+        class RangeEnemyFacadePool : MonoPoolableMemoryPool<IEnemyConfigurationData, IMemoryPool, RangeEnemyFacade>
+        {
+        }
 
         #endregion
 
@@ -209,8 +216,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindSpawnPositionService();
             
             BindLevelInitializeService();
-            
-            BindEnemyFactoryService();
 
             BindEnvironmentSpawnService();
             
@@ -256,14 +261,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<ILevelInitializeService>()
                 .To<LevelInitializeService>()
-                .AsSingle();
-        }
-
-        private void BindEnemyFactoryService()
-        {
-            Container
-                .Bind<IEnemyFactoryService>()
-                .To<EnemyFactoryService>()
                 .AsSingle();
         }
 

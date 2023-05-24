@@ -1,6 +1,7 @@
 using System;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using UnityEngine;
+using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
@@ -8,6 +9,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     {
         public Transform Transform { get; }
         public IEnemyConfigurationData ConfigurationData { get; }
+        public IMemoryPool MemoryPool { get; }
         public void Initialize();
         public void SetEnemyDieAction(Action<IEnemy> onEnemyDieAction);
         public void SetParent(Transform parent);

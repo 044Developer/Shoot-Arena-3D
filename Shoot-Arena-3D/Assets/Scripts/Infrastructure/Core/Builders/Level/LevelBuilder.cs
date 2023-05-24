@@ -17,7 +17,6 @@ namespace ShootArena.Infrastructure.Core.Builders.Level
     {
         private readonly ILevelInitializeService _initializeService = null;
         private readonly ILevelTimingRuntimeData _timingRuntimeData = null;
-        private readonly IEnemySpawnService _enemySpawnService = null;
         private readonly IEnvironmentSpawnService _environmentSpawnService = null;
         private readonly IPlayerSpawnService _playerSpawnService = null;
 
@@ -31,14 +30,12 @@ namespace ShootArena.Infrastructure.Core.Builders.Level
         {
             _initializeService = initializeService;
             _timingRuntimeData = timingRuntimeData;
-            _enemySpawnService = enemySpawnService;
             _environmentSpawnService = environmentSpawnService;
             _playerSpawnService = playerSpawnService;
         }
         
         public void Initialize()
         {
-            _enemySpawnService.SetUp();
             _timingRuntimeData.IsLevelPaused = true;
             _timingRuntimeData.CurrentRespawnRate = 5;
             _initializeService.ReadLevelScenario();

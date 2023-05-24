@@ -1,12 +1,14 @@
 using System;
-using System.Collections.Generic;
+using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.Factory;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
+using ShootArena.Infrastructure.Modules.CustomLogger;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
+using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
@@ -14,33 +16,33 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
     public class EnemySpawnService : IEnemySpawnService
     {
         private readonly ISpawnPositionService _spawnPositionService = null;
-        private readonly IEnemyFactoryService _enemyFactoryService = null;
         private readonly ILevelConfigDataModel _levelConfigDataModel = null;
         private readonly ILevelTimingRuntimeData _levelTimingRuntimeData = null;
         private readonly ILevelEnemiesRuntimeData _enemiesRuntimeData = null;
-
-        private Queue<IEnemy> _meleeEnemyPool = null;
-        private Queue<IEnemy> _rangeEnemyPool = null;
+        private readonly MeleeEnemyFacade.Factory _meleeFactory = null;
+        private readonly RangeEnemyFacade.Factory _rangedFactory  = null;
+        private readonly ICustomLoggerModule _logger  = null;
+        private readonly IDynamicPrefabFacade _dynamicPrefabFacade  = null;
 
         public EnemySpawnService(
             ISpawnPositionService spawnPositionService,
-            IEnemyFactoryService enemyFactoryService,
             ILevelConfigDataModel levelConfigDataModel,
             ILevelTimingRuntimeData levelTimingRuntimeData,
-            ILevelEnemiesRuntimeData enemiesRuntimeData
+            ILevelEnemiesRuntimeData enemiesRuntimeData,
+            MeleeEnemyFacade.Factory meleeFactory,
+            RangeEnemyFacade.Factory rangedFactory,
+            ICustomLoggerModule logger,
+            IDynamicPrefabFacade dynamicPrefabFacade
         )
         {
             _spawnPositionService = spawnPositionService;
-            _enemyFactoryService = enemyFactoryService;
             _levelConfigDataModel = levelConfigDataModel;
             _levelTimingRuntimeData = levelTimingRuntimeData;
             _enemiesRuntimeData = enemiesRuntimeData;
-        }
-
-        public void SetUp()
-        {
-            _meleeEnemyPool = new Queue<IEnemy>(5);
-            _rangeEnemyPool = new Queue<IEnemy>(5);
+            _meleeFactory = meleeFactory;
+            _rangedFactory = rangedFactory;
+            _logger = logger;
+            _dynamicPrefabFacade = dynamicPrefabFacade;
         }
 
         public void Tick()
@@ -58,31 +60,38 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
         /*
          *  Enemies Spawn
          */
-
-        private void SpawnNewEnemies(EnemyType type, int count)
+        
+        private IEnemy SpawnEnemy(EnemyType type)
         {
-            for (int i = 0; i < count; i++)
-            {
-                var tempEnemy = _enemyFactoryService.SpawnEnemy(type);
-                tempEnemy.SetEnemyDieAction(DeactivateEnemy);
-                CacheEnemyToPool(tempEnemy);
-            }
-        }
-
-        private void CacheEnemyToPool(IEnemy enemy)   
-        {
-            switch (enemy.ConfigurationData.EnemyType)
+            IEnemyConfigurationData config = GetCorrectConfig(type);
+            IEnemy tempEnemy;
+            
+            switch (type)
             {
                 case EnemyType.MeleeEnemy:
-                    _meleeEnemyPool.Enqueue(enemy);
+                    tempEnemy = _meleeFactory.Create(config);
+                    _enemiesRuntimeData.TotalActiveMeleeEnemiesCount++;
                     break;
                 case EnemyType.RangeEnemy:
-                    _rangeEnemyPool.Enqueue(enemy);
+                    tempEnemy = _rangedFactory.Create(config);
+                    _enemiesRuntimeData.TotalActiveRangeEnemiesCount++;
                     break;
                 case EnemyType.None:
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(enemy.ConfigurationData.EnemyType), enemy.ConfigurationData.EnemyType, null);
+                    _logger.LogError("Enemy Factory", $"There is no enemy of type {type}");
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+
+            Transform parent = _dynamicPrefabFacade.GetPrefabParent(DynamicPrefabRootType.Enemies);
+            tempEnemy.SetParent(parent);
+            tempEnemy.Initialize();
+
+            return tempEnemy;
+        }
+
+        private IEnemyConfigurationData GetCorrectConfig(EnemyType type)
+        {
+            return _levelConfigDataModel.EnemyConfigurationDataList.Find(config => config.EnemyType == type);
         }
 
         /*
@@ -106,15 +115,10 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
         {
             int neededSpawnCount = NeedToRespawn(EnemyType.MeleeEnemy);
 
-            if (_meleeEnemyPool.Count < neededSpawnCount)
-            {
-                SpawnNewEnemies(EnemyType.MeleeEnemy, neededSpawnCount);
-            }
-
             for (int index = 0; index < neededSpawnCount; index++)
             {
                 Vector3 tempPos = _spawnPositionService.GetEnemySpawnPosition();
-                IEnemy tempEnemy = _meleeEnemyPool.Dequeue();
+                IEnemy tempEnemy = SpawnEnemy(EnemyType.MeleeEnemy);
                 tempEnemy.SetPosition(tempPos);
                 tempEnemy.ActivateEnemy();
                 _enemiesRuntimeData.AllActiveEnemies.Add(tempEnemy);
@@ -125,36 +129,14 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
         {
             int neededSpawnCount = NeedToRespawn(EnemyType.RangeEnemy);
 
-            if (_rangeEnemyPool.Count < neededSpawnCount)
-            {
-                SpawnNewEnemies(EnemyType.RangeEnemy, neededSpawnCount);
-            }
-
             for (int index = 0; index < neededSpawnCount; index++)
             {
                 Vector3 tempPos = _spawnPositionService.GetEnemySpawnPosition();
-                IEnemy tempEnemy = _rangeEnemyPool.Dequeue();
+                IEnemy tempEnemy = SpawnEnemy(EnemyType.RangeEnemy);
                 tempEnemy.SetPosition(tempPos);
                 tempEnemy.ActivateEnemy();
                 _enemiesRuntimeData.AllActiveEnemies.Add(tempEnemy);
             }
-        }
-
-        private void DeactivateEnemy(IEnemy enemyToDeactivate)
-        {
-            enemyToDeactivate.DeactivateEnemy();
-            _enemiesRuntimeData.AllActiveEnemies.Remove(enemyToDeactivate);
-
-            if (enemyToDeactivate is MeleeEnemyFacade)
-            {
-                _enemiesRuntimeData.TotalActiveMeleeEnemiesCount--;
-            }
-            else
-            {
-                _enemiesRuntimeData.TotalActiveRangeEnemiesCount--;
-            }
-            
-            CacheEnemyToPool(enemyToDeactivate);
         }
         
         /*

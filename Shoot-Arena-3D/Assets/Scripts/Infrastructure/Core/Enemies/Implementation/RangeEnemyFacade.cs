@@ -6,18 +6,27 @@ using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Implementation
 {
-    public class RangeEnemyFacade : BaseEnemy
+    public class RangeEnemyFacade : BaseEnemy, IPoolable<IEnemyConfigurationData, IMemoryPool>
     {
         [Inject]
-        public void Construct(IEnemyConfigurationData configurationData, IPlayerRuntimeData playerRuntimeData)
+        public void Construct(IPlayerRuntimeData playerRuntimeData)
         {
-            ConfigurationData = configurationData;
             playerRuntime = playerRuntimeData;
         }
 
         public override void Attack()
         {
             ChangeState(EnemyStateType.RechargeState);
+        }
+
+        public void OnSpawned(IEnemyConfigurationData configurationData, IMemoryPool memoryPool)
+        {
+            ConfigurationData = configurationData;
+            MemoryPool = memoryPool;
+        }
+
+        public void OnDespawned()
+        {
         }
         
         public class Factory : PlaceholderFactory<IEnemyConfigurationData, RangeEnemyFacade>

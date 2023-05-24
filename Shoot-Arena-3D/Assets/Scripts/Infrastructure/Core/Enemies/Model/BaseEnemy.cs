@@ -4,6 +4,7 @@ using ShootArena.Infrastructure.Core.Enemies.Data.States;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
@@ -14,7 +15,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         
         public Transform Transform => this.gameObject.transform;
         public IEnemyConfigurationData ConfigurationData { get; protected set; }
-        
+        public IMemoryPool MemoryPool { get; protected set; }
         protected IPlayerRuntimeData playerRuntime = null;
 
         private Action<IEnemy> _onEnemyDieAction = null;
@@ -68,8 +69,6 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         {
             if (_currentEnemyState == EnemyStateType.DieState)
                 return;
-            
-            Debug.Log($"CURRENT STATE = {_currentEnemyState}");
 
             EnemyMove();
 
