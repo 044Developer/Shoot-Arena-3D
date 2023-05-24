@@ -6,6 +6,7 @@ using ShootArena.Infrastructure.Modules.SceneLoader.Data;
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.MonoComponents.UI.Base;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.ViewModel;
 using UnityEngine;
@@ -87,16 +88,25 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
 
         private void LoadLevel()
         {
-            _panelsModule.ShowPanel<LoadingScreenPanel>(UIPanelType.Loading, onPanelOpenAction: OnLoadingScreenOpened);
-            
-            CloseMainMenu();
+            _panelsModule.ShowPanel<LoadingScreenPanel>(UIPanelType.Loading, onPanelOpenAction: OnLoadingScreenOpened, onPanelClosedAction: OnLoadingScreenClosed);
         }
 
-        private void OnLoadingScreenOpened() => 
-            _stateMachine.Enter<SceneLoadState, SceneType, LoadSceneMode, Action>(SceneType.Core, LoadSceneMode.Additive, null);
+        private void OnLoadingScreenOpened()
+        {
+            _stateMachine.Enter<SceneLoadState, SceneType, LoadSceneMode, Action>(SceneType.Core,
+                LoadSceneMode.Additive, null);
+        }
+
+        private void OnLoadingScreenClosed()
+        {
+            CloseMainMenu();
+            _panelsModule.ShowPanel<HudPanel>(UIPanelType.HUD);
+        }
 
         private void CloseMainMenu()
         {
+            _logoAnimationSequence?.Kill();
+            
             _panelsModule.ClosePanel(UIPanelType.Menu);
         }
     }

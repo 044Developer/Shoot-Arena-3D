@@ -22,7 +22,6 @@ namespace ShootArena.Infrastructure.Modules.SceneLoader.Implementation
         
         public void Load(SceneType sceneType, LoadSceneMode loadSceneMode, Action onLoadingFinished = null)
         {
-            UnloadPreviousScene();
             _coroutineRunner.StartCoroutine(LoadScene(sceneType, loadSceneMode, onLoadingFinished));
         }
 
@@ -41,6 +40,7 @@ namespace ShootArena.Infrastructure.Modules.SceneLoader.Implementation
             while (!waitNextScene.isDone)
                 yield return null;
 
+            UnloadPreviousScene();
             _previousSceneType = sceneType;
             onLoadingFinished?.Invoke();
         }
