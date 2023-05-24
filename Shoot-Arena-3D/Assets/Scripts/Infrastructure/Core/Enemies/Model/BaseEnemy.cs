@@ -10,7 +10,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     {
         [SerializeField] private EnemyView _enemyView = null;
 
-        public IEnemyRuntimeData EnemyRuntimeData { get; } = new EnemyRuntimeData();
+        public IEnemyRuntimeData EnemyRuntimeData { get; protected set; }
         public IEnemyView EnemyView => _enemyView;
         public IEnemyConfigurationData ConfigurationData { get; protected set; }
         public IMemoryPool MemoryPool { get; protected set; }

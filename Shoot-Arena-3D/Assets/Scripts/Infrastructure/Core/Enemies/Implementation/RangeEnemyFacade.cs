@@ -1,5 +1,6 @@
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Model;
+using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using ShootArena.Infrastructure.Core.Services.EnemyState;
 using ShootArena.Infrastructure.Core.Services.EnemyState.States;
@@ -15,10 +16,12 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
         
         [Inject]
         public void Construct(
+            IEnemyRuntimeData enemyRuntimeData,
             IEnemyRegistryService enemyRegistryService,
             IEnemyStateService enemyStateService
             )
         {
+            EnemyRuntimeData = enemyRuntimeData;
             _enemyRegistryService = enemyRegistryService;
             _enemyStateService = enemyStateService;
         }
@@ -32,7 +35,6 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
             
             _enemyRegistryService.AddEnemy(this);
             
-            _enemyStateService.RegisterService(EnemyRuntimeData);
             _enemyStateService.EnterState<EnemySearchState>();
         }
 

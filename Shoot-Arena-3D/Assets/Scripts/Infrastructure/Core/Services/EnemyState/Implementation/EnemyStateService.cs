@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
-using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
 using ShootArena.Infrastructure.Core.Services.EnemyState.States;
 using Zenject;
@@ -10,29 +8,29 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
 {
     public class EnemyStateService : IEnemyStateService, ITickable
     {
-        private readonly IPlayerRuntimeData _playerRuntimeData = null;
-        
         private Dictionary<Type, IEnemyState> _enemyStates = null;
         private IEnemyState _currentState = null;
-
-        public EnemyStateService(
-            IPlayerRuntimeData playerRuntimeData
+        
+        [Inject]
+        public void Construct(
+            EnemyIdleState idleState,
+            EnemySearchState searchState,
+            EnemyMoveToState moveToState,
+            EnemyPrepareAttackState prepareAttackState,
+            EnemyAttackState attackState,
+            EnemyRechargeState rechargeState,
+            EnemyDieState dieState
             )
         {
-            _playerRuntimeData = playerRuntimeData;
-        }
-
-        public void RegisterService(IEnemyRuntimeData enemyRuntimeData)
-        {
-            _enemyStates = new Dictionary<Type, IEnemyState>()
+            _enemyStates = new Dictionary<Type, IEnemyState>
             {
-                [typeof(EnemyIdleState)] = new EnemyIdleState(),
-                [typeof(EnemySearchState)] = new EnemySearchState(this, _playerRuntimeData, enemyRuntimeData),
-                [typeof(EnemyMoveToState)] = new EnemyMoveToState(this, enemyRuntimeData),
-                [typeof(EnemyPrepareAttackState)] = new EnemyPrepareAttackState(this, enemyRuntimeData),
-                [typeof(EnemyAttackState)] = new EnemyAttackState(this, enemyRuntimeData, _playerRuntimeData),
-                [typeof(EnemyRechargeState)] = new EnemyRechargeState(this, enemyRuntimeData),
-                [typeof(EnemyDieState)] = new EnemyDieState(enemyRuntimeData)
+                [typeof(EnemyIdleState)] = idleState,
+                [typeof(EnemySearchState)] = searchState,
+                [typeof(EnemyMoveToState)] = moveToState,
+                [typeof(EnemyPrepareAttackState)] = prepareAttackState,
+                [typeof(EnemyAttackState)] = attackState,
+                [typeof(EnemyRechargeState)] = rechargeState,
+                [typeof(EnemyDieState)] = dieState
             };
         }
 
