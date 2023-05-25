@@ -45,7 +45,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
         {
             float distance = Vector3.Distance(_playerRuntimeData.Player.View.Transform.position, _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position);
             
-            return distance <= _enemyRuntimeData.Enemy.DamageData.AttackRange;
+            return distance <= _enemyRuntimeData.EnemyDamageData.AttackRange;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ShootArena.Infrastructure.Core.Enemies.Data.Health
 {
-    public class EnemyHealthData : IEnemyHealthData
+    public class EnemyHealthData
     {
         public float MaxHealth { get; }
         public float MinHealth { get; }

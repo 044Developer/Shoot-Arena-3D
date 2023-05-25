@@ -29,13 +29,13 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
         }
 
         private bool IsEnemyDead() => 
-            _enemyRuntimeData.Enemy.HealthData.CurrentHealth <= 0;
+            _enemyRuntimeData.EnemyHealthData.CurrentHealth <= 0;
 
         private void DecreaseHealth(int value)
         {
-            float newHealthValue = _enemyRuntimeData.Enemy.HealthData.CurrentHealth - value;
-            _enemyRuntimeData.Enemy.HealthData.CurrentHealth =
-                Mathf.Max(_enemyRuntimeData.Enemy.HealthData.MinHealth, newHealthValue);
+            float newHealthValue = _enemyRuntimeData.EnemyHealthData.CurrentHealth - value;
+            _enemyRuntimeData.EnemyHealthData.CurrentHealth =
+                Mathf.Max(_enemyRuntimeData.EnemyHealthData.MinHealth, newHealthValue);
         }
     }
 }

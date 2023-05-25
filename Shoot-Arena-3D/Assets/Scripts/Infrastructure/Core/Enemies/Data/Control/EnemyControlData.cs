@@ -2,7 +2,7 @@
 
 namespace ShootArena.Infrastructure.Core.Enemies.Data.Control
 {
-    public class EnemyControlData : IEnemyControlData
+    public class EnemyControlData
     {
         public EnemyType EnemyType { get; }
         public float MoveSpeed { get; }

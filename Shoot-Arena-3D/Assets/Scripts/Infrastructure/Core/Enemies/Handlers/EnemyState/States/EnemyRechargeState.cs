@@ -22,7 +22,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
         {
             base.Enter();
             
-            _enemyRuntimeData.AttackStartTime = Time.realtimeSinceStartup;
+            _enemyRuntimeData.EnemyDamageData.AttackStartTime = Time.realtimeSinceStartup;
         }
 
         public override void Tick()
@@ -37,7 +37,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
 
         private bool HasRecharged()
         {
-            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.DamageData.AttackInterval;
+            return Time.realtimeSinceStartup - _enemyRuntimeData.EnemyDamageData.AttackStartTime > _enemyRuntimeData.EnemyDamageData.AttackInterval;
         }
 
         private void ChangeState()

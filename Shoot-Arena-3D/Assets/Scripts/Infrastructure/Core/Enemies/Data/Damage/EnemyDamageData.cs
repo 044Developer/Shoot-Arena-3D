@@ -2,7 +2,7 @@
 
 namespace ShootArena.Infrastructure.Core.Enemies.Data.Damage
 {
-    public class EnemyDamageData : IEnemyDamageData
+    public class EnemyDamageData
     {
         public EnemyAttackType AttackType { get; }
         public float AttackSpeed { get; }
@@ -10,6 +10,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Data.Damage
         public float RewardPoints { get; }
         public float AttackInterval { get; }
         public float AttackRange { get; }
+        public float AttackStartTime { get; set; }
 
         public EnemyDamageData(EnemyAttackType attackType, float attackSpeed, float damageValue, float rewardPoints, float attackInterval, float attackRange)
         {

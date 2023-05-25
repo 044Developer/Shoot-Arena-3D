@@ -30,13 +30,13 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation
         public void AddEnemy(IEnemy enemy)
         {
             _allEnemies.Add(enemy);
-            _enemiesByType[enemy.ControlData.EnemyType].Add(enemy);
+            _enemiesByType[enemy.EnemyType].Add(enemy);
         }
 
         public void RemoveEnemy(IEnemy enemy)
         {
             _allEnemies.Remove(enemy);
-            _enemiesByType[enemy.ControlData.EnemyType].Remove(enemy);
+            _enemiesByType[enemy.EnemyType].Remove(enemy);
         }
     }
 }
