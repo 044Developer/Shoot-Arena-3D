@@ -19,7 +19,15 @@ namespace ShootArena.Infrastructure.Core.Bullet.Model
         
         protected void SetSpawnPoint(Vector3 spawnPoint)
         {
+            ResetPosition();
+            
             _view.Transform.position = spawnPoint;
+        }
+
+        private void ResetPosition()
+        {
+            _view.Transform.position = Vector3.zero;
+            _view.Transform.rotation = Quaternion.identity;
         }
     }
 }

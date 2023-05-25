@@ -2,6 +2,7 @@
 {
     public interface IBulletMoveHandler
     {
+        void LaunchPlayerBullet();
         void Tick();
     }
 }

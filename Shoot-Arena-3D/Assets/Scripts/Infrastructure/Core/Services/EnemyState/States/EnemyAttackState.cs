@@ -95,7 +95,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
         private void StrafeToPlayer()
         {
             _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position = Vector3.MoveTowards(
-                _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.Transform.position,
+                _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.View.Transform.position,
                 _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackSpeed * Time.deltaTime);
         }
 
@@ -108,12 +108,12 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 
         private bool HasReachedPlayer()
         {
-            return Vector3.Distance(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.Transform.position) <= STRAIFE_PLAYER_OFFSET;
+            return Vector3.Distance(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.View.Transform.position) <= STRAIFE_PLAYER_OFFSET;
         }
 
         private void AttackRange()
         {
-            _bulletSpawnService.SpawnEnemyBullet(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.Transform);
+            _bulletSpawnService.SpawnEnemyBullet(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.View.Transform);
             _enemyStateService.EnterState<EnemyRechargeState>();
         }
 

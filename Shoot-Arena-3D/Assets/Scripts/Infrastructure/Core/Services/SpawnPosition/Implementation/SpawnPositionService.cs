@@ -105,7 +105,7 @@ namespace ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation
                 result.Add(obst.localPosition);
             }
             
-            result.Add(_playerRuntimeData.Player.Transform.localPosition);
+            result.Add(_playerRuntimeData.Player.View.Transform.localPosition);
 
             return result;
         }

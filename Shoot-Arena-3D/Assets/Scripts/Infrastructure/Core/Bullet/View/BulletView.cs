@@ -7,7 +7,9 @@ namespace ShootArena.Infrastructure.Core.Bullet.View
     public class BulletView : IBulletView
     {
         [SerializeField] private Transform _transform = null;
+        [SerializeField] private Rigidbody _rigidbody = null;
 
         public Transform Transform => _transform;
+        public Rigidbody Rigidbody => _rigidbody;
     }
 }

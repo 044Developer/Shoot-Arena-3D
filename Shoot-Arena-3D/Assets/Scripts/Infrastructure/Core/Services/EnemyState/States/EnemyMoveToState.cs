@@ -25,7 +25,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
         {   
             base.Tick();
             
-            _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.destination = _playerRuntimeData.Player.Transform.position;
+            _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.destination = _playerRuntimeData.Player.View.Transform.position;
             
             if (!IsEnemyReachedTarget())
                 return;

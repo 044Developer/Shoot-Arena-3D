@@ -46,12 +46,12 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
 
             if (_inputService.MoveAxis.sqrMagnitude > MIN_INPUT_TREASHOLD)
             {
-                movementVector = _playerRuntimeData.Player.Transform.right * _inputService.MoveAxis.x + _playerRuntimeData.Player.Transform.forward * _inputService.MoveAxis.y;
+                movementVector = _playerRuntimeData.Player.View.Transform.right * _inputService.MoveAxis.x + _playerRuntimeData.Player.View.Transform.forward * _inputService.MoveAxis.y;
             }
 
             movementVector += Physics.gravity;
 
-            _playerRuntimeData.Player.CharacterController.Move(_playerRuntimeData.PlayerControlData.CurrentMoveSpeed * movementVector * Time.deltaTime);
+            _playerRuntimeData.Player.View.CharacterController.Move(_playerRuntimeData.PlayerControlData.CurrentMoveSpeed * movementVector * Time.deltaTime);
         }
 
         private void RotatePlayer()
@@ -66,7 +66,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
                 
                 _currentHorizontalRotation = Mathf.Clamp(_currentHorizontalRotation, -_playerRuntimeData.PlayerControlData.MaxRotateHeight, _playerRuntimeData.PlayerControlData.MinRotateHeight);
                 
-                _playerRuntimeData.Player.Transform.rotation = Quaternion.Euler(_currentHorizontalRotation, _currentVerticalRotation, 0f);
+                _playerRuntimeData.Player.View.Transform.rotation = Quaternion.Euler(_currentHorizontalRotation, _currentVerticalRotation, 0f);
             }
         }
 

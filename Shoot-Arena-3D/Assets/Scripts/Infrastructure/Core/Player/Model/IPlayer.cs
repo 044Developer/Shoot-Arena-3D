@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using ShootArena.Infrastructure.Core.Player.View;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Player.Model
 {
     public interface IPlayer
     {
-        Transform Transform { get; }
-        CharacterController CharacterController { get; }
+        public IPlayerView View { get; }
         void SetParent(Transform parent);
         void SetPosition(Vector3 position);
         bool IsPlayerGrounded();

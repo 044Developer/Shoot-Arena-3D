@@ -1,4 +1,5 @@
 ﻿using ShootArena.Infrastructure.Core.Player.Model;
+using ShootArena.Infrastructure.Core.Player.View;
 using UnityEngine;
 using Zenject;
 
@@ -6,11 +7,9 @@ namespace ShootArena.Infrastructure.Core.Player.Implementation
 {
     public class PlayerFacade : MonoBehaviour, IPlayer
     {
-        [SerializeField] private CharacterController _characterController = null;
-        [SerializeField] private Transform _playerTransform = null;
-        
-        public Transform Transform => _playerTransform;
-        public CharacterController CharacterController => _characterController;
+        [SerializeField] private PlayerView _view = null;
+
+        public IPlayerView View => _view;
 
         [Inject]
         public void Construct()

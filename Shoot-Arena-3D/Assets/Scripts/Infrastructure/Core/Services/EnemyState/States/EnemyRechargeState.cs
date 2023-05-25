@@ -8,8 +8,6 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
     {
         private readonly IEnemyStateService _enemyStateService = null;
         private readonly IEnemyRuntimeData _enemyRuntimeData = null;
-
-        private float _currentRechargeTime = 0f;
         
         public EnemyRechargeState(
             IEnemyStateService enemyStateService,
@@ -24,26 +22,22 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
         {
             base.Enter();
             
-            _currentRechargeTime = 0f;
+            _enemyRuntimeData.AttackStartTime = Time.realtimeSinceStartup;
         }
 
         public override void Tick()
         {
             base.Tick();
-            
+
             if (!HasRecharged())
-            {
-                _currentRechargeTime += Time.deltaTime;
-            }
-            else
-            {
-                ChangeState();
-            }
+                return;
+            
+            ChangeState();
         }
 
         private bool HasRecharged()
         {
-            return _currentRechargeTime < _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackIntervalValue;
+            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackIntervalValue;
         }
 
         private void ChangeState()

@@ -43,7 +43,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 
         private bool IsPlayerClose()
         {
-            float distance = Vector3.Distance(_playerRuntimeData.Player.Transform.position, _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position);
+            float distance = Vector3.Distance(_playerRuntimeData.Player.View.Transform.position, _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position);
             
             return distance <= _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackRangeValue;
         }
