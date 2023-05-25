@@ -21,15 +21,15 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
             IEnemyStateHandler enemyStateHandler
             )
         {
-            EnemyRuntimeData = enemyRuntimeData;
+            runtimeData = enemyRuntimeData as EnemyRuntimeData;
             _enemyRegistryService = enemyRegistryService;
             _enemyStateHandler = enemyStateHandler;
         }
         
         public void OnSpawned(IEnemyConfigurationData configurationData, Vector3 spawnPosition, Transform parent, IMemoryPool memoryPool)
         {
-            ConfigurationData = configurationData;
-            MemoryPool = memoryPool;
+            enemyConfiguration = configurationData;
+            enemyPool = memoryPool;
             
             SetUpEnemy(spawnPosition, parent);
 
@@ -43,12 +43,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
             DisposeEnemy();
             
             _enemyRegistryService.RemoveEnemy(this);
-            MemoryPool = null;
-        }
-
-        public override void Die()
-        {
-            MemoryPool.Despawn(this);
+            enemyPool = null;
         }
         
         public class Factory : PlaceholderFactory<IEnemyConfigurationData, Vector3, Transform, MeleeEnemyFacade>

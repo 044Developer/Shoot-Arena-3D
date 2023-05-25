@@ -86,26 +86,26 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
         {
             _enemyRuntimeData.Enemy.EnemyView.NavMeshAgent.enabled = false;
             _hasJumped = false;
-            _jumpPos =  new Vector3(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position.x, _enemyRuntimeData.Enemy.ConfigurationData.EnemyJumpHeight, _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position.z);
+            _jumpPos =  new Vector3(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position.x, _enemyRuntimeData.Enemy.ControlData.JumpHeight, _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position.z);
         }
 
         private void Jump()
         {
             _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position = Vector3.MoveTowards(
                 _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _jumpPos,
-                _enemyRuntimeData.Enemy.ConfigurationData.EnemyMoveSpeed * Time.deltaTime);
+                _enemyRuntimeData.Enemy.ControlData.MoveSpeed * Time.deltaTime);
         }
 
         private bool IsStrafeDelayed()
         {
-            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackIntervalValue;
+            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.DamageData.AttackInterval;
         }
 
         private void StrafeToPlayer()
         {
             _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position = Vector3.MoveTowards(
                 _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.View.Transform.position,
-                _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackSpeed * Time.deltaTime);
+                _enemyRuntimeData.Enemy.DamageData.AttackSpeed * Time.deltaTime);
         }
 
         private bool HasJumped()
@@ -127,8 +127,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
         }
 
         private bool IsMeleeEnemyAttack() => 
-            _enemyRuntimeData.Enemy.ConfigurationData.AttackType == EnemyAttackType.Physical;
+            _enemyRuntimeData.Enemy.DamageData.AttackType == EnemyAttackType.Physical;
         private bool IsRangeEnemyAttack() => 
-            _enemyRuntimeData.Enemy.ConfigurationData.AttackType == EnemyAttackType.Shooting;
+            _enemyRuntimeData.Enemy.DamageData.AttackType == EnemyAttackType.Shooting;
     }
 }

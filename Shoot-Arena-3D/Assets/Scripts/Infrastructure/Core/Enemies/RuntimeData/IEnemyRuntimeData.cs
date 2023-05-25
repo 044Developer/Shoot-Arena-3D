@@ -4,7 +4,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.RuntimeData
 {
     public interface IEnemyRuntimeData
     {
-        public IEnemy Enemy { get; set; }
+        public IEnemy Enemy { get; }
         public float AttackStartTime { get; set; }
     }
 }

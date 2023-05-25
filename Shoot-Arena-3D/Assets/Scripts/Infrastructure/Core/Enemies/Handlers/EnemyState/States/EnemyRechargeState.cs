@@ -37,7 +37,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
 
         private bool HasRecharged()
         {
-            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackIntervalValue;
+            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.DamageData.AttackInterval;
         }
 
         private void ChangeState()

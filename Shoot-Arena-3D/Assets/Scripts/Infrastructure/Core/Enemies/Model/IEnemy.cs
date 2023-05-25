@@ -1,16 +1,16 @@
-using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
-using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
+using ShootArena.Infrastructure.Core.Enemies.Data.Control;
+using ShootArena.Infrastructure.Core.Enemies.Data.Damage;
+using ShootArena.Infrastructure.Core.Enemies.Data.Health;
 using ShootArena.Infrastructure.Core.Enemies.View;
-using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
     public interface IEnemy
     {
-        public IEnemyConfigurationData ConfigurationData { get; }
-        public IEnemyRuntimeData EnemyRuntimeData { get; }
         public IEnemyView EnemyView { get; }
-        public IMemoryPool MemoryPool { get; }
+        public IEnemyHealthData HealthData { get; }
+        public IEnemyDamageData DamageData { get; }
+        public IEnemyControlData ControlData { get; }
         void Die();
     }
 }

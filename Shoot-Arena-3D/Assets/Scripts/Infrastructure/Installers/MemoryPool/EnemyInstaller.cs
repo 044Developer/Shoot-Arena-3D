@@ -1,4 +1,6 @@
-﻿using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
+﻿using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementation;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
@@ -12,6 +14,8 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
         {
             BindData();
 
+            BindHealthHandler();
+            
             BindStateService();
 
             BindStates();
@@ -22,6 +26,14 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
             Container
                 .Bind<IEnemyRuntimeData>()
                 .To<EnemyRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindHealthHandler()
+        {
+            Container
+                .Bind<IEnemyHealthHandler>()
+                .To<EnemyHealthHandler>()
                 .AsSingle();
         }
 
