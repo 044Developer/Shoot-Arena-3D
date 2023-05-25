@@ -26,9 +26,12 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
         
         public void LaunchPlayerBullet()
         {
-            Vector3 bulletForce = _bulletRuntimeData.Bullet.BulletRuntimeData.BulletDirection * _bulletRuntimeData.Bullet.ConfigurationData.BulletSpeed;
+            if (_bulletRuntimeData.Bullet.ConfigurationData.BulletType != BulletType.Player)
+                return;
             
-            _bulletRuntimeData.Bullet.BulletRuntimeData.Bullet.View.Rigidbody.AddForce(bulletForce);
+            Vector3 bulletForce = _bulletRuntimeData.BulletDirection * _bulletRuntimeData.Bullet.ConfigurationData.BulletSpeed;
+
+            _bulletRuntimeData.Bullet.View.Rigidbody.velocity = bulletForce;
         }
 
         private void LaunchEnemyBullet()

@@ -1,4 +1,4 @@
-﻿namespace ShootArena.Infrastructure.Core.Services.EnemyState.Model
+﻿namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model
 {
     public abstract class BaseEnemyState : IEnemyState
     {

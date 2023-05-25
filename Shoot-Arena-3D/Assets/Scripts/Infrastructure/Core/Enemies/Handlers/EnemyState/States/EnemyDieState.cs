@@ -1,7 +1,7 @@
-﻿using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
+﻿using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model;
+using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 
-namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
+namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
 {
     public class EnemyDieState : BaseEnemyState
     {

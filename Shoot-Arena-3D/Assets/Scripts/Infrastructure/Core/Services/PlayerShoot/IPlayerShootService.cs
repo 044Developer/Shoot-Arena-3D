@@ -2,6 +2,6 @@
 {
     public interface IPlayerShootService
     {
-        
+        void Tick();
     }
 }

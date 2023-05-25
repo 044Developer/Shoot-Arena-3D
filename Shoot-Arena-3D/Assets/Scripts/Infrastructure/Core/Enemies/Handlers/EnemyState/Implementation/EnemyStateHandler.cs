@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
-using ShootArena.Infrastructure.Core.Services.EnemyState.States;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
 using Zenject;
 
-namespace ShootArena.Infrastructure.Core.Services.EnemyState.Implementation
+namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementation
 {
-    public class EnemyStateService : IEnemyStateService, ITickable
+    public class EnemyStateHandler : IEnemyStateHandler, ITickable
     {
         private Dictionary<Type, IEnemyState> _enemyStates = null;
         private IEnemyState _currentState = null;

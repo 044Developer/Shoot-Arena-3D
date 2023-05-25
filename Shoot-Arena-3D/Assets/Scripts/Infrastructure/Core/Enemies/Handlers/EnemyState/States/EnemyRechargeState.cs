@@ -1,20 +1,20 @@
-﻿using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
+﻿using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model;
+using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
+namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
 {
     public class EnemyRechargeState : BaseEnemyState
     {
-        private readonly IEnemyStateService _enemyStateService = null;
+        private readonly IEnemyStateHandler _enemyStateHandler = null;
         private readonly IEnemyRuntimeData _enemyRuntimeData = null;
         
         public EnemyRechargeState(
-            IEnemyStateService enemyStateService,
+            IEnemyStateHandler enemyStateHandler,
             IEnemyRuntimeData enemyRuntimeData
             )
         {
-            _enemyStateService = enemyStateService;
+            _enemyStateHandler = enemyStateHandler;
             _enemyRuntimeData = enemyRuntimeData;
         }
 
@@ -42,7 +42,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
 
         private void ChangeState()
         {
-            _enemyStateService.EnterState<EnemyPrepareAttackState>();
+            _enemyStateHandler.EnterState<EnemyPrepareAttackState>();
         }
     }
 }

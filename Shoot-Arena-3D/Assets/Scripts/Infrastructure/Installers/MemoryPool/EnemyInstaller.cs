@@ -1,7 +1,7 @@
-﻿using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.EnemyState;
-using ShootArena.Infrastructure.Core.Services.EnemyState.Implementation;
-using ShootArena.Infrastructure.Core.Services.EnemyState.States;
+﻿using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementation;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
+using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Installers.MemoryPool
@@ -28,8 +28,8 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
         private void BindStateService()
         {
             Container
-                .Bind(typeof(IEnemyStateService), typeof(ITickable))
-                .To<EnemyStateService>()
+                .Bind(typeof(IEnemyStateHandler), typeof(ITickable))
+                .To<EnemyStateHandler>()
                 .AsSingle()
                 .Lazy();
         }

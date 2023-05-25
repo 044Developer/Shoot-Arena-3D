@@ -1,18 +1,18 @@
 ﻿using ShootArena.Infrastructure.Core.Enemies.Data.Types;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.BulletSpawn;
-using ShootArena.Infrastructure.Core.Services.EnemyState.Model;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
+namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
 {
     public class EnemyAttackState : BaseEnemyState
     {
         private const float STRAIFE_PLAYER_OFFSET = 1f;
         private const float JUMP_HEIGHT_OFFSET = 0f;
         
-        private readonly IEnemyStateService _enemyStateService = null;
+        private readonly IEnemyStateHandler _enemyStateHandler = null;
         private readonly IEnemyRuntimeData _enemyRuntimeData = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly IBulletSpawnService _bulletSpawnService = null;
@@ -21,13 +21,13 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
         private Vector3 _jumpPos = Vector3.zero;
         
         public EnemyAttackState(
-            IEnemyStateService enemyStateService,
+            IEnemyStateHandler enemyStateHandler,
             IEnemyRuntimeData enemyRuntimeData,
             IPlayerRuntimeData playerRuntimeData,
             IBulletSpawnService bulletSpawnService
             )
         {
-            _enemyStateService = enemyStateService;
+            _enemyStateHandler = enemyStateHandler;
             _enemyRuntimeData = enemyRuntimeData;
             _playerRuntimeData = playerRuntimeData;
             _bulletSpawnService = bulletSpawnService;
@@ -68,14 +68,18 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
                     return;
 
                 _hasJumped = true;
+                _enemyRuntimeData.AttackStartTime = Time.realtimeSinceStartup;
             }
-            
+
+            if (!IsStrafeDelayed())
+                return;
+
             StrafeToPlayer();
 
             if (!HasReachedPlayer())
                 return;
             
-            _enemyStateService.EnterState<EnemyDieState>();
+            _enemyStateHandler.EnterState<EnemyDieState>();
         }
 
         private void PrepareAttack()
@@ -90,6 +94,11 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
             _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position = Vector3.MoveTowards(
                 _enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _jumpPos,
                 _enemyRuntimeData.Enemy.ConfigurationData.EnemyMoveSpeed * Time.deltaTime);
+        }
+
+        private bool IsStrafeDelayed()
+        {
+            return Time.realtimeSinceStartup - _enemyRuntimeData.AttackStartTime > _enemyRuntimeData.Enemy.ConfigurationData.EnemyAttackIntervalValue;
         }
 
         private void StrafeToPlayer()
@@ -114,7 +123,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyState.States
         private void AttackRange()
         {
             _bulletSpawnService.SpawnEnemyBullet(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.View.Transform);
-            _enemyStateService.EnterState<EnemyRechargeState>();
+            _enemyStateHandler.EnterState<EnemyRechargeState>();
         }
 
         private bool IsMeleeEnemyAttack() => 

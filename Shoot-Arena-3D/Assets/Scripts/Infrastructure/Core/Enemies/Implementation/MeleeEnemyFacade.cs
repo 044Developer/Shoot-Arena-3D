@@ -1,9 +1,9 @@
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
-using ShootArena.Infrastructure.Core.Services.EnemyState;
-using ShootArena.Infrastructure.Core.Services.EnemyState.States;
 using UnityEngine;
 using Zenject;
 
@@ -12,18 +12,18 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
     public class MeleeEnemyFacade : BaseEnemy, IPoolable<IEnemyConfigurationData, Vector3, Transform, IMemoryPool>
     {
         private IEnemyRegistryService _enemyRegistryService = null;
-        private IEnemyStateService _enemyStateService = null;
+        private IEnemyStateHandler _enemyStateHandler = null;
         
         [Inject]
         public void Construct(
             IEnemyRuntimeData enemyRuntimeData,
             IEnemyRegistryService enemyRegistryService,
-            IEnemyStateService enemyStateService
+            IEnemyStateHandler enemyStateHandler
             )
         {
             EnemyRuntimeData = enemyRuntimeData;
             _enemyRegistryService = enemyRegistryService;
-            _enemyStateService = enemyStateService;
+            _enemyStateHandler = enemyStateHandler;
         }
         
         public void OnSpawned(IEnemyConfigurationData configurationData, Vector3 spawnPosition, Transform parent, IMemoryPool memoryPool)
@@ -35,7 +35,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
 
             _enemyRegistryService.AddEnemy(this);
             
-            _enemyStateService.EnterState<EnemyIdleState>();
+            _enemyStateHandler.EnterState<EnemyIdleState>();
         }
 
         public void OnDespawned()
