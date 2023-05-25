@@ -1,5 +1,4 @@
-﻿using System;
-using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
+﻿using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Data.Type;
 using ShootArena.Infrastructure.Core.Bullet.Implementation;
 using ShootArena.Infrastructure.Core.Level.Model;
@@ -31,11 +30,11 @@ namespace ShootArena.Infrastructure.Core.Services.BulletSpawn.Implementation
             _playerBulletFactory.Create(config, position, direction);
         }
 
-        public void SpawnEnemyBullet(Vector3 position, Transform target)
+        public void SpawnEnemyBullet(Vector3 position)
         {
             IBulletConfigurationData config = GetCorrectConfig(BulletType.Enemy);
             
-            _enemyBulletFactory.Create(config, position,target);
+            _enemyBulletFactory.Create(config, position);
         }
 
         private IBulletConfigurationData GetCorrectConfig(BulletType type) => 

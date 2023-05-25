@@ -18,12 +18,13 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
             _enemyStateHandler = enemyStateHandler;
         }
         
-        public void ReceiveDamage(int value)
+        public void ReceiveDamage(float value)
         {
             DecreaseHealth(value);
 
             if (IsEnemyDead())
             {
+                Debug.Log("ENEMY DEAD");
                 _enemyStateHandler.EnterState<EnemyDieState>();
             }
         }
@@ -31,7 +32,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
         private bool IsEnemyDead() => 
             _enemyRuntimeData.EnemyHealthData.CurrentHealth <= 0;
 
-        private void DecreaseHealth(int value)
+        private void DecreaseHealth(float value)
         {
             float newHealthValue = _enemyRuntimeData.EnemyHealthData.CurrentHealth - value;
             _enemyRuntimeData.EnemyHealthData.CurrentHealth =

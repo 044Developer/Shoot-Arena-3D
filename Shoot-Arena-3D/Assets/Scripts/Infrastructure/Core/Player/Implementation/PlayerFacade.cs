@@ -1,11 +1,12 @@
-﻿using ShootArena.Infrastructure.Core.Player.Model;
+﻿using ShootArena.Infrastructure.Core.Data.TakeDamage;
+using ShootArena.Infrastructure.Core.Player.Model;
 using ShootArena.Infrastructure.Core.Player.View;
 using UnityEngine;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Player.Implementation
 {
-    public class PlayerFacade : MonoBehaviour, IPlayer
+    public class PlayerFacade : MonoBehaviour, IPlayer, ITakeDamage
     {
         [SerializeField] private PlayerView _view = null;
 
@@ -27,6 +28,11 @@ namespace ShootArena.Infrastructure.Core.Player.Implementation
 
         public class Factory : PlaceholderFactory<PlayerFacade>
         {
+        }
+
+        public void ReceiveDamage(float damageValue)
+        {
+            
         }
     }
 }

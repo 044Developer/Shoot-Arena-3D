@@ -26,8 +26,6 @@ using ShootArena.Infrastructure.Core.Services.PlayerControl;
 using ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation;
 using ShootArena.Infrastructure.Core.Services.PlayerDie;
 using ShootArena.Infrastructure.Core.Services.PlayerDie.Implementation;
-using ShootArena.Infrastructure.Core.Services.PlayerHealth;
-using ShootArena.Infrastructure.Core.Services.PlayerHealth.Implementation;
 using ShootArena.Infrastructure.Core.Services.PlayerInput;
 using ShootArena.Infrastructure.Core.Services.PlayerInput.Implementation;
 using ShootArena.Infrastructure.Core.Services.PlayerSetUp;
@@ -210,8 +208,8 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindEnemyBulletFactory()
         {
             Container
-                .BindFactory<IBulletConfigurationData, Vector3, Transform, EnemyBulletFacade, EnemyBulletFacade.Factory>()
-                .FromPoolableMemoryPool<IBulletConfigurationData, Vector3, Transform, EnemyBulletFacade, EnemyBulletFacadePool>(poolBinder => poolBinder
+                .BindFactory<IBulletConfigurationData, Vector3, EnemyBulletFacade, EnemyBulletFacade.Factory>()
+                .FromPoolableMemoryPool<IBulletConfigurationData, Vector3, EnemyBulletFacade, EnemyBulletFacadePool>(poolBinder => poolBinder
                     .WithInitialSize(20)
                     .FromSubContainerResolve()
                     .ByNewPrefabInstaller<BulletInstaller>(_prefabsContainer.EnemyBullet)
@@ -230,7 +228,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
         {
         }
 
-        class EnemyBulletFacadePool : MonoPoolableMemoryPool<IBulletConfigurationData, Vector3, Transform, IMemoryPool, EnemyBulletFacade>
+        class EnemyBulletFacadePool : MonoPoolableMemoryPool<IBulletConfigurationData, Vector3, IMemoryPool, EnemyBulletFacade>
         {
         }
 
@@ -265,8 +263,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindPlayerDieService();
 
             BindPlayerShootService();
-
-            BindPlayerHealthService();
             
             BindLevelUpdateService();
 
@@ -326,14 +322,6 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<IEnemySpawnService>()
                 .To<EnemySpawnService>()
-                .AsSingle();
-        }
-
-        private void BindPlayerHealthService()
-        {
-            Container
-                .Bind<IPlayerHealthService>()
-                .To<PlayerHealthService>()
                 .AsSingle();
         }
 

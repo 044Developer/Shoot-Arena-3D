@@ -1,4 +1,5 @@
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
 using ShootArena.Infrastructure.Core.Enemies.Model;
@@ -18,12 +19,14 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
         public void Construct(
             IEnemyRuntimeData enemyRuntimeData,
             IEnemyRegistryService enemyRegistryService,
-            IEnemyStateHandler enemyStateHandler
+            IEnemyStateHandler enemyStateHandler,
+            IEnemyHealthHandler healthHandler
             )
         {
             runtimeData = enemyRuntimeData  as EnemyRuntimeData;
             _enemyRegistryService = enemyRegistryService;
             _enemyStateHandler = enemyStateHandler;
+            enemyHealthHandler = healthHandler;
         }
 
         public void OnSpawned(IEnemyConfigurationData configurationData, Vector3 spawnPosition, Transform parent, IMemoryPool memoryPool)

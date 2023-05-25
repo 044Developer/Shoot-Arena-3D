@@ -1,13 +1,11 @@
-﻿using ShootArena.Infrastructure.Core.Bullet.Model;
-using UnityEngine;
+﻿using ShootArena.Infrastructure.Core.Bullet.Data.Damage;
+using ShootArena.Infrastructure.Core.Bullet.Model;
 
 namespace ShootArena.Infrastructure.Core.Bullet.RuntimeData
 {
     public interface IBulletRuntimeData
     {
         public BulletBase Bullet { get; }
-        public Vector3 BulletDirection { get; }
-        public Transform BulletTarget { get; }
-        public float SpawnStartTime { get; }
+        public IBulletDamageData DamageData { get; }
     }
 }

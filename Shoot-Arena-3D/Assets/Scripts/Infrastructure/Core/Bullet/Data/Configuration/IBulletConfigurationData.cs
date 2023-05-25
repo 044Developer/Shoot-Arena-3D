@@ -7,5 +7,6 @@ namespace ShootArena.Infrastructure.Core.Bullet.Data.Configuration
         public BulletType BulletType { get; }
         public float BulletSpeed { get; }
         public float BulletLifeTime { get; }
+        public float BulletDamage { get; }
     }
 }

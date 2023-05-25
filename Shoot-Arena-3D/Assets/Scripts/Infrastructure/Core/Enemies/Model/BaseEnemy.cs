@@ -1,8 +1,10 @@
+using ShootArena.Infrastructure.Core.Data.TakeDamage;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Control;
 using ShootArena.Infrastructure.Core.Enemies.Data.Damage;
 using ShootArena.Infrastructure.Core.Enemies.Data.Health;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Enemies.View;
 using UnityEngine;
@@ -10,7 +12,7 @@ using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
-    public abstract class BaseEnemy : MonoBehaviour, IEnemy
+    public abstract class BaseEnemy : MonoBehaviour, IEnemy, ITakeDamage
     {
         [SerializeField] private EnemyView _enemyView = null;
 
@@ -20,6 +22,12 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         protected IEnemyConfigurationData enemyConfiguration = null;
         protected EnemyRuntimeData runtimeData = null;
         protected IMemoryPool enemyPool = null;
+        protected IEnemyHealthHandler enemyHealthHandler = null;
+
+        public void ReceiveDamage(float damageValue)
+        {
+            enemyHealthHandler.ReceiveDamage(damageValue);
+        }
 
         public void Die()
         {
@@ -33,7 +41,6 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
             EnemyView.EnemyTransform.parent = parent;
             runtimeData.Enemy = this;
             
-            EnemyView.EnemyBody.SetActive(true);
             EnemyView.NavMeshAgent.enabled = true;
             EnemyView.NavMeshAgent.speed = enemyConfiguration.EnemyMoveSpeed;
             EnemyView.NavMeshAgent.stoppingDistance = enemyConfiguration.EnemyAttackRangeValue;
@@ -48,7 +55,6 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         protected void DisposeEnemy()
         {
             EnemyView.NavMeshAgent.enabled = false;
-            EnemyView.EnemyBody.SetActive(false);
         }
 
         private void SetUpHealthData()

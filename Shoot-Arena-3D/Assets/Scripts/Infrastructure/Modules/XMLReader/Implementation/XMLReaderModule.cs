@@ -226,16 +226,19 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             string bulletTypeNodeName = "type";
             string bulletSpeedNodeName = "speed";
             string bulletLifeTimeNodeName = "speed";
+            string bulletDamageDealNodeName = "damageDeal";
             
             BulletType bulletType = (BulletType)Enum.Parse(typeof(BulletType),  ParseNodeAttribute<string>(bulletNode, bulletTypeNodeName));
             float bulletSpeed = ParseNodeAttribute<float>(bulletNode, bulletSpeedNodeName);
             float bulletLifeTime = ParseNodeAttribute<float>(bulletNode, bulletLifeTimeNodeName);
+            float bulletDamageDeal = ParseNodeAttribute<float>(bulletNode, bulletDamageDealNodeName);
                 
             result = new BulletConfigurationData
             (
                 bulletType: bulletType,
                 bulletSpeed: bulletSpeed,
-                bulletLifeTime: bulletLifeTime
+                bulletLifeTime: bulletLifeTime,
+                bulletDamage: bulletDamageDeal
             );
             
             return result;

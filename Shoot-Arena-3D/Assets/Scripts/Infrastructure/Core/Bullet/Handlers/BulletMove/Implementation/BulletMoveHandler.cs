@@ -26,22 +26,22 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
         
         public void LaunchPlayerBullet()
         {
-            if (_bulletRuntimeData.Bullet.ConfigurationData.BulletType != BulletType.Player)
+            if (_bulletRuntimeData.Bullet.BulletType != BulletType.Player)
                 return;
             
-            Vector3 bulletForce = _bulletRuntimeData.BulletDirection * _bulletRuntimeData.Bullet.ConfigurationData.BulletSpeed;
+            Vector3 bulletForce = _bulletRuntimeData.DamageData.BulletDirection * _bulletRuntimeData.DamageData.BulletSpeed;
 
             _bulletRuntimeData.Bullet.View.Rigidbody.velocity = bulletForce;
         }
 
         private void LaunchEnemyBullet()
         {
-            if (_bulletRuntimeData.Bullet.ConfigurationData.BulletType != BulletType.Enemy)
+            if (_bulletRuntimeData.Bullet.BulletType != BulletType.Enemy)
                 return;
             
             Vector3 currentBulletPosition = Vector3.MoveTowards(
                 _bulletRuntimeData.Bullet.View.Transform.position, _playerRuntimeData.Player.View.Transform.position,
-                _bulletRuntimeData.Bullet.ConfigurationData.BulletSpeed * Time.deltaTime);
+                _bulletRuntimeData.DamageData.BulletSpeed * Time.deltaTime);
 
             currentBulletPosition.y = ENEMY_BULLET_FLY_HEIGHT;
 

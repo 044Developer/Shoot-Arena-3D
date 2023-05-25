@@ -2,6 +2,6 @@
 {
     public interface IEnemyHealthHandler
     {
-        void ReceiveDamage(int value);
+        void ReceiveDamage(float value);
     }
 }

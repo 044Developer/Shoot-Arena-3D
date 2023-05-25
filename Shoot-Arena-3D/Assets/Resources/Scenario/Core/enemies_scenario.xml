@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <enemies>
     <enemy type="MeleeEnemy" attackType="Physical" moveSpeed="1" jumpHeight="0.5" attackSpeed="8" maxHealthValue="50" dealDamageValue="15" rewardedPoints="15" attackIntervalValue="1" attackRangeValue="2" />
-    <enemy type="RangeEnemy" attackType="Shooting" moveSpeed="0.3" jumpHeight="1" attackSpeed="0" maxHealthValue="100" dealDamageValue="25" rewardedPoints="50" attackIntervalValue="3" attackRangeValue="3" />
+    <enemy type="RangeEnemy" attackType="Shooting" moveSpeed="0.3" jumpHeight="1" attackSpeed="0" maxHealthValue="100" dealDamageValue="0" rewardedPoints="50" attackIntervalValue="3" attackRangeValue="3" />
 </enemies>

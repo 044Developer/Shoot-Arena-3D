@@ -1,45 +1,38 @@
 ﻿using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Model;
 using ShootArena.Infrastructure.Core.Bullet.RuntimeData;
+using ShootArena.Infrastructure.Core.Data.TakeDamage;
+using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using UnityEngine;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Bullet.Implementation
 {
-    public class EnemyBulletFacade : BulletBase, IPoolable<IBulletConfigurationData, Vector3, Transform, IMemoryPool>
+    public class EnemyBulletFacade : BulletBase, IPoolable<IBulletConfigurationData, Vector3, IMemoryPool>
     {
         private const string PLAYER_TAG = "Player";
-        private BulletRuntimeData _bulletRuntimeData = null;
+
+        private IPlayerRuntimeData _playerRuntimeData = null;
         
         [Inject]
-        public void Construct(IBulletRuntimeData bulletRuntimeData)
+        public void Construct(IBulletRuntimeData runtimeData, IPlayerRuntimeData playerRuntimeData)
         {
-            _bulletRuntimeData = bulletRuntimeData as BulletRuntimeData;
+            bulletRuntimeData = runtimeData as BulletRuntimeData;
+            _playerRuntimeData = playerRuntimeData;
         }
         
-        public void OnSpawned(IBulletConfigurationData config, Vector3 spawnPos, Transform target, IMemoryPool memoryPool)
+        public void OnSpawned(IBulletConfigurationData config, Vector3 spawnPos, IMemoryPool memoryPool)
         {
-            SubscribeEvents();
+            bulletPool = memoryPool;
+            bulletConfiguration = config;
             
-            ConfigurationData = config;
-            _bulletRuntimeData.Bullet = this;
-            _bulletRuntimeData.BulletTarget = target;
-            _bulletRuntimeData.SpawnStartTime = Time.realtimeSinceStartup;
-            SetSpawnPoint(spawnPos);
-            MemoryPool = memoryPool;
+            SubscribeEvents();
+            SetUpBullet(spawnPos, Vector3.forward);
         }
         
         public void OnDespawned()
         {
             UnSubscribeEvents();
-        }
-
-        public override void OnBulletHitAction(Collision collision)
-        {
-            if (!collision.gameObject.CompareTag(PLAYER_TAG))
-                return;
-            
-            MemoryPool.Despawn(this);
         }
 
         private void SubscribeEvents()
@@ -52,8 +45,17 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
             View.ObjectCollisionHandler.OnCollisionEnterEvent -= OnBulletHitAction;
         }
         
-        public class Factory : PlaceholderFactory<IBulletConfigurationData, Vector3, Transform, EnemyBulletFacade>
+        public class Factory : PlaceholderFactory<IBulletConfigurationData, Vector3, EnemyBulletFacade>
         {
+        }
+
+        public override void OnBulletHitAction(Collision collision)
+        {
+            if (!collision.gameObject.TryGetComponent(out ITakeDamage damageTarget))
+                return;
+            
+            damageTarget.ReceiveDamage(bulletConfiguration.BulletDamage);
+            DestroyBullet();
         }
     }
 }

@@ -14,10 +14,24 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime.Implemen
         
         public void Tick()
         {
-            if (Time.realtimeSinceStartup - _bulletRuntimeData.SpawnStartTime > _bulletRuntimeData.Bullet.ConfigurationData.BulletLifeTime)
+            if (!IsBulletAlive())
+                return;
+
+            if (HasFinishedLifetime())
             {
-                _bulletRuntimeData.Bullet.MemoryPool.Despawn(_bulletRuntimeData.Bullet);
+                _bulletRuntimeData.Bullet.DestroyBullet();
             }
+        }
+
+        private bool IsBulletAlive()
+        {
+            return _bulletRuntimeData.Bullet.gameObject.activeInHierarchy;
+        }
+
+        private bool HasFinishedLifetime()
+        {
+            return Time.realtimeSinceStartup - _bulletRuntimeData.DamageData.SpawnStartTime >
+                   _bulletRuntimeData.DamageData.BulletLifeTime;
         }
     }
 }

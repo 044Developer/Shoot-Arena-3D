@@ -122,7 +122,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
 
         private void AttackRange()
         {
-            _bulletSpawnService.SpawnEnemyBullet(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position, _playerRuntimeData.Player.View.Transform);
+            _bulletSpawnService.SpawnEnemyBullet(_enemyRuntimeData.Enemy.EnemyView.EnemyTransform.position);
             _enemyStateHandler.EnterState<EnemyRechargeState>();
         }
 
