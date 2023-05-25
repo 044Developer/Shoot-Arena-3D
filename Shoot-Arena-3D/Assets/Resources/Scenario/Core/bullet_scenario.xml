@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bullets>
     <bullet type="Player" speed="20" lifeTime="5" />
-    <bullet type="Enemy" speed="14" lifeTime="5" />
+    <bullet type="Enemy" speed="7" lifeTime="10" />
 </bullets>

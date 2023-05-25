@@ -24,7 +24,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Model
         private void ResetPosition()
         {
             _view.Transform.position = Vector3.zero;
-            _view.Transform.rotation = Quaternion.identity;
+            _view.Transform.rotation = _view.Transform.rotation;
         }
     }
 }

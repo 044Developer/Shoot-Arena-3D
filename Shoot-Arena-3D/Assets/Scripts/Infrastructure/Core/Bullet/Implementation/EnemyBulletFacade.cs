@@ -8,6 +8,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
 {
     public class EnemyBulletFacade : BulletBase, IPoolable<IBulletConfigurationData, Vector3, Transform, IMemoryPool>
     {
+        private const string PLAYER_TAG = "Player";
         private BulletRuntimeData _bulletRuntimeData = null;
         
         [Inject]
@@ -35,6 +36,9 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
 
         public override void OnBulletHitAction(Collision collision)
         {
+            if (!collision.gameObject.CompareTag(PLAYER_TAG))
+                return;
+            
             MemoryPool.Despawn(this);
         }
 
