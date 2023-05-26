@@ -51,15 +51,15 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl.Implement
 
             movementVector += Physics.gravity;
 
-            _playerRuntimeData.Player.View.CharacterController.Move(_playerRuntimeData.PlayerControlData.CurrentMoveSpeed * movementVector * Time.deltaTime);
+            _playerRuntimeData.Player.View.CharacterController.Move(_playerRuntimeData.PlayerControlData.MoveSpeed * movementVector * Time.deltaTime);
         }
 
         private void RotatePlayer()
         {
             if (_inputHandler.RotateAxis.sqrMagnitude > MIN_INPUT_TREASHOLD)
             {
-                float horizontalRotation = _inputHandler.RotateAxis.x * _playerRuntimeData.PlayerControlData.CurrentRotationSpeed * Time.deltaTime;
-                float verticalRotation = _inputHandler.RotateAxis.y * _playerRuntimeData.PlayerControlData.CurrentRotationSpeed * Time.deltaTime;
+                float horizontalRotation = _inputHandler.RotateAxis.x * _playerRuntimeData.PlayerControlData.RotationSpeed * Time.deltaTime;
+                float verticalRotation = _inputHandler.RotateAxis.y * _playerRuntimeData.PlayerControlData.RotationSpeed * Time.deltaTime;
 
                 _currentVerticalRotation += horizontalRotation;
                 _currentHorizontalRotation -= verticalRotation;

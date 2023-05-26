@@ -79,6 +79,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States
             if (!HasReachedPlayer())
                 return;
             
+            _playerRuntimeData.Player.ReceiveDamage(_enemyRuntimeData.EnemyDamageData.DamageValue);
             _enemyStateHandler.EnterState<EnemyDieState>();
         }
 

@@ -2,6 +2,9 @@
 {
     public class PlayerDieHandler : IPlayerDieHandler
     {
-        
+        public void Die()
+        {
+            
+        }
     }
 }

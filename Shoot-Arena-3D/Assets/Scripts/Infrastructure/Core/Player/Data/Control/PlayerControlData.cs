@@ -2,10 +2,19 @@
 {
     public class PlayerControlData
     {
-        public float CurrentMoveSpeed { get; set; }
-        public float CurrentRotationSpeed { get; set; }
-        public float MinRotateHeight { get; set; }
-        public float MaxRotateHeight { get; set; }
-        public bool IsRespawning { get; set; } = false;
+        public float MoveSpeed { get; }
+        public float RotationSpeed { get;}
+        public float MinRotateHeight { get; }
+        public float MaxRotateHeight { get; }
+        public bool IsRespawning { get; set; }
+
+        public PlayerControlData(float moveSpeed, float rotationSpeed, float minRotateHeight, float maxRotateHeight)
+        {
+            MoveSpeed = moveSpeed;
+            RotationSpeed = rotationSpeed;
+            MinRotateHeight = minRotateHeight;
+            MaxRotateHeight = maxRotateHeight;
+            IsRespawning = false;
+        }
     }
 }

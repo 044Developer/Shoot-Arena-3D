@@ -6,7 +6,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
     {
         void OnFireButtonClick();
         void OnUltButtonClick();
-        void OnChangeHpValue(float newValue);
-        void OnChangeUltValue(float newValue);
+        void OnChangeHpValue();
+        void OnChangeUltValue();
     }
 }

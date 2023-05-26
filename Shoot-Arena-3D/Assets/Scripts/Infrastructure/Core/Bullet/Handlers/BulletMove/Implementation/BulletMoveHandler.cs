@@ -57,7 +57,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
 
         private bool HasEnemyJumpedOff()
         {
-            return !_playerRuntimeData.Player.IsPlayerGrounded();
+            return _playerRuntimeData.PlayerControlData.IsRespawning;
         }
     }
 }

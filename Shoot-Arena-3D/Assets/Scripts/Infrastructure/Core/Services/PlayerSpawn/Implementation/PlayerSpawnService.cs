@@ -13,7 +13,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
     {
         private readonly PlayerFacade.Factory _playerFactory = null;
         private readonly IDynamicPrefabFacade _dynamicPrefabFacade = null;
-        private readonly IPlayerRuntimeData _playerRuntimeData = null;
+        private readonly PlayerRuntimeData _playerRuntimeData = null;
         private readonly ISpawnPositionService _spawnPositionService = null;
         private readonly IPlayerSetUpHandler _playerSetUpHandler = null;
 
@@ -27,7 +27,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
         {
             _playerFactory = playerFactory;
             _dynamicPrefabFacade = dynamicPrefabFacade;
-            _playerRuntimeData = playerRuntimeData;
+            _playerRuntimeData = playerRuntimeData as PlayerRuntimeData;
             _spawnPositionService = spawnPositionService;
             _playerSetUpHandler = playerSetUpHandler;
         }

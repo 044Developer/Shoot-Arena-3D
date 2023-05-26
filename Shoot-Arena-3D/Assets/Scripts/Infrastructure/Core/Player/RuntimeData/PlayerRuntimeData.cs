@@ -8,8 +8,8 @@ namespace ShootArena.Infrastructure.Core.Player.RuntimeData
     public class PlayerRuntimeData : IPlayerRuntimeData
     {
         public IPlayer Player { get; set; }
-        public PlayerHealthData HealthData { get; } = new PlayerHealthData();
-        public PlayerStrengthData PlayerStrengthData { get;  } = new PlayerStrengthData();
-        public PlayerControlData PlayerControlData { get; } = new PlayerControlData();
+        public PlayerHealthData HealthData { get; set; }
+        public PlayerStrengthData PlayerStrengthData { get; set; }
+        public PlayerControlData PlayerControlData { get; set; }
     }
 }

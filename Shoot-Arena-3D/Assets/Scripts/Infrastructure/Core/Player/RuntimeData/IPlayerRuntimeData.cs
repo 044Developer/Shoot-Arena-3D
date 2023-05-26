@@ -7,9 +7,9 @@ namespace ShootArena.Infrastructure.Core.Player.RuntimeData
 {
     public interface IPlayerRuntimeData
     {
-        IPlayer Player { get; set; }
-        PlayerHealthData HealthData { get; }
-        PlayerStrengthData PlayerStrengthData { get; }
-        PlayerControlData PlayerControlData { get; }
+        IPlayer Player { get; } 
+        public PlayerHealthData HealthData { get; }
+        public PlayerStrengthData PlayerStrengthData { get; }
+        public PlayerControlData PlayerControlData { get; }
     }
 }

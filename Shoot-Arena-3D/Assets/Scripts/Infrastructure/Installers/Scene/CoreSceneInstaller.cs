@@ -11,12 +11,16 @@ using ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerDie;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerDie.Implementation;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot.Implementation;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementation;
 using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.BulletSpawn;
@@ -339,6 +343,10 @@ namespace ShootArena.Infrastructure.Installers.Scene
             BindPlayerDieHandler();
 
             BindPlayerShootHandler();
+
+            BindPlayerHealthHandler();
+
+            BindPlayerUltHandler();
         }
 
         private void BindPlayerSetUpHandler()
@@ -399,6 +407,22 @@ namespace ShootArena.Infrastructure.Installers.Scene
             Container
                 .Bind<IOutOfBoundsHandler>()
                 .To<OutOfBoundsHandler>()
+                .AsSingle();
+        }
+
+        private void BindPlayerHealthHandler()
+        {
+            Container
+                .Bind<IPlayerHealthHandler>()
+                .To<PlayerHealthHandler>()
+                .AsSingle();
+        }
+
+        private void BindPlayerUltHandler()
+        {
+            Container
+                .Bind<IPlayerUltHandler>()
+                .To<PlayerUltHandler>()
                 .AsSingle();
         }
 

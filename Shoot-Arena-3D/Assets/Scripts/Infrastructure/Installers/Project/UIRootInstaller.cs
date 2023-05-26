@@ -8,6 +8,7 @@ using ShootArena.Infrastructure.Modules.UIWindows.Container.Implementation;
 using ShootArena.Infrastructure.Modules.UIWindows.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Mediator;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Implementation;
@@ -29,6 +30,8 @@ namespace ShootArena.Infrastructure.Installers.Project
         public override void InstallBindings()
         {
             BindUIRoot();
+
+            BindRuntimeData();
         
             BindUIModules();
 
@@ -156,6 +159,23 @@ namespace ShootArena.Infrastructure.Installers.Project
                 .To<LooseMediator>()
                 .AsSingle()
                 .WhenInjectedInto<LooseWindow>();
+        }
+
+        #endregion
+
+        #region RuntimeData
+
+        private void BindRuntimeData()
+        {
+            BindHudRuntimeData();
+        }
+
+        private void BindHudRuntimeData()
+        {
+            Container
+                .Bind<IHUDRuntimeData>()
+                .To<HUDRuntimeData>()
+                .AsSingle();
         }
 
         #endregion

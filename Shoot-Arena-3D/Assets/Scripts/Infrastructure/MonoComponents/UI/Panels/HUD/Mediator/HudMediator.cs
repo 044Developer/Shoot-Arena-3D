@@ -1,4 +1,5 @@
 ﻿using ShootArena.Infrastructure.MonoComponents.UI.Base;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel;
 using UnityEngine;
 
@@ -6,9 +7,14 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 {
     public class HudMediator : IHudMediator
     {
+        private readonly IHUDRuntimeData _hudRuntimeData = null;
+        
         private IHudViewModel _viewModel = null;
-        private float _maxHpValue = 100f;
-        private float _maxUltValue = 100f;
+
+        public HudMediator(IHUDRuntimeData hudRuntimeData)
+        {
+            _hudRuntimeData = hudRuntimeData;
+        }
         
         public void SetModel(IUIViewModel viewModel)
         {
@@ -23,26 +29,25 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         {
         }
 
-        public void OnChangeHpValue(float newValue) => 
-            UpdateHpValue(newValue);
+        public void OnChangeHpValue() => 
+            UpdateHpValue();
 
-        public void OnChangeUltValue(float newValue) => 
-            UpdateUltValue(newValue);
+        public void OnChangeUltValue() => 
+            UpdateUltValue();
 
-        private void UpdateHpValue(float newValue)
+        private void UpdateHpValue()
         {
             float maxBarWidth = GetMaxProgressWidth(_viewModel.PlayerHpProgressBackRect);
-            float currentPercent = newValue / _maxHpValue;
-            Vector2 newHpBarValue = new Vector2(maxBarWidth * currentPercent, _viewModel.PlayerHpProgressRect.sizeDelta.y);
+            
+            Vector2 newHpBarValue = new Vector2(maxBarWidth * _hudRuntimeData.CurrentHealthPercentValue, _viewModel.PlayerHpProgressRect.sizeDelta.y);
             
             _viewModel.PlayerHpProgressRect.sizeDelta = newHpBarValue;
         }
 
-        private void UpdateUltValue(float newValue)
+        private void UpdateUltValue()
         {
             float maxBarWidth = GetMaxProgressWidth(_viewModel.PlayerUltProgressBackRect);
-            float currentPercent = newValue / _maxUltValue;
-            Vector2 newUltBarValue = new Vector2(maxBarWidth * currentPercent, _viewModel.PlayerUltProgressRect.sizeDelta.y);
+            Vector2 newUltBarValue = new Vector2(maxBarWidth * _hudRuntimeData.CurrentStrengthPercentValue, _viewModel.PlayerUltProgressRect.sizeDelta.y);
             
             _viewModel.PlayerUltProgressRect.sizeDelta = newUltBarValue;
         }
