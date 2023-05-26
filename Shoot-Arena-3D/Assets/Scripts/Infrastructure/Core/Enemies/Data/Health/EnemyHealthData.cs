@@ -6,10 +6,10 @@
         public float MinHealth { get; }
         public float CurrentHealth { get; set; }
 
-        public EnemyHealthData(float maxHealth, float minHealth)
+        public EnemyHealthData(float maxHealth)
         {
             MaxHealth = maxHealth;
-            MinHealth = minHealth;
+            MinHealth = 0;
             CurrentHealth = maxHealth;
         }
     }

@@ -38,6 +38,12 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
         {
             if (_bulletRuntimeData.Bullet.BulletType != BulletType.Enemy)
                 return;
+
+            if (HasEnemyJumpedOff())
+            {
+                _bulletRuntimeData.Bullet.DestroyBullet();
+                return;
+            }
             
             Vector3 currentBulletPosition = Vector3.MoveTowards(
                 _bulletRuntimeData.Bullet.View.Transform.position, _playerRuntimeData.Player.View.Transform.position,
@@ -47,6 +53,11 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
 
             _bulletRuntimeData.Bullet.View.Transform.LookAt(_playerRuntimeData.Player.View.Transform);
             _bulletRuntimeData.Bullet.View.Transform.position = currentBulletPosition;
+        }
+
+        private bool HasEnemyJumpedOff()
+        {
+            return !_playerRuntimeData.Player.IsPlayerGrounded();
         }
     }
 }

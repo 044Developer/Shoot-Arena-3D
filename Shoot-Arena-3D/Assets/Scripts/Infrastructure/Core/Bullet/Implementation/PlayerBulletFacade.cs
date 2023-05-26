@@ -1,7 +1,7 @@
 ﻿using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Model;
 using ShootArena.Infrastructure.Core.Bullet.RuntimeData;
-using ShootArena.Infrastructure.Core.Data.TakeDamage;
+using ShootArena.Infrastructure.Core.Enemies.Model;
 using UnityEngine;
 using Zenject;
 
@@ -9,8 +9,6 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
 {
     public class PlayerBulletFacade : BulletBase, IPoolable<IBulletConfigurationData, Vector3, Vector3, IMemoryPool>
     {
-        private const string ENEMY_TAG = "Enemy";
-        
         [Inject]
         public void Construct(IBulletRuntimeData runtimeData)
         {
@@ -34,7 +32,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
 
         public override void OnBulletHitAction(Collision collision)
         {
-            if (!collision.gameObject.TryGetComponent(out ITakeDamage damageTarget))
+            if (!collision.gameObject.TryGetComponent(out IEnemy damageTarget))
             {
                 DestroyBullet();
                 return;

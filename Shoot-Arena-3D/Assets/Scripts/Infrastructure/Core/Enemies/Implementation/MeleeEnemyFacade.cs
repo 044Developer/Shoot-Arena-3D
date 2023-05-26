@@ -1,5 +1,6 @@
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealthBar;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
 using ShootArena.Infrastructure.Core.Enemies.Model;
@@ -20,13 +21,15 @@ namespace ShootArena.Infrastructure.Core.Enemies.Implementation
             IEnemyRuntimeData enemyRuntimeData,
             IEnemyRegistryService enemyRegistryService,
             IEnemyStateHandler enemyStateHandler,
-            IEnemyHealthHandler healthHandler
+            IEnemyHealthHandler healthHandler,
+            IEnemyHealthBarHandler hpBarHandler
             )
         {
             runtimeData = enemyRuntimeData as EnemyRuntimeData;
             _enemyRegistryService = enemyRegistryService;
             _enemyStateHandler = enemyStateHandler;
             enemyHealthHandler = healthHandler;
+            healthBarHandler = hpBarHandler;
         }
         
         public void OnSpawned(IEnemyConfigurationData configurationData, Vector3 spawnPosition, Transform parent, IMemoryPool memoryPool)

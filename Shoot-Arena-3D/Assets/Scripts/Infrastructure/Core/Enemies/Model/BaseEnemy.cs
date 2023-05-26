@@ -1,10 +1,10 @@
-using ShootArena.Infrastructure.Core.Data.TakeDamage;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Control;
 using ShootArena.Infrastructure.Core.Enemies.Data.Damage;
 using ShootArena.Infrastructure.Core.Enemies.Data.Health;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealthBar;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Enemies.View;
 using UnityEngine;
@@ -12,7 +12,7 @@ using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Model
 {
-    public abstract class BaseEnemy : MonoBehaviour, IEnemy, ITakeDamage
+    public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
         [SerializeField] private EnemyView _enemyView = null;
 
@@ -23,10 +23,16 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
         protected EnemyRuntimeData runtimeData = null;
         protected IMemoryPool enemyPool = null;
         protected IEnemyHealthHandler enemyHealthHandler = null;
+        protected IEnemyHealthBarHandler healthBarHandler = null;
 
         public void ReceiveDamage(float damageValue)
         {
+            if (EnemyType == EnemyType.RangeEnemy)
+            {
+                Debug.Log("Here");
+            }
             enemyHealthHandler.ReceiveDamage(damageValue);
+            healthBarHandler.UpdateHealthBar();
         }
 
         public void Die()
@@ -50,6 +56,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
             SetUpDamageData();
 
             SetUpControlData();
+            
+            healthBarHandler.UpdateHealthBar();
         }
 
         protected void DisposeEnemy()
@@ -59,7 +67,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         private void SetUpHealthData()
         {
-            runtimeData.EnemyHealthData = new EnemyHealthData(enemyConfiguration.EnemyMaxHealth, 0);
+            runtimeData.EnemyHealthData = new EnemyHealthData(enemyConfiguration.EnemyMaxHealth);
         }
 
         private void SetUpDamageData()

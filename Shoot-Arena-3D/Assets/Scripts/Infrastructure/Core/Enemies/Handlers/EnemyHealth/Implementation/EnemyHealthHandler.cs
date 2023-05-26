@@ -12,7 +12,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
 
         public EnemyHealthHandler(
             IEnemyRuntimeData enemyRuntimeData,
-            IEnemyStateHandler enemyStateHandler)
+            IEnemyStateHandler enemyStateHandler
+            )
         {
             _enemyRuntimeData = enemyRuntimeData;
             _enemyStateHandler = enemyStateHandler;
@@ -21,10 +22,9 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
         public void ReceiveDamage(float value)
         {
             DecreaseHealth(value);
-
+            
             if (IsEnemyDead())
             {
-                Debug.Log("ENEMY DEAD");
                 _enemyStateHandler.EnterState<EnemyDieState>();
             }
         }

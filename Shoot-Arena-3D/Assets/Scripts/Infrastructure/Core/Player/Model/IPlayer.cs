@@ -9,5 +9,6 @@ namespace ShootArena.Infrastructure.Core.Player.Model
         void SetParent(Transform parent);
         void SetPosition(Vector3 position);
         bool IsPlayerGrounded();
+        void ReceiveDamage(float damageValue);
     }
 }
