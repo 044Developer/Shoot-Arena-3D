@@ -50,7 +50,8 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
         {
             float newUltValue = _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue + value;
             _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue =
-                Mathf.Max(_playerRuntimeData.PlayerStrengthData.MaxStrengthValue, newUltValue);
+                Mathf.Clamp(newUltValue, _playerRuntimeData.PlayerStrengthData.MinStrengthValue,
+                    _playerRuntimeData.PlayerStrengthData.MaxStrengthValue);
         }
 
         private void DecreaseAllPoints()

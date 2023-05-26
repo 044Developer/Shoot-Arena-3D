@@ -1,6 +1,7 @@
 ﻿using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementation
@@ -9,14 +10,17 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
     {
         private readonly IEnemyRuntimeData _enemyRuntimeData = null;
         private readonly IEnemyStateHandler _enemyStateHandler = null;
+        private readonly IPlayerUltHandler _playerUltHandler = null;
 
         public EnemyHealthHandler(
             IEnemyRuntimeData enemyRuntimeData,
-            IEnemyStateHandler enemyStateHandler
+            IEnemyStateHandler enemyStateHandler,
+            IPlayerUltHandler playerUltHandler
             )
         {
             _enemyRuntimeData = enemyRuntimeData;
             _enemyStateHandler = enemyStateHandler;
+            _playerUltHandler = playerUltHandler;
         }
         
         public void ReceiveDamage(float value)
@@ -25,6 +29,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
             
             if (IsEnemyDead())
             {
+                _playerUltHandler.AddUltPoints(_enemyRuntimeData.EnemyDamageData.RewardPoints);
                 _enemyStateHandler.EnterState<EnemyDieState>();
             }
         }

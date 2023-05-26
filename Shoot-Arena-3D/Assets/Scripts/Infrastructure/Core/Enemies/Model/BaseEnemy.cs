@@ -27,10 +27,6 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
 
         public void ReceiveDamage(float damageValue)
         {
-            if (EnemyType == EnemyType.RangeEnemy)
-            {
-                Debug.Log("Here");
-            }
             enemyHealthHandler.ReceiveDamage(damageValue);
             healthBarHandler.UpdateHealthBar();
         }

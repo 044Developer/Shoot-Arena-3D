@@ -11,7 +11,10 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
     public class EnemyBulletFacade : BulletBase, IPoolable<IBulletConfigurationData, Vector3, IMemoryPool>
     {
         [Inject]
-        public void Construct(IBulletRuntimeData runtimeData, IPlayerRuntimeData playerRuntimeData)
+        public void Construct(
+            IBulletRuntimeData runtimeData,
+            IPlayerRuntimeData playerRuntimeData
+            )
         {
             bulletRuntimeData = runtimeData as BulletRuntimeData;
         }

@@ -2,6 +2,7 @@
 using ShootArena.Infrastructure.Core.Bullet.Model;
 using ShootArena.Infrastructure.Core.Bullet.RuntimeData;
 using ShootArena.Infrastructure.Core.Enemies.Model;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
     public class PlayerBulletFacade : BulletBase, IPoolable<IBulletConfigurationData, Vector3, Vector3, IMemoryPool>
     {
         [Inject]
-        public void Construct(IBulletRuntimeData runtimeData)
+        public void Construct(IBulletRuntimeData runtimeData, IPlayerUltHandler playerUltHandler)
         {
             bulletRuntimeData = runtimeData as BulletRuntimeData;
         }
