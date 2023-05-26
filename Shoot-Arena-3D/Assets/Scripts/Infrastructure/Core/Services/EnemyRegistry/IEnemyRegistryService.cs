@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry

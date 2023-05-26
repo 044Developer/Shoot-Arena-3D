@@ -1,3 +1,4 @@
+using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot;
@@ -14,24 +15,30 @@ namespace ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation
         private readonly IPlayerControlHandler _playerControlHandler = null;
         private readonly IOutOfBoundsHandler _outOfBoundsHandler = null;
         private readonly IPlayerShootHandler _playerShootHandler = null;
+        private readonly ILevelTimingRuntimeData _levelTimingRuntimeData = null;
 
         public LevelUpdateService(
             ILevelTimerService levelTimerService,
             IEnemySpawnService enemySpawnService,
             IPlayerControlHandler playerControlHandler,
             IOutOfBoundsHandler outOfBoundsHandler,
-            IPlayerShootHandler playerShootHandler
-            )
+            IPlayerShootHandler playerShootHandler,
+            ILevelTimingRuntimeData levelTimingRuntimeData
+        )
         {
             _levelTimerService = levelTimerService;
             _enemySpawnService = enemySpawnService;
             _playerControlHandler = playerControlHandler;
             _outOfBoundsHandler = outOfBoundsHandler;
             _playerShootHandler = playerShootHandler;
+            _levelTimingRuntimeData = levelTimingRuntimeData;
         }
         
         public void Tick()
         {
+            if (_levelTimingRuntimeData.IsLevelPaused)
+                return;
+
             _levelTimerService.Tick();
             
             _enemySpawnService.Tick();

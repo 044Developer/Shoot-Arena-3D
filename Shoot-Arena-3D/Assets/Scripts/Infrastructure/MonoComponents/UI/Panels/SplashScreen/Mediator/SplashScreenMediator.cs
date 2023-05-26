@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using ShootArena.Infrastructure.Modules.AppStateMachine;
+using ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation;
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.MonoComponents.UI.Base;
@@ -11,12 +13,17 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Mediat
     public class SplashScreenMediator : ISplashScreenMediator
     {
         private readonly IUIPanelsModule _panelsModule = null;
+        private readonly IAppStateMachine _appStateMachine = null;
         private ISplashScreenViewModel _viewModel = null;
         private Sequence _splashScreenSequence = null;
 
-        public SplashScreenMediator(IUIPanelsModule panelsModule)
+        public SplashScreenMediator(
+            IUIPanelsModule panelsModule,
+            IAppStateMachine appStateMachine
+            )
         {
             _panelsModule = panelsModule;
+            _appStateMachine = appStateMachine;
         }
         
         public void SetModel(IUIViewModel viewModel)
@@ -59,6 +66,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Mediat
 
         private void OnLoadingScreenCloseAction()
         {
+            _appStateMachine.Enter<AppMainMenuState>();
             _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu);
         }
 

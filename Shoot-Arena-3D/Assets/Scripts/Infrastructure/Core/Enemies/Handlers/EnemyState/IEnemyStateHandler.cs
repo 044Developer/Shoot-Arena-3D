@@ -4,6 +4,7 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState
 {
     public interface IEnemyStateHandler
     {
+        void Tick();
         void EnterState<TState>() where TState : IEnemyState;
     }
 }

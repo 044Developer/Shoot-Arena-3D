@@ -5,6 +5,7 @@ using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealthBar.Implementat
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
+using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyUpdater.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using Zenject;
 
@@ -23,6 +24,8 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
             BindStateService();
 
             BindStates();
+
+            BindEnemyUpdaterHandler();
         }
 
         private void BindData()
@@ -44,7 +47,7 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
         private void BindHealthBarHandler()
         {
             Container
-                .Bind(typeof(IEnemyHealthBarHandler), typeof(ITickable))
+                .Bind<IEnemyHealthBarHandler>()
                 .To<EnemyHealthBarHandler>()
                 .AsSingle();
         }
@@ -52,7 +55,7 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
         private void BindStateService()
         {
             Container
-                .Bind(typeof(IEnemyStateHandler), typeof(ITickable))
+                .Bind<IEnemyStateHandler>()
                 .To<EnemyStateHandler>()
                 .AsSingle()
                 .Lazy();
@@ -84,6 +87,13 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
                 .Bind<EnemyDieState>()
                 .AsSingle();
             
+        }
+
+        private void BindEnemyUpdaterHandler()
+        {
+            Container
+                .BindInterfacesAndSelfTo<EnemyUpdaterHandler>()
+                .AsSingle();
         }
     }
 }

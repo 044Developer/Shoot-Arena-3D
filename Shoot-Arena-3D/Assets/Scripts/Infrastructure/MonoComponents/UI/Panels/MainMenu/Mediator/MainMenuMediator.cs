@@ -100,7 +100,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
         private void OnLoadingScreenClosed()
         {
             CloseMainMenu();
-            _panelsModule.ShowPanel<HudPanel>(UIPanelType.HUD);
+            
+            _stateMachine.Enter<AppCoreGameState>();
         }
 
         private void CloseMainMenu()

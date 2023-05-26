@@ -1,11 +1,10 @@
 ﻿using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using UnityEngine;
-using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealthBar.Implementation
 {
-    public class EnemyHealthBarHandler : IEnemyHealthBarHandler, ITickable
+    public class EnemyHealthBarHandler : IEnemyHealthBarHandler
     {
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly IEnemyRuntimeData _enemyRuntimeData = null;

@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation
 {
-    public class BoostrapState : IAppState
+    public class BoostrapState : AppBaseState
     {
         private readonly IAppStateMachine _stateMachine = null;
         private readonly IDeviceCheckModule _deviceCheckModule = null;
@@ -26,16 +26,12 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             _windowsModule = windowsModule;
         }
         
-        public void Enter()
+        public override void Enter()
         {
             SetUp();
             
             ShowSplash();
             LoadMainScene();
-        }
-        
-        public void Exit()
-        {
         }
 
         private void SetUp()

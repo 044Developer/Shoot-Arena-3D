@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Modules.AppStateMachine.States;
 using ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation;
-using ShootArena.Infrastructure.Modules.DeviceCheck;
-using ShootArena.Infrastructure.Modules.SceneLoader;
-using ShootArena.Infrastructure.Modules.UIPanels;
-using ShootArena.Infrastructure.Modules.UIWindows;
+using Zenject;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
 {
@@ -14,21 +11,26 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
         private Dictionary<Type, IAppExitableState> _gameStates = null;
         private IAppExitableState _activeState = null;
 
-        public AppStateMachine(
-            ISceneLoaderModule sceneLoader,
-            IDeviceCheckModule deviceCheckModule,
-            IUIPanelsModule panelsModule,
-            IUIWindowsModule windowsModule
+        [Inject]
+        public void Construct(
+            BoostrapState boostrapState,
+            SceneLoadState sceneLoadState,
+            AppOutOfFocusState appOutOfFocusState,
+            AppBackToFocusState appBackToFocusState,
+            AppMainMenuState appMainMenuState,
+            AppCoreGameState appCoreGameState,
+            AppQuitState appQuitState
             )
         {
             _gameStates = new Dictionary<Type, IAppExitableState>()
             {
-                [typeof(BoostrapState)] = new BoostrapState(this, deviceCheckModule, panelsModule, windowsModule),
-                [typeof(SceneLoadState)] = new SceneLoadState(sceneLoader),
-                [typeof(GamePlayScene)] = new GamePlayScene(),
-                [typeof(GamePauseState)] = new GamePauseState(),
-                [typeof(GameResumeState)] = new GameResumeState(this),
-                [typeof(GameQuitState)] = new GameQuitState()
+                [typeof(BoostrapState)] = boostrapState,
+                [typeof(SceneLoadState)] = sceneLoadState,
+                [typeof(AppOutOfFocusState)] = appOutOfFocusState,
+                [typeof(AppBackToFocusState)] = appBackToFocusState,
+                [typeof(AppMainMenuState)] = appMainMenuState,
+                [typeof(AppCoreGameState)] = appCoreGameState,
+                [typeof(AppQuitState)] = appQuitState
             };
         }
 

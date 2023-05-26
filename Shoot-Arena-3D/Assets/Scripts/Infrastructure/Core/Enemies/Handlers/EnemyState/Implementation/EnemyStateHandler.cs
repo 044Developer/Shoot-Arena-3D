@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
+using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementation
 {
-    public class EnemyStateHandler : IEnemyStateHandler, ITickable
+    public class EnemyStateHandler : IEnemyStateHandler
     {
         private Dictionary<Type, IEnemyState> _enemyStates = null;
         private IEnemyState _currentState = null;
+        private ILevelTimingRuntimeData _levelTimingRuntimeData = null;
         
         [Inject]
         public void Construct(
@@ -18,9 +20,12 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementat
             EnemyPrepareAttackState prepareAttackState,
             EnemyAttackState attackState,
             EnemyRechargeState rechargeState,
-            EnemyDieState dieState
+            EnemyDieState dieState,
+            ILevelTimingRuntimeData levelTimingRuntimeData
             )
         {
+            _levelTimingRuntimeData = levelTimingRuntimeData;
+            
             _enemyStates = new Dictionary<Type, IEnemyState>
             {
                 [typeof(EnemyIdleState)] = idleState,
@@ -66,6 +71,9 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementat
 
         public void Tick()
         {
+            if (_levelTimingRuntimeData.IsLevelPaused)
+                return;
+
             _currentState?.Tick();
         }
     }

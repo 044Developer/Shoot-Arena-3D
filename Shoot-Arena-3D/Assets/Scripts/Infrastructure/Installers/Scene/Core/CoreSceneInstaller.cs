@@ -4,6 +4,9 @@ using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
+using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates;
+using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.Implementation;
+using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Implementation;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds;
@@ -72,6 +75,8 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             BindServices();
 
             BindHandlers();
+
+            BindLevelStateHandler();
 
             Container.BindInterfacesTo<LevelBuilder>().AsSingle();
         }
@@ -424,6 +429,43 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             Container
                 .Bind(typeof(IPlayerUltHandler), typeof(IInitializable), typeof(IDisposable))
                 .To<PlayerUltHandler>()
+                .AsSingle();
+        }
+
+        #endregion
+
+        #region Level States
+
+        private void BindLevelStateHandler()
+        {
+            Container
+                .Bind<ILevelStatesHandler>()
+                .To<LevelStateHandler>()
+                .AsSingle();
+            
+            BindLevelStates();
+        }
+
+        private void BindLevelStates()
+        {
+            Container
+                .Bind<LevelEnterState>()
+                .AsSingle();
+            
+            Container
+                .Bind<LevelPauseState>()
+                .AsSingle();
+            
+            Container
+                .Bind<LevelResumeState>()
+                .AsSingle();
+            
+            Container
+                .Bind<LevelExitState>()
+                .AsSingle();
+            
+            Container
+                .Bind<LevelRestartState>()
                 .AsSingle();
         }
 

@@ -1,5 +1,6 @@
 using ShootArena.Infrastructure.Modules.AppStateMachine;
 using ShootArena.Infrastructure.Modules.AppStateMachine.Implementation;
+using ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation;
 using ShootArena.Infrastructure.Modules.AssetProvider;
 using ShootArena.Infrastructure.Modules.AssetProvider.Implementation;
 using ShootArena.Infrastructure.Modules.CustomFactory;
@@ -46,6 +47,7 @@ namespace ShootArena.Infrastructure.Installers.Project
             BindCustomFactory();
             BindSceneLoader();
             BindAppStateMachine();
+            BindAppStates();
             BindXMLReader();
         }
 
@@ -95,6 +97,37 @@ namespace ShootArena.Infrastructure.Installers.Project
             Container
                 .Bind<IAppStateMachine>()
                 .To<AppStateMachine>()
+                .AsSingle();
+        }
+
+        private void BindAppStates()
+        {
+            Container
+                .Bind<BoostrapState>()
+                .AsSingle();
+            
+            Container
+                .Bind<SceneLoadState>()
+                .AsSingle();
+            
+            Container
+                .Bind<AppOutOfFocusState>()
+                .AsSingle();
+            
+            Container
+                .Bind<AppBackToFocusState>()
+                .AsSingle();
+            
+            Container
+                .Bind<AppMainMenuState>()
+                .AsSingle();
+            
+            Container
+                .Bind<AppCoreGameState>()
+                .AsSingle();
+            
+            Container
+                .Bind<AppQuitState>()
                 .AsSingle();
         }
 

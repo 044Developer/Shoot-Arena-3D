@@ -2,6 +2,7 @@
 {
     public interface IEnemyHealthBarHandler
     {
+        void Tick();
         public void UpdateHealthBar();
     }
 }

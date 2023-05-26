@@ -19,17 +19,17 @@ namespace ShootArena.Infrastructure
 
         public void PauseApplication()
         {
-            _stateMachine.Enter<GamePauseState>();
+            _stateMachine.Enter<AppOutOfFocusState>();
         }
 
         public void ResumeApplication()
         {
-            _stateMachine.Enter<GameResumeState>();
+            _stateMachine.Enter<AppBackToFocusState>();
         }
 
         public void QuitApplication()
         {
-            _stateMachine.Enter<GameQuitState>();
+            _stateMachine.Enter<AppQuitState>();
         }
     }
 }
