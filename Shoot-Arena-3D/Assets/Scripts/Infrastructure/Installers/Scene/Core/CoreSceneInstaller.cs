@@ -49,7 +49,7 @@ using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Core;
 using UnityEngine;
 using Zenject;
 
-namespace ShootArena.Infrastructure.Installers.Scene
+namespace ShootArena.Infrastructure.Installers.Scene.Core
 {
     public class CoreSceneInstaller: MonoInstaller
     {

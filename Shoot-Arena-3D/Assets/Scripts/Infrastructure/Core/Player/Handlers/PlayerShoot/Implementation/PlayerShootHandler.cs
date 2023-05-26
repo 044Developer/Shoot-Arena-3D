@@ -4,7 +4,6 @@ using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.BulletSpawn;
 using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
-using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 
 namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot.Implementation
 {
@@ -13,7 +12,6 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot.Implementat
         private readonly IBulletSpawnService _bulletSpawnService = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly IPlayerUltHandler _playerUltHandler = null;
-        private readonly IHUDRuntimeData _hudRuntimeData = null;
         private readonly IPlayerInputHandler _inputHandler = null;
 
         public PlayerShootHandler

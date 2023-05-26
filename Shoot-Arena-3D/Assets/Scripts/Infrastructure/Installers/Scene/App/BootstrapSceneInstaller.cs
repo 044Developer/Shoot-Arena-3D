@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace ShootArena.Infrastructure.Installers.Scene
+namespace ShootArena.Infrastructure.Installers.Scene.App
 {
     public class BootstrapSceneInstaller : MonoInstaller
     {
