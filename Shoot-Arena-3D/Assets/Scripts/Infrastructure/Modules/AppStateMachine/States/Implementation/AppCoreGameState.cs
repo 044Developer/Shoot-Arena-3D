@@ -6,13 +6,13 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
 {
     public class AppCoreGameState : AppBaseState
     {
-        private readonly IUIPanelsModule _panelsModule;
+        private readonly IUIPanelsModule _panelsModule = null;
 
         public AppCoreGameState(IUIPanelsModule panelsModule)
         {
             _panelsModule = panelsModule;
         }
-
+        
         public override void Enter()
         {
             base.Enter();

@@ -1,6 +1,5 @@
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
-using ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Implementation;
 
 namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementation
@@ -13,14 +12,12 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
         {
             _panelsModule = panelsModule;
         }
-
+        
         public override void Enter()
         {
             base.Enter();
             
-            _panelsModule.ShowPanel<LoadingScreenPanel>(UIPanelType.Loading, 
-                onPanelClosedAction: () 
-                    => _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu));
+            _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu);
         }
     }
 }

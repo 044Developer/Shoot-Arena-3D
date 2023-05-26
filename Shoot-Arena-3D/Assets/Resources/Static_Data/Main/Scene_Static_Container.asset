@@ -16,6 +16,6 @@ MonoBehaviour:
   - _sceneType: 1
     _sceneName: Bootstrap
   - _sceneType: 2
-    _sceneName: Main
+    _sceneName: MainMenu
   - _sceneType: 3
     _sceneName: Core

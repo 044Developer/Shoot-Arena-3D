@@ -6,6 +6,7 @@ using ShootArena.Infrastructure.Modules.SceneLoader.Data;
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.Modules.UIWindows;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Implementation;
 using UnityEngine.SceneManagement;
 
@@ -30,8 +31,8 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
         {
             SetUp();
             
-            ShowSplash();
             LoadMainScene();
+            ShowSplash();
         }
 
         private void SetUp()
@@ -69,9 +70,17 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
         }
 
         private void ShowSplash() => 
-            _panelsModule.ShowPanel<SplashScreenPanel>(UIPanelType.Splash);
+            _panelsModule.ShowPanel<SplashScreenPanel>(UIPanelType.Splash, onPanelClosedAction: OnSplashScreenCloseAction);
+
+        private void OnSplashScreenCloseAction()
+        {
+            _panelsModule.ShowPanel<LoadingScreenPanel>(UIPanelType.Loading, onPanelClosedAction: OnLoadingScreenCloseAction);
+        }
 
         private void LoadMainScene() => 
             _stateMachine.Enter<SceneLoadState, SceneType, LoadSceneMode, Action>(SceneType.Main, LoadSceneMode.Additive, null);
+
+        private void OnLoadingScreenCloseAction() => 
+            _stateMachine.Enter<AppMainMenuState>();
     }
 }
