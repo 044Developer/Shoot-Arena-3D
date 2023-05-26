@@ -7,6 +7,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 {
     public class HudMediator : IHudMediator
     {
+        private const float ULT_MAX_PERCENT_VALUE = 1f;
         private readonly IHUDRuntimeData _hudRuntimeData = null;
         
         private IHudViewModel _viewModel = null;
@@ -27,6 +28,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 
         public void OnUltButtonClick()
         {
+            _hudRuntimeData.OnUltButtonPressed?.Invoke();
+            UpdateUltButtonState();
         }
 
         public void OnChangeHpValue() => 
@@ -50,11 +53,23 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
             Vector2 newUltBarValue = new Vector2(maxBarWidth * _hudRuntimeData.CurrentStrengthPercentValue, _viewModel.PlayerUltProgressRect.sizeDelta.y);
             
             _viewModel.PlayerUltProgressRect.sizeDelta = newUltBarValue;
+
+            UpdateUltButtonState();
         }
 
         private float GetMaxProgressWidth(RectTransform barBack)
         {
             return barBack.sizeDelta.x;
+        }
+
+        private void UpdateUltButtonState()
+        {
+            _viewModel.UltButton.interactable = HasEnoughUltStrength();
+        }
+
+        private bool HasEnoughUltStrength()
+        {
+            return _hudRuntimeData.CurrentStrengthPercentValue >= ULT_MAX_PERCENT_VALUE;
         }
     }
 }

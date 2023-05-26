@@ -1,3 +1,4 @@
+using System;
 using ShootArena.Infrastructure.Core.Builders.Level;
 using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Implementation;
@@ -421,7 +422,7 @@ namespace ShootArena.Infrastructure.Installers.Scene
         private void BindPlayerUltHandler()
         {
             Container
-                .Bind<IPlayerUltHandler>()
+                .Bind(typeof(IPlayerUltHandler), typeof(IInitializable), typeof(IDisposable))
                 .To<PlayerUltHandler>()
                 .AsSingle();
         }
