@@ -10,5 +10,6 @@ namespace ShootArena.Infrastructure.Core.Player.Model
         void SetPosition(Vector3 position);
         bool IsPlayerGrounded();
         void ReceiveDamage(float damageValue);
+        void LoseUltPoints(float loseValue);
     }
 }

@@ -4,6 +4,7 @@
     {
         void SetUpPlayerUlt();
         void AddUltPoints(float newPoints);
+        void DecreaseUltPoints(float decreaseValue);
         void UseUlt();
     }
 }

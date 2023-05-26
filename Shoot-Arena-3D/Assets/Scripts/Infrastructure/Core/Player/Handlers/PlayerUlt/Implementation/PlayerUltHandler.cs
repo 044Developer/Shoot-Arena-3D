@@ -40,6 +40,13 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
             UpdateHealthHUD();
         }
 
+        public void DecreaseUltPoints(float decreaseValue)
+        {
+            float newPowerValue = _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue - decreaseValue;
+            _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue =
+                Mathf.Max(_playerRuntimeData.PlayerStrengthData.MinStrengthValue, newPowerValue);
+        }
+
         public void UseUlt()
         {
             DecreaseAllPoints();

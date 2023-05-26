@@ -52,7 +52,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Implementation
             if (!collision.gameObject.TryGetComponent(out IPlayer damageTarget))
                 return;
             
-            damageTarget.ReceiveDamage(bulletConfiguration.BulletDamage);
+            damageTarget.LoseUltPoints(bulletConfiguration.BulletDamage);
             DestroyBullet();
         }
     }
