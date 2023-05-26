@@ -1,21 +1,21 @@
-﻿using ShootArena.Infrastructure.Core.Player.RuntimeData;
+﻿using ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput;
+using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.BulletSpawn;
-using ShootArena.Infrastructure.Core.Services.PlayerInput;
 using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
 
-namespace ShootArena.Infrastructure.Core.Services.PlayerShoot.Implementation
+namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot.Implementation
 {
-    public class PlayerShootService : IPlayerShootService
+    public class PlayerShootHandler : IPlayerShootHandler
     {
         private readonly IBulletSpawnService _bulletSpawnService = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
-        private readonly IPlayerInputService _inputService = null;
+        private readonly IPlayerInputHandler _inputHandler = null;
 
-        public PlayerShootService
+        public PlayerShootHandler
         (
-            IPlayerMobileInputService mobileInputService,
-            IPlayerStandaloneInputService standaloneInputService,
+            IPlayerMobileInputHandler mobileInputHandler,
+            IPlayerStandaloneInputHandler standaloneInputHandler,
             IDeviceCheckModule deviceCheckModule,
             IBulletSpawnService bulletSpawnService,
             IPlayerRuntimeData playerRuntimeData
@@ -25,19 +25,19 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerShoot.Implementation
             _playerRuntimeData = playerRuntimeData;
 
             if (deviceCheckModule.CurrentDeviceType.HasFlag(CurrentDeviceType.Mobile))
-                _inputService = mobileInputService;
+                _inputHandler = mobileInputHandler;
             else
-                _inputService = standaloneInputService;
+                _inputHandler = standaloneInputHandler;
         }
         
         public void Tick()
         {
-            if (_inputService.IsAttackButtonUp())
+            if (_inputHandler.IsAttackButtonUp())
             {
                 Shoot();       
             }
 
-            if (_inputService.IsUltButtonUp())
+            if (_inputHandler.IsUltButtonUp())
             {
                 Ult();
             }

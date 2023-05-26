@@ -1,8 +1,8 @@
+using ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot;
 using ShootArena.Infrastructure.Core.Services.EnemySpawn;
 using ShootArena.Infrastructure.Core.Services.LevelTimer;
-using ShootArena.Infrastructure.Core.Services.OutOfBounds;
-using ShootArena.Infrastructure.Core.Services.PlayerControl;
-using ShootArena.Infrastructure.Core.Services.PlayerShoot;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation
@@ -11,23 +11,23 @@ namespace ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation
     {
         private readonly ILevelTimerService _levelTimerService = null;
         private readonly IEnemySpawnService _enemySpawnService = null;
-        private readonly IPlayerControlService _playerControlService = null;
-        private readonly IOutOfBoundsService _outOfBoundsService = null;
-        private readonly IPlayerShootService _playerShootService = null;
+        private readonly IPlayerControlHandler _playerControlHandler = null;
+        private readonly IOutOfBoundsHandler _outOfBoundsHandler = null;
+        private readonly IPlayerShootHandler _playerShootHandler = null;
 
         public LevelUpdateService(
             ILevelTimerService levelTimerService,
             IEnemySpawnService enemySpawnService,
-            IPlayerControlService playerControlService,
-            IOutOfBoundsService outOfBoundsService,
-            IPlayerShootService playerShootService
+            IPlayerControlHandler playerControlHandler,
+            IOutOfBoundsHandler outOfBoundsHandler,
+            IPlayerShootHandler playerShootHandler
             )
         {
             _levelTimerService = levelTimerService;
             _enemySpawnService = enemySpawnService;
-            _playerControlService = playerControlService;
-            _outOfBoundsService = outOfBoundsService;
-            _playerShootService = playerShootService;
+            _playerControlHandler = playerControlHandler;
+            _outOfBoundsHandler = outOfBoundsHandler;
+            _playerShootHandler = playerShootHandler;
         }
         
         public void Tick()
@@ -36,11 +36,11 @@ namespace ShootArena.Infrastructure.Core.Services.LevelUpdate.Implementation
             
             _enemySpawnService.Tick();
             
-            _playerControlService.Tick();
+            _playerControlHandler.Tick();
             
-            _outOfBoundsService.Tick();
+            _outOfBoundsHandler.Tick();
             
-            _playerShootService.Tick();
+            _playerShootHandler.Tick();
         }
     }
 }

@@ -1,24 +1,24 @@
-﻿using ShootArena.Infrastructure.Core.Player.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.PlayerInput;
+﻿using ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput;
+using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
 using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
+namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl.Implementation
 {
-    public class PlayerControlService : IPlayerControlService
+    public class PlayerControlHandler : IPlayerControlHandler
     {
         private const float MIN_INPUT_TREASHOLD = 0.01f;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
-        private readonly IPlayerInputService _inputService = null;
+        private readonly IPlayerInputHandler _inputHandler = null;
 
         private float _currentHorizontalRotation = 0f;
         private float _currentVerticalRotation = 0f;
         
-        public PlayerControlService
+        public PlayerControlHandler
         (
-            IPlayerMobileInputService mobileInputService,
-            IPlayerStandaloneInputService standaloneInputService,
+            IPlayerMobileInputHandler mobileInputHandler,
+            IPlayerStandaloneInputHandler standaloneInputHandler,
             IDeviceCheckModule deviceCheckModule,
             IPlayerRuntimeData playerRuntimeData
         )
@@ -26,9 +26,9 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
             _playerRuntimeData = playerRuntimeData;
             
             if (deviceCheckModule.CurrentDeviceType.HasFlag(CurrentDeviceType.Mobile))
-                _inputService = mobileInputService;
+                _inputHandler = mobileInputHandler;
             else
-                _inputService = standaloneInputService;
+                _inputHandler = standaloneInputHandler;
         }
         
         public void Tick()
@@ -44,9 +44,9 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
         {
             Vector3 movementVector = Vector3.zero;
 
-            if (_inputService.MoveAxis.sqrMagnitude > MIN_INPUT_TREASHOLD)
+            if (_inputHandler.MoveAxis.sqrMagnitude > MIN_INPUT_TREASHOLD)
             {
-                movementVector = _playerRuntimeData.Player.View.Transform.right * _inputService.MoveAxis.x + _playerRuntimeData.Player.View.Transform.forward * _inputService.MoveAxis.y;
+                movementVector = _playerRuntimeData.Player.View.Transform.right * _inputHandler.MoveAxis.x + _playerRuntimeData.Player.View.Transform.forward * _inputHandler.MoveAxis.y;
             }
 
             movementVector += Physics.gravity;
@@ -56,10 +56,10 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerControl.Implementation
 
         private void RotatePlayer()
         {
-            if (_inputService.RotateAxis.sqrMagnitude > MIN_INPUT_TREASHOLD)
+            if (_inputHandler.RotateAxis.sqrMagnitude > MIN_INPUT_TREASHOLD)
             {
-                float horizontalRotation = _inputService.RotateAxis.x * _playerRuntimeData.PlayerControlData.CurrentRotationSpeed * Time.deltaTime;
-                float verticalRotation = _inputService.RotateAxis.y * _playerRuntimeData.PlayerControlData.CurrentRotationSpeed * Time.deltaTime;
+                float horizontalRotation = _inputHandler.RotateAxis.x * _playerRuntimeData.PlayerControlData.CurrentRotationSpeed * Time.deltaTime;
+                float verticalRotation = _inputHandler.RotateAxis.y * _playerRuntimeData.PlayerControlData.CurrentRotationSpeed * Time.deltaTime;
 
                 _currentVerticalRotation += horizontalRotation;
                 _currentHorizontalRotation -= verticalRotation;

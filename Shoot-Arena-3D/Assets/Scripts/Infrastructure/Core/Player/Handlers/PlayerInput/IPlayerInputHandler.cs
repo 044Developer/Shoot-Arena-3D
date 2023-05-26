@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.PlayerInput
+namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput
 {
-    public interface IPlayerInputService
+    public interface IPlayerInputHandler
     {
         Vector2 MoveAxis { get; }
         Vector2 RotateAxis { get; }

@@ -1,7 +1,7 @@
-﻿using ShootArena.Infrastructure.Core.Player.Implementation;
+﻿using ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp;
+using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Player.Model;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
-using ShootArena.Infrastructure.Core.Services.PlayerSetUp;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Data;
@@ -15,21 +15,21 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
         private readonly IDynamicPrefabFacade _dynamicPrefabFacade = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly ISpawnPositionService _spawnPositionService = null;
-        private readonly IPlayerSetUpService _playerSetUpService = null;
+        private readonly IPlayerSetUpHandler _playerSetUpHandler = null;
 
         public PlayerSpawnService(
             PlayerFacade.Factory playerFactory,
             IDynamicPrefabFacade dynamicPrefabFacade,
             IPlayerRuntimeData playerRuntimeData,
             ISpawnPositionService spawnPositionService,
-            IPlayerSetUpService playerSetUpService
+            IPlayerSetUpHandler playerSetUpHandler
         )
         {
             _playerFactory = playerFactory;
             _dynamicPrefabFacade = dynamicPrefabFacade;
             _playerRuntimeData = playerRuntimeData;
             _spawnPositionService = spawnPositionService;
-            _playerSetUpService = playerSetUpService;
+            _playerSetUpHandler = playerSetUpHandler;
         }
         
         public void SpawnPlayer()
@@ -43,7 +43,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
             player.SetPosition(playerPosition);
 
             _playerRuntimeData.Player = player;
-            _playerSetUpService.SetUpPlayer();
+            _playerSetUpHandler.SetUpPlayer();
         }
 
         public void RespawnPlayer()

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace ShootArena.Infrastructure.Core.Services.PlayerInput.Implementation
+namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput.Implementation
 {
-    public class PlayerStandaloneInputService : IPlayerStandaloneInputService
+    public class PlayerStandaloneInputHandler : IPlayerStandaloneInputHandler
     {
         private const string HORIZONTAL_INPUT = "Horizontal";
         private const string VERTICAL_INPUT = "Vertical";

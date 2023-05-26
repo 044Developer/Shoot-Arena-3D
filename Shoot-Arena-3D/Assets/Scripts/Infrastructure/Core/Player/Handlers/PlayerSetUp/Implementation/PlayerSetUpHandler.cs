@@ -1,14 +1,14 @@
 ﻿using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 
-namespace ShootArena.Infrastructure.Core.Services.PlayerSetUp.Implementation
+namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp.Implementation
 {
-    public class PlayerSetUpService : IPlayerSetUpService
+    public class PlayerSetUpHandler : IPlayerSetUpHandler
     {
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly ILevelConfigDataModel _levelConfigDataModel = null;
 
-        public PlayerSetUpService(
+        public PlayerSetUpHandler(
             IPlayerRuntimeData playerRuntimeData,
             ILevelConfigDataModel levelConfigDataModel
             )

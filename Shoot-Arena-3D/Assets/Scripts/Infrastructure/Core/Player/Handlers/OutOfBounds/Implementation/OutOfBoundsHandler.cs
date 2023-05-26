@@ -1,14 +1,14 @@
 ﻿using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.PlayerSpawn;
 
-namespace ShootArena.Infrastructure.Core.Services.OutOfBounds.Implementation
+namespace ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds.Implementation
 {
-    public class OutOfBoundsService : IOutOfBoundsService
+    public class OutOfBoundsHandler : IOutOfBoundsHandler
     {
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly IPlayerSpawnService _playerSpawnService = null;
 
-        public OutOfBoundsService(
+        public OutOfBoundsHandler(
             IPlayerRuntimeData playerRuntimeData,
             IPlayerSpawnService playerSpawnService)
         {
