@@ -9,5 +9,6 @@ namespace ShootArena.Infrastructure.Modules.UIPanels
         void Initialize();
         void ShowPanel<TPanel>(UIPanelType panelType, Action onPanelOpenAction = null, Action onPanelClosedAction = null) where TPanel : IUIView;
         void ClosePanel(UIPanelType panelType);
+        bool IsPanelOpened(UIPanelType panelType);
     }
 }

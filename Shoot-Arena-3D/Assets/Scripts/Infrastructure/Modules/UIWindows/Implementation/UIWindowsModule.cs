@@ -93,6 +93,8 @@ namespace ShootArena.Infrastructure.Modules.UIWindows.Implementation
             configModel.Implementation.Initialize();
             configModel.Implementation.Show();
             
+            configModel.OnWindowOpenAction?.Invoke();
+            
             _openedWindows.Add(configModel);
         }
 
@@ -103,6 +105,8 @@ namespace ShootArena.Infrastructure.Modules.UIWindows.Implementation
             
             configModel.Implementation.Dispose();
             configModel.Implementation.Close();
+            
+            configModel.OnWindowCloseAction?.Invoke();
             
             configModel.Implementation = null;
             _openedWindows.Remove(configModel);

@@ -1,7 +1,7 @@
 using System;
-using ShootArena.Infrastructure.Core.Builders.Level;
 using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Implementation;
+using ShootArena.Infrastructure.Core.ControlFlow;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates;
@@ -63,11 +63,11 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
         [SerializeField] private CorePrefabsContainer _prefabsContainer = null;
 
         public override void InstallBindings()
-        {
+        {   
             BindLevelEnvironment();
             
             BindModels();
-
+            
             BindRuntimeData();
             
             BindFactories();
@@ -75,10 +75,12 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             BindServices();
 
             BindHandlers();
-
+            
             BindLevelStateHandler();
 
-            Container.BindInterfacesTo<LevelBuilder>().AsSingle();
+            BindLevelStates();
+
+            Container.BindInterfacesTo<LevelInitializer>().AsSingle();
         }
 
         #region Level Environment
@@ -442,12 +444,14 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
                 .Bind<ILevelStatesHandler>()
                 .To<LevelStateHandler>()
                 .AsSingle();
-            
-            BindLevelStates();
         }
 
         private void BindLevelStates()
         {
+            Container
+                .Bind<PrepareLevelState>()
+                .AsSingle();
+            
             Container
                 .Bind<LevelEnterState>()
                 .AsSingle();

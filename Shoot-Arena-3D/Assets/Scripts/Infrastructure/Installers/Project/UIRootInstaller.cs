@@ -17,6 +17,8 @@ using ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Implementa
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.SplashScreen.Mediator;
 using ShootArena.Infrastructure.MonoComponents.UI.Root;
 using ShootArena.Infrastructure.MonoComponents.UI.Root.Implementation;
+using ShootArena.Infrastructure.MonoComponents.UI.Windows.LevelCountDown.Implementation;
+using ShootArena.Infrastructure.MonoComponents.UI.Windows.LevelCountDown.Mediator;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Loose.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Loose.Mediator;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Pause.Implementation;
@@ -141,6 +143,7 @@ namespace ShootArena.Infrastructure.Installers.Project
         {
             BindPauseWindowMediator();
             BindLooseWindowMediator();
+            BindLevelCountDownMediator();
         }
 
         private void BindPauseWindowMediator()
@@ -159,6 +162,15 @@ namespace ShootArena.Infrastructure.Installers.Project
                 .To<LooseMediator>()
                 .AsSingle()
                 .WhenInjectedInto<LooseWindow>();
+        }
+
+        private void BindLevelCountDownMediator()
+        {
+            Container
+                .Bind<ILevelCountDownMediator>()
+                .To<LevelCountDownMediator>()
+                .AsSingle()
+                .WhenInjectedInto<LevelCountDownWindow>();
         }
 
         #endregion

@@ -13,6 +13,7 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.Implementati
 
         [Inject]
         public void Construct(
+            PrepareLevelState prepareLevelState,
             LevelEnterState levelEnterState,
             LevelPauseState levelPauseState,
             LevelResumeState levelResumeState,
@@ -22,6 +23,7 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.Implementati
         {
             _levelStates = new Dictionary<Type, ILevelState>
             {
+                [typeof(PrepareLevelState)] = prepareLevelState,
                 [typeof(LevelEnterState)] = levelEnterState,
                 [typeof(LevelPauseState)] = levelPauseState,
                 [typeof(LevelResumeState)] = levelResumeState,

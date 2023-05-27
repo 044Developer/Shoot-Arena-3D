@@ -67,6 +67,11 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
             
             CloseImpl(tempConfig);
         }
+
+        public bool IsPanelOpened(UIPanelType panelType)
+        {
+            return _openedPanels.Find(model => model.PanelType == panelType) != null;
+        }
         
         /*
          *  Private
@@ -108,19 +113,6 @@ namespace ShootArena.Infrastructure.Modules.UIPanels.Implementation
             
             configModel.Implementation = null;
             _openedPanels.Remove(configModel);
-        }
-
-        private bool IsPanelOpened(UIPanelType panelType)
-        {
-            try
-            {
-                return _openedPanels.Find(model => model.PanelType == panelType) != null;
-            }
-            catch (Exception exception)
-            {
-                _logger.LogException(exception);
-                throw;
-            }
         }
 
         private Transform ConvertRootTypeToParent(UIRootType type)

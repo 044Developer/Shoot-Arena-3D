@@ -41,6 +41,7 @@ namespace ShootArena.Infrastructure.Modules.UIWindows.Container.Implementation
         {
             RegisterNewWindowConfig(UIWindowType.Pause, "Prefabs/UI/Windows/Pause_Window", UIRootType.Windows);
             RegisterNewWindowConfig(UIWindowType.Loose, "Prefabs/UI/Windows/Lose_Window", UIRootType.Windows);
+            RegisterNewWindowConfig(UIWindowType.LevelCountDown, "Prefabs/UI/Windows/LevelCountDown_Window", UIRootType.Windows);
         }
 
         private void RegisterNewWindowConfig(UIWindowType type, string prefabPath, UIRootType rootLayer)

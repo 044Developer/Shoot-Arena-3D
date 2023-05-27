@@ -34,7 +34,7 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth.Implementa
             DecreaseHealth(value);
             UpdateHealthHUD();
             
-            if (IsEnemyDead()) 
+            if (IsPlayerDead()) 
                 _playerDieHandler.Die();
         }
 
@@ -44,7 +44,7 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth.Implementa
             UpdateHealthHUD();
         }
 
-        private bool IsEnemyDead() => 
+        private bool IsPlayerDead() => 
             _playerRuntimeData.HealthData.CurrentHealthValue <= 0;
 
         private void DecreaseHealth(float value)

@@ -4,6 +4,7 @@ namespace ShootArena.Infrastructure.Modules.UIWindows.Data
     {
         None,
         Pause,
-        Loose
+        Loose,
+        LevelCountDown
     }
 }
