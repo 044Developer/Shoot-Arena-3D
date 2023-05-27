@@ -225,7 +225,7 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             
             string bulletTypeNodeName = "type";
             string bulletSpeedNodeName = "speed";
-            string bulletLifeTimeNodeName = "speed";
+            string bulletLifeTimeNodeName = "lifeTime";
             string bulletDamageDealNodeName = "damageDeal";
             
             BulletType bulletType = (BulletType)Enum.Parse(typeof(BulletType),  ParseNodeAttribute<string>(bulletNode, bulletTypeNodeName));

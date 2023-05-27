@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3185814551884448378}
   - component: {fileID: 2531567952293218430}
   - component: {fileID: 8470906125107323777}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Melee_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8007044511186808323}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack_Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,9 +195,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2314093726992474105}
     m_Modifications:
+    - target: {fileID: 872217978805224499, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1873338424998445654, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
       propertyPath: m_Name
       value: Enemy_Healthbar_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873338424998445654, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2484744724223047094, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
       propertyPath: m_Pivot.x
@@ -282,6 +290,10 @@ PrefabInstance:
     - target: {fileID: 2484744724223047094, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726645835253948697, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b632d1ac188a9a440a70966b1779ad3f, type: 3}
