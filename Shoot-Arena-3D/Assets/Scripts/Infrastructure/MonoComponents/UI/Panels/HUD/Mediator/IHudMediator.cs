@@ -4,8 +4,9 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 {
     public interface IHudMediator : IUIMediator
     {
-        void OnFireButtonClick();
+        void SetUpPanel();
         void OnUltButtonClick();
+        void OnPauseButtonClick();
         void OnChangeHpValue();
         void OnChangeUltValue();
     }

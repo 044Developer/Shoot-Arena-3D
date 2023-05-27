@@ -429,7 +429,7 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
         private void BindPlayerUltHandler()
         {
             Container
-                .Bind(typeof(IPlayerUltHandler), typeof(IInitializable), typeof(IDisposable))
+                .Bind<IPlayerUltHandler>()
                 .To<PlayerUltHandler>()
                 .AsSingle();
         }

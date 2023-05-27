@@ -6,8 +6,8 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput.Implementat
     {
         private const string HORIZONTAL_INPUT = "Horizontal";
         private const string VERTICAL_INPUT = "Vertical";
-        private const string HORIZONTAL_MOUSE_INPUT = "Mouse X";
-        private const string VERTICAL_MOUSE_INPUT = "Mouse Y";
+        private const string HORIZONTAL_MOUSE_INPUT = "MouseNew X";
+        private const string VERTICAL_MOUSE_INPUT = "MouseNew Y";
         private const string FIRE_INPUT = "Fire";
         private const string ULT_INPUT = "Ult";
 
@@ -19,9 +19,8 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput.Implementat
         private Vector2 ReadMoveInput() => 
             new Vector2(SimpleInput.GetAxis(HORIZONTAL_INPUT), SimpleInput.GetAxis(VERTICAL_INPUT));
 
-        private Vector2 ReadRotateInput() => 
+        private Vector2 ReadRotateInput() =>
             new Vector2(SimpleInput.GetAxis(HORIZONTAL_MOUSE_INPUT), SimpleInput.GetAxis(VERTICAL_MOUSE_INPUT));
-
         private bool ReadFireButton() => 
             SimpleInput.GetButtonUp(FIRE_INPUT);
 

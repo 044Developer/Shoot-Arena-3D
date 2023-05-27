@@ -1,4 +1,6 @@
-﻿using ShootArena.Infrastructure.MonoComponents.UI.Base;
+﻿using ShootArena.Infrastructure.Modules.DeviceCheck;
+using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
+using ShootArena.Infrastructure.MonoComponents.UI.Base;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel;
 using UnityEngine;
@@ -9,12 +11,33 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
     {
         private const float ULT_MAX_PERCENT_VALUE = 1f;
         private readonly IHUDRuntimeData _hudRuntimeData = null;
-        
+        private readonly IDeviceCheckModule _deviceCheckModule = null;
+
         private IHudViewModel _viewModel = null;
 
-        public HudMediator(IHUDRuntimeData hudRuntimeData)
+        public HudMediator(
+            IHUDRuntimeData hudRuntimeData,
+            IDeviceCheckModule deviceCheckModule
+            )
         {
             _hudRuntimeData = hudRuntimeData;
+            _deviceCheckModule = deviceCheckModule;
+        }
+
+        public void SetUpPanel()
+        {
+            if (_deviceCheckModule.CurrentDeviceType.HasFlag(CurrentDeviceType.Mobile))
+            {
+                _viewModel.MobileInputHolder.SetActive(true);
+            }
+            else
+            {
+                _viewModel.MobileInputHolder.SetActive(false);
+            }
+
+            UpdateHpValue();
+            UpdateUltValue();
+            UpdateUltButtonState();
         }
         
         public void SetModel(IUIViewModel viewModel)
@@ -22,15 +45,13 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
             _viewModel = viewModel as IHudViewModel;
         }
 
-        public void OnFireButtonClick()
-        {
-        }
-
         public void OnUltButtonClick()
         {
-            _hudRuntimeData.OnUltButtonPressed?.Invoke();
             UpdateUltButtonState();
         }
+
+        public void OnPauseButtonClick() => 
+            _hudRuntimeData.OnPauseButtonClick?.Invoke();
 
         public void OnChangeHpValue() => 
             UpdateHpValue();

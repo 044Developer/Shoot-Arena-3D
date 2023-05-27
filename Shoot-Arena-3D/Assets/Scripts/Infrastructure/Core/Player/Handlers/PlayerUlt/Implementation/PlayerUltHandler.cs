@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 using UnityEngine;
-using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementation
 {
-    public class PlayerUltHandler : IPlayerUltHandler, IInitializable, IDisposable
+    public class PlayerUltHandler : IPlayerUltHandler
     {
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
         private readonly HUDRuntimeData _hudRuntimeData = null;
@@ -85,16 +83,6 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
             
             foreach (IEnemy enemy in allActiveEnemies) 
                 enemy.Die();
-        }
-
-        public void Initialize()
-        {
-            _hudRuntimeData.OnUltButtonPressed += UseUlt;
-        }
-
-        public void Dispose()
-        {
-            _hudRuntimeData.OnUltButtonPressed -= UseUlt;
         }
     }
 }
