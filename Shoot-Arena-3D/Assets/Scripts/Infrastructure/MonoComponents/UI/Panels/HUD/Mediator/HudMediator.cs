@@ -37,17 +37,11 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 
             UpdateHpValue();
             UpdateUltValue();
-            UpdateUltButtonState();
         }
         
         public void SetModel(IUIViewModel viewModel)
         {
             _viewModel = viewModel as IHudViewModel;
-        }
-
-        public void OnUltButtonClick()
-        {
-            UpdateUltButtonState();
         }
 
         public void OnPauseButtonClick() => 
@@ -74,18 +68,11 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
             Vector2 newUltBarValue = new Vector2(maxBarWidth * _hudRuntimeData.CurrentStrengthPercentValue, _viewModel.PlayerUltProgressRect.sizeDelta.y);
             
             _viewModel.PlayerUltProgressRect.sizeDelta = newUltBarValue;
-
-            UpdateUltButtonState();
         }
 
         private float GetMaxProgressWidth(RectTransform barBack)
         {
             return barBack.sizeDelta.x;
-        }
-
-        private void UpdateUltButtonState()
-        {
-            _viewModel.UltButton.interactable = HasEnoughUltStrength();
         }
 
         private bool HasEnoughUltStrength()

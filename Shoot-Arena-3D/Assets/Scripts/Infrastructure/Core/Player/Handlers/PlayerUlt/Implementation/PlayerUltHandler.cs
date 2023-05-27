@@ -47,6 +47,9 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
 
         public void UseUlt()
         {
+            if (!IsUltAvailable())
+                return;
+
             DecreaseAllPoints();
             
             UpdateHealthHUD();
@@ -74,6 +77,12 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
                                                         _playerRuntimeData.PlayerStrengthData.MaxStrengthValue;
             
             _hudRuntimeData.OnStrengthChanged?.Invoke();
+        }
+
+        private bool IsUltAvailable()
+        {
+            return _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue >=
+                   _playerRuntimeData.PlayerStrengthData.MaxStrengthValue;
         }
 
         private void KillAllActiveEnemies()

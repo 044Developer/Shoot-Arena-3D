@@ -44,13 +44,11 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Implementation
 
         private void InitializeButtons()
         {
-            _viewModel.UltButton.onClick.AddListener(_mediator.OnUltButtonClick);
             _viewModel.PauseButton.onClick.AddListener(_mediator.OnPauseButtonClick);
         }
 
         private void DisposeButtons()
         {
-            _viewModel.UltButton.onClick.RemoveListener(_mediator.OnUltButtonClick);
             _viewModel.PauseButton.onClick.RemoveListener(_mediator.OnPauseButtonClick);
         }
 

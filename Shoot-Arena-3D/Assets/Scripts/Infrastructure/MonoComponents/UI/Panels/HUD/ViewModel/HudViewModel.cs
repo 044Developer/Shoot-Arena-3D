@@ -16,8 +16,6 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel
 
         [Header("Input")]
         [SerializeField] private GameObject _mobileInputHolder = null;
-        [SerializeField] private Button _fireButton = null;
-        [SerializeField] private Button _ultButton = null;
         [SerializeField] private Button _pauseButton = null;
 
         public GameObject StatsHolder => _statsHolder;
@@ -26,8 +24,6 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel
         public RectTransform PlayerUltProgressBackRect => _playerUltProgressBackRect;
         public RectTransform PlayerUltProgressRect => _playerUltProgressRect;
         public GameObject MobileInputHolder => _mobileInputHolder;
-        public Button FireButton => _fireButton;
-        public Button UltButton => _ultButton;
         public Button PauseButton => _pauseButton;
     }
 }

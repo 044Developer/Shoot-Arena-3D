@@ -129,6 +129,8 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             BindPlayerRuntimeData();
 
             BindAreaRuntimeData();
+
+            BindLevelControlFlowRuntimeData();
         }
 
         private void BindTimersRuntimeData()
@@ -152,6 +154,13 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             Container
                 .Bind<ILevelAreaRuntimeData>()
                 .To<LevelAreaRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindLevelControlFlowRuntimeData()
+        {
+            Container
+                .Bind<LevelControlFlowRuntimeData>()
                 .AsSingle();
         }
 

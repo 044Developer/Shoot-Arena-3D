@@ -26,7 +26,6 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
 
         public void Initialize()
         {
-            Debug.Log("Bullet init");
             _playerRuntimeData.PlayerControlData.PlayerRespawnedAction += OnPlayerRespawnAction;
         }
 
