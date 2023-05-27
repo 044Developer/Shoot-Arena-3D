@@ -50,7 +50,6 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
         {
             Vector3 playerPosition = _spawnPositionService.GetPlayerSpawnPosition();
             _playerRuntimeData.Player.SetPosition(playerPosition);
-            _playerRuntimeData.PlayerControlData.IsRespawning = false;
         }
     }
 }

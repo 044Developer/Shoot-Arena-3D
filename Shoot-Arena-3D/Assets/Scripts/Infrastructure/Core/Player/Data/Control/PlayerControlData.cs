@@ -1,4 +1,6 @@
-﻿namespace ShootArena.Infrastructure.Core.Player.Data.Control
+﻿using System;
+
+namespace ShootArena.Infrastructure.Core.Player.Data.Control
 {
     public class PlayerControlData
     {
@@ -6,7 +8,7 @@
         public float RotationSpeed { get;}
         public float MinRotateHeight { get; }
         public float MaxRotateHeight { get; }
-        public bool IsRespawning { get; set; }
+        public Action PlayerRespawnedAction { get; set; }
 
         public PlayerControlData(float moveSpeed, float rotationSpeed, float minRotateHeight, float maxRotateHeight)
         {
@@ -14,7 +16,6 @@
             RotationSpeed = rotationSpeed;
             MinRotateHeight = minRotateHeight;
             MaxRotateHeight = maxRotateHeight;
-            IsRespawning = false;
         }
     }
 }

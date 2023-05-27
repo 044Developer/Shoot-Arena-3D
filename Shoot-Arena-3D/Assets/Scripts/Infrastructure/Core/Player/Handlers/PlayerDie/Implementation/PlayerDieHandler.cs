@@ -17,6 +17,7 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerDie.Implementatio
         
         public void Die()
         {
+            return;
             _windowsModule.ShowWindow<LooseWindow>(UIWindowType.Loose);
         }
     }

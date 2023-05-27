@@ -1,4 +1,5 @@
-﻿using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime;
+﻿using System;
+using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime.Implementation;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementation;
@@ -37,7 +38,7 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
         private void BindMoveHandler()
         {
             Container
-                .Bind<IBulletMoveHandler>()
+                .Bind(typeof(IBulletMoveHandler), typeof(IInitializable), typeof(IDisposable))
                 .To<BulletMoveHandler>()
                 .AsSingle();
         }
