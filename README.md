@@ -21,7 +21,7 @@ And select device type - Mobile
 
 ### Actual build for Android
 
-Is located under this link - 
+Is located under this link - [Download Link](https://drive.google.com/file/d/1TpAAEnbxWi8ldHHm1oXixf65U8Kf6-Oe/view?usp=drive_link)
 
 ### Gameplay
 
