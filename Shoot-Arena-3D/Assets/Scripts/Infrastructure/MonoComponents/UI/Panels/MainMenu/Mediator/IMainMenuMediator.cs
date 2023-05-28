@@ -6,6 +6,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
     {
         void Initialize();
         void Execute();
+        void OnPanelClosed();
         void OnPlayButtonClicked();
         void OnGitHubButtonClicked();
         void OnLinkedInButtonClicked();

@@ -24,6 +24,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Windows.Loose.Implementati
             base.Initialize();
 
             InitializeButtons();
+            
+            _mediator.SetWindowData();
         }
 
         public override void Dispose()

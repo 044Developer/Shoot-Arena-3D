@@ -19,5 +19,12 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             
             _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu);
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
+            _panelsModule.ClosePanel(UIPanelType.Menu);
+        }
     }
 }

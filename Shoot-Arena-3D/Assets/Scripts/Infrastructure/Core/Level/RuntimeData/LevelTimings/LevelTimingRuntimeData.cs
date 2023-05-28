@@ -1,4 +1,4 @@
-namespace ShootArena.Infrastructure.Core.Level.RuntimeData
+namespace ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings
 {
     public class LevelTimingRuntimeData : ILevelTimingRuntimeData
     {

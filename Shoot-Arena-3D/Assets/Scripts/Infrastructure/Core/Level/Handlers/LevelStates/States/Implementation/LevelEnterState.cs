@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.Modules.UIWindows;

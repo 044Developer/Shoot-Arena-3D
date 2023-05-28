@@ -1,4 +1,5 @@
 ﻿using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 
 namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Implementation
 {

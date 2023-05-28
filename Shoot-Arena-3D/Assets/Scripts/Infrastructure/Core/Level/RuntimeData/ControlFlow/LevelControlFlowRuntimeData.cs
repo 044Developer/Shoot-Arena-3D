@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ShootArena.Infrastructure.Core.Level.RuntimeData
+namespace ShootArena.Infrastructure.Core.Level.RuntimeData.ControlFlow
 {
-    public class LevelControlFlowRuntimeData
+    public class LevelControlFlowRuntimeData : ILevelControlFlowRuntimeData
     {
         public Action OnLevelPrepareStateAction { get; set; }
         public Action OnLevelEnterStateAction { get; set; }

@@ -21,6 +21,7 @@ using ShootArena.Infrastructure.MonoComponents.UI.Windows.LevelCountDown.Impleme
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.LevelCountDown.Mediator;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Loose.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Loose.Mediator;
+using ShootArena.Infrastructure.MonoComponents.UI.Windows.Loose.RuntimeData;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Pause.Implementation;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.Pause.Mediator;
 using Zenject;
@@ -180,6 +181,8 @@ namespace ShootArena.Infrastructure.Installers.Project
         private void BindRuntimeData()
         {
             BindHudRuntimeData();
+
+            BindLoseLevelRuntimeData();
         }
 
         private void BindHudRuntimeData()
@@ -187,6 +190,14 @@ namespace ShootArena.Infrastructure.Installers.Project
             Container
                 .Bind<IHUDRuntimeData>()
                 .To<HUDRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindLoseLevelRuntimeData()
+        {
+            Container
+                .Bind<ILevelLooseRuntimeData>()
+                .To<LevelLooseRuntimeData>()
                 .AsSingle();
         }
 

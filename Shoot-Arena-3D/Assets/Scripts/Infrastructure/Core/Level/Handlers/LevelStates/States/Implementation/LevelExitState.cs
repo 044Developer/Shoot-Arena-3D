@@ -29,6 +29,8 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Imple
             base.Enter();
 
             OpenLoadingPanel();
+            
+            CloseHud();
         }
 
         private void OpenLoadingPanel()
@@ -45,8 +47,12 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Imple
 
         private void EnterMainMenu()
         {
-            _panelsModule.ShowPanel<MainMenuPanel>(UIPanelType.Menu);
             _appStateMachine.Enter<AppMainMenuState>();
+        }
+
+        private void CloseHud()
+        {
+            //_panelsModule.ClosePanel(UIPanelType.HUD);
         }
     }
 }

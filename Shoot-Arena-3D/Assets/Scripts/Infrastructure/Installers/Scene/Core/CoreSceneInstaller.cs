@@ -9,6 +9,10 @@ using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.Implementation;
 using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Implementation;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.ControlFlow;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelArea;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelStats;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds;
 using ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl;
@@ -131,6 +135,8 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             BindAreaRuntimeData();
 
             BindLevelControlFlowRuntimeData();
+            
+            BindLevelStatsRuntimeData();
         }
 
         private void BindTimersRuntimeData()
@@ -160,7 +166,16 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
         private void BindLevelControlFlowRuntimeData()
         {
             Container
-                .Bind<LevelControlFlowRuntimeData>()
+                .Bind<ILevelControlFlowRuntimeData>()
+                .To<LevelControlFlowRuntimeData>()
+                .AsSingle();
+        }
+
+        private void BindLevelStatsRuntimeData()
+        {
+            Container
+                .Bind<ILevelStatsRuntimeData>()
+                .To<LevelStatsRuntimeData>()
                 .AsSingle();
         }
 

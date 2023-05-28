@@ -72,6 +72,11 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
             Application.OpenURL(path);
         }
 
+        public void OnPanelClosed()
+        {
+            _logoAnimationSequence?.Kill();
+        }
+
         private void SetUpAnimation()
         {
             _logoAnimationSequence = DOTween.Sequence();
@@ -99,16 +104,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Mediator
 
         private void OnLoadingScreenClosed()
         {
-            CloseMainMenu();
-            
             _stateMachine.Enter<AppCoreGameState>();
-        }
-
-        private void CloseMainMenu()
-        {
-            _logoAnimationSequence?.Kill();
-            
-            _panelsModule.ClosePanel(UIPanelType.Menu);
         }
     }
 }

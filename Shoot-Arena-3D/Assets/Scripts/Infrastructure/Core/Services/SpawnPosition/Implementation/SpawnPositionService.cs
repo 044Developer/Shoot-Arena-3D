@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelArea;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using UnityEngine;

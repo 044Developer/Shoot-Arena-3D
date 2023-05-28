@@ -1,4 +1,5 @@
 ﻿using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelArea;
 using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade;
 using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;

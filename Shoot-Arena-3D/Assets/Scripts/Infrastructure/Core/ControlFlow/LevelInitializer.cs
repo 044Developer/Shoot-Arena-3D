@@ -2,6 +2,7 @@ using System;
 using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates;
 using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Implementation;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.ControlFlow;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.ControlFlow
@@ -13,10 +14,10 @@ namespace ShootArena.Infrastructure.Core.ControlFlow
 
         public LevelInitializer(
             ILevelStatesHandler levelStatesHandler,
-            LevelControlFlowRuntimeData controlFlowRuntimeData)
+            ILevelControlFlowRuntimeData controlFlowRuntimeData)
         {
             _levelStatesHandler = levelStatesHandler;
-            _controlFlowRuntimeData = controlFlowRuntimeData;
+            _controlFlowRuntimeData = controlFlowRuntimeData as LevelControlFlowRuntimeData;
         }
         
         public void Initialize()

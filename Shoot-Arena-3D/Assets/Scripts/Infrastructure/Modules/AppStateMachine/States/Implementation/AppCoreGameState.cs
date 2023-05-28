@@ -19,5 +19,12 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             
             _panelsModule.ShowPanel<HudPanel>(UIPanelType.HUD);
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
+            _panelsModule.ClosePanel(UIPanelType.HUD);
+        }
     }
 }

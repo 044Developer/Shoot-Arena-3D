@@ -4,6 +4,7 @@ using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Level.Model;
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using ShootArena.Infrastructure.Core.Services.EnemyRegistry;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using ShootArena.Infrastructure.Modules.CustomLogger;

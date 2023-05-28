@@ -35,6 +35,13 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Implementa
             _mediator.Execute();
         }
 
+        public override void Close()
+        {
+            base.Close();
+            
+            _mediator.OnPanelClosed();
+        }
+
         public override void Dispose()
         {
             base.Dispose();

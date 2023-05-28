@@ -1,4 +1,5 @@
 using ShootArena.Infrastructure.Core.Level.RuntimeData;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.LevelTimer.Implementation
