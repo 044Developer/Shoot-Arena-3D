@@ -56,12 +56,16 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Implementation
         {
             _hudRuntimeData.OnHealthChanged += _mediator.OnChangeHpValue;
             _hudRuntimeData.OnStrengthChanged += _mediator.OnChangeUltValue;
+            _hudRuntimeData.OnLevelStarted += _mediator.OnLevelStart;
+            _hudRuntimeData.OnLevelReset += _mediator.OnLevelReset;
         }
 
         private void DisposeEvents()
         {
             _hudRuntimeData.OnHealthChanged -= _mediator.OnChangeHpValue;
             _hudRuntimeData.OnStrengthChanged -= _mediator.OnChangeUltValue;
+            _hudRuntimeData.OnLevelStarted -= _mediator.OnLevelStart;
+            _hudRuntimeData.OnLevelReset -= _mediator.OnLevelReset;
         }
     }
 }

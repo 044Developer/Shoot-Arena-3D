@@ -6,6 +6,7 @@ using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.Modules.UIWindows;
 using ShootArena.Infrastructure.Modules.UIWindows.Data;
 using ShootArena.Infrastructure.MonoComponents.CoroutineRunner;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 using ShootArena.Infrastructure.MonoComponents.UI.Windows.LevelCountDown.Implementation;
 using UnityEngine;
 
@@ -17,16 +18,21 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Imple
         private readonly IUIWindowsModule _windowsModule = null;
         private readonly IUIPanelsModule _panelsModule = null;
         private readonly ICoroutineRunner _coroutineRunner = null;
+        private readonly IHUDRuntimeData _hudRuntimeData = null;
 
         public LevelEnterState(
             ILevelTimingRuntimeData timingRuntimeData,
-            IUIWindowsModule windowsModule, IUIPanelsModule panelsModule, ICoroutineRunner coroutineRunner
+            IUIWindowsModule windowsModule,
+            IUIPanelsModule panelsModule,
+            ICoroutineRunner coroutineRunner,
+            IHUDRuntimeData hudRuntimeData
             )
         {
             _timingRuntimeData = timingRuntimeData;
             _windowsModule = windowsModule;
             _panelsModule = panelsModule;
             _coroutineRunner = coroutineRunner;
+            _hudRuntimeData = hudRuntimeData;
         }
 
         public override void Enter()
@@ -52,6 +58,7 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Imple
         private void OnWindowCountDownEnd()
         {
             _timingRuntimeData.IsLevelPaused = false;
+            _hudRuntimeData.OnLevelStarted?.Invoke();
         }
 
         private void DelayStartIfNeeded()

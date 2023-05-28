@@ -19,13 +19,6 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Imple
             _mediator.SetModel(_viewModel);
         }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            
-            _mediator.Initialize();
-        }
-
         public override void Show()
         {
             base.Show();

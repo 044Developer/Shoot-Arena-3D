@@ -17,16 +17,6 @@ namespace ShootArena.Infrastructure
             _stateMachine.Enter<BoostrapState>();
         }
 
-        public void PauseApplication()
-        {
-            _stateMachine.Enter<AppOutOfFocusState>();
-        }
-
-        public void ResumeApplication()
-        {
-            _stateMachine.Enter<AppBackToFocusState>();
-        }
-
         public void QuitApplication()
         {
             _stateMachine.Enter<AppQuitState>();

@@ -4,7 +4,6 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
 {
     public interface ILoadingScreenMediator : IUIMediator
     {
-        void Initialize();
         void Execute();
     }
 }

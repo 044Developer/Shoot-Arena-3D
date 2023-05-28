@@ -59,8 +59,6 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.States.Implementatio
             {
                 DOTween.useSafeMode = true;
             }
-
-            DOTween.defaultAutoPlay = AutoPlay.None;
         }
 
         private void RegisterUI()

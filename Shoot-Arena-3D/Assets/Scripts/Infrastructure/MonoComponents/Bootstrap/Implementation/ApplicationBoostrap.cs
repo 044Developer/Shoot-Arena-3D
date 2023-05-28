@@ -18,18 +18,6 @@ namespace ShootArena.Infrastructure.MonoComponents.Bootstrap.Implementation
             _game.StartApplication();
         }
 
-        private void OnApplicationPause(bool pauseStatus)
-        {
-            if (pauseStatus)
-            {
-                _game.PauseApplication();
-            }
-            else
-            {
-                _game.ResumeApplication();
-            }
-        }
-
         private void OnApplicationQuit()
         {
             _game.QuitApplication();

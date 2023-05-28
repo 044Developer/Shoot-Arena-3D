@@ -1164,13 +1164,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5910648712327206762}
+  - component: {fileID: 6411220078280904944}
   m_Layer: 5
   m_Name: Health_Animated_Decrease_holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5910648712327206762
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1191,6 +1192,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &6411220078280904944
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159117006433584142}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4492855693928098326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1297,8 @@ MonoBehaviour:
     _playerHpProgressRect: {fileID: 662521717}
     _playerUltProgressBackRect: {fileID: 1269607687}
     _playerUltProgressRect: {fileID: 640275758}
+    _healthCanvasGroup: {fileID: 6411220078280904944}
+    _gamePlayPanel: {fileID: 2095523473}
     _mobileInputHolder: {fileID: 4492855694388362199}
     _pauseButton: {fileID: 4076118781604714346}
 --- !u!1 &4492855694388362199

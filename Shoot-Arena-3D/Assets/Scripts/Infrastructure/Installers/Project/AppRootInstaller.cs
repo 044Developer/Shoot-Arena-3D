@@ -111,14 +111,6 @@ namespace ShootArena.Infrastructure.Installers.Project
                 .AsSingle();
             
             Container
-                .Bind<AppOutOfFocusState>()
-                .AsSingle();
-            
-            Container
-                .Bind<AppBackToFocusState>()
-                .AsSingle();
-            
-            Container
                 .Bind<AppMainMenuState>()
                 .AsSingle();
             

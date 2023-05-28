@@ -13,6 +13,10 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel
         [SerializeField] private RectTransform _playerHpProgressRect = null;
         [SerializeField] private RectTransform _playerUltProgressBackRect = null;
         [SerializeField] private RectTransform _playerUltProgressRect = null;
+        [SerializeField] private CanvasGroup _healthCanvasGroup = null;
+
+        [Header("Panels")]
+        [SerializeField] private GameObject _gamePlayPanel = null;
 
         [Header("Input")]
         [SerializeField] private GameObject _mobileInputHolder = null;
@@ -25,5 +29,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel
         public RectTransform PlayerUltProgressRect => _playerUltProgressRect;
         public GameObject MobileInputHolder => _mobileInputHolder;
         public Button PauseButton => _pauseButton;
+        public CanvasGroup HealthCanvasGroup => _healthCanvasGroup;
+        public GameObject GamePlayPanel => _gamePlayPanel;
     }
 }

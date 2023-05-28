@@ -15,8 +15,6 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
         public void Construct(
             BoostrapState boostrapState,
             SceneLoadState sceneLoadState,
-            AppOutOfFocusState appOutOfFocusState,
-            AppBackToFocusState appBackToFocusState,
             AppMainMenuState appMainMenuState,
             AppCoreGameState appCoreGameState,
             AppQuitState appQuitState
@@ -26,8 +24,6 @@ namespace ShootArena.Infrastructure.Modules.AppStateMachine.Implementation
             {
                 [typeof(BoostrapState)] = boostrapState,
                 [typeof(SceneLoadState)] = sceneLoadState,
-                [typeof(AppOutOfFocusState)] = appOutOfFocusState,
-                [typeof(AppBackToFocusState)] = appBackToFocusState,
                 [typeof(AppMainMenuState)] = appMainMenuState,
                 [typeof(AppCoreGameState)] = appCoreGameState,
                 [typeof(AppQuitState)] = appQuitState

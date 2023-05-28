@@ -12,7 +12,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 {
     public class HudMediator : IHudMediator
     {
-        private const float ULT_MAX_PERCENT_VALUE = 1f;
+        private const float HP_MAX_PERCENT_VALUE = 1f;
         private readonly IHUDRuntimeData _hudRuntimeData = null;
         private readonly IDeviceCheckModule _deviceCheckModule = null;
         private readonly IUIWindowsModule _windowsModule = null;
@@ -43,6 +43,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 
             UpdateHpValue();
             UpdateUltValue();
+            UpdateHudViewState(false);
         }
         
         public void SetModel(IUIViewModel viewModel)
@@ -63,6 +64,16 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         public void OnChangeUltValue() => 
             UpdateUltValue();
 
+        public void OnLevelStart()
+        {
+            UpdateHudViewState(true);
+        }
+
+        public void OnLevelReset()
+        {
+            UpdateHudViewState(false);
+        }
+
         private void UpdateHpValue()
         {
             float maxBarWidth = GetMaxProgressWidth(_viewModel.PlayerHpProgressBackRect);
@@ -70,6 +81,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
             Vector2 newHpBarValue = new Vector2(maxBarWidth * _hudRuntimeData.CurrentHealthPercentValue, _viewModel.PlayerHpProgressRect.sizeDelta.y);
             
             _viewModel.PlayerHpProgressRect.sizeDelta = newHpBarValue;
+
+            UpdateHealthVisualTrigger();
         }
 
         private void UpdateUltValue()
@@ -85,9 +98,16 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
             return barBack.sizeDelta.x;
         }
 
-        private bool HasEnoughUltStrength()
+        private void UpdateHealthVisualTrigger()
         {
-            return _hudRuntimeData.CurrentStrengthPercentValue >= ULT_MAX_PERCENT_VALUE;
+            float currentFadeValue = HP_MAX_PERCENT_VALUE - _hudRuntimeData.CurrentHealthPercentValue;
+
+            _viewModel.HealthCanvasGroup.alpha = currentFadeValue;
+        }
+
+        private void UpdateHudViewState(bool viewState)
+        {
+            _viewModel.GamePlayPanel.SetActive(viewState);
         }
     }
 }

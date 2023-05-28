@@ -23,18 +23,13 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
             _viewModel = viewModel as ILoadingScreenViewModel;
         }
 
-        public void Initialize()
-        {
-            SetUpAnimation();
-        }
-
         public void Execute()
         {
             PlayAnimation();
         }
 
         private void PlayAnimation() => 
-            _loadingBarSequence.Play();
+                SetUpAnimation();
 
         private void SetUpAnimation()
         {
@@ -47,6 +42,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
             _loadingBarSequence.SetRecyclable(true);
             _loadingBarSequence.Append(_viewModel.ProgressBarRect.DOSizeDelta(progressEndValue, _viewModel.LoadingDuration));
             _loadingBarSequence.AppendCallback(OnLoadingAnimationFinished);
+
+            _loadingBarSequence.Play();
         }
 
         private void OnLoadingAnimationFinished() =>

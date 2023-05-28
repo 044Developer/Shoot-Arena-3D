@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Model;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.States;
-using ShootArena.Infrastructure.Core.Level.RuntimeData;
-using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState.Implementation

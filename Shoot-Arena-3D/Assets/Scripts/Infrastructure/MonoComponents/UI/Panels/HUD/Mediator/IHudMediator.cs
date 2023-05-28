@@ -8,5 +8,7 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         void OnPauseButtonClick();
         void OnChangeHpValue();
         void OnChangeUltValue();
+        void OnLevelStart();
+        void OnLevelReset();
     }
 }
