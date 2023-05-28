@@ -1,6 +1,5 @@
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealthBar;
 using ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyState;
-using ShootArena.Infrastructure.Core.Enemies.RuntimeData;
 using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using Zenject;
 

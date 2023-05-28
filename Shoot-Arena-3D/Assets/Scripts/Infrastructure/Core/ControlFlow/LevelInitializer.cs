@@ -1,8 +1,9 @@
 using System;
 using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates;
 using ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Implementation;
-using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Level.RuntimeData.ControlFlow;
+using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
+using ShootArena.Infrastructure.MonoComponents.UI.Windows.Pause.RuntimeData;
 using Zenject;
 
 namespace ShootArena.Infrastructure.Core.ControlFlow
@@ -10,19 +11,31 @@ namespace ShootArena.Infrastructure.Core.ControlFlow
     public class LevelInitializer : IInitializable, IDisposable
     {
         private readonly ILevelStatesHandler _levelStatesHandler = null;
+        private readonly HUDRuntimeData _hudRuntimeData = null;
+        private readonly LevelPauseRuntimeData _levelPauseRuntimeData = null;
         private readonly LevelControlFlowRuntimeData _controlFlowRuntimeData = null;
 
         public LevelInitializer(
             ILevelStatesHandler levelStatesHandler,
-            ILevelControlFlowRuntimeData controlFlowRuntimeData)
+            ILevelControlFlowRuntimeData controlFlowRuntimeData,
+            ILevelPauseRuntimeData levelPauseRuntimeData,
+            IHUDRuntimeData hudRuntimeData
+            )
         {
             _levelStatesHandler = levelStatesHandler;
+            _hudRuntimeData = hudRuntimeData as HUDRuntimeData;
+            _levelPauseRuntimeData = levelPauseRuntimeData as LevelPauseRuntimeData;
             _controlFlowRuntimeData = controlFlowRuntimeData as LevelControlFlowRuntimeData;
         }
         
         public void Initialize()
         {
             InitializeEvents();
+            
+            SetUpHudActions();
+            
+            SetUpPauseWindowActions();
+            
             EnterPrepareState();
         }
 
@@ -51,10 +64,8 @@ namespace ShootArena.Infrastructure.Core.ControlFlow
             _controlFlowRuntimeData.OnLevelRestartStateAction += EnterRestartState;
         }
 
-        private void EnterPrepareState()
-        {
+        private void EnterPrepareState() => 
             _levelStatesHandler.ChangeLevelStateTo<PrepareLevelState>();
-        }
 
         private void EnterLevelEnterState() => 
             _levelStatesHandler.ChangeLevelStateTo<LevelEnterState>();
@@ -70,5 +81,16 @@ namespace ShootArena.Infrastructure.Core.ControlFlow
 
         private void EnterRestartState() => 
             _levelStatesHandler.ChangeLevelStateTo<LevelRestartState>();
+
+        private void SetUpHudActions()
+        {
+            _hudRuntimeData.OnPauseButtonClick = EnterPauseState;
+        }
+        
+        private void SetUpPauseWindowActions()
+        {
+            _levelPauseRuntimeData.OnResumeButtonClick = EnterResumeState;
+            _levelPauseRuntimeData.OnExitButtonClick = EnterExitState;
+        }
     }
 }

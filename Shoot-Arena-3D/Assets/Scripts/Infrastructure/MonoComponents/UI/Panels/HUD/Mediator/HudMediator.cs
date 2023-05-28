@@ -1,8 +1,11 @@
 ﻿using ShootArena.Infrastructure.Modules.DeviceCheck;
 using ShootArena.Infrastructure.Modules.DeviceCheck.Data;
+using ShootArena.Infrastructure.Modules.UIWindows;
+using ShootArena.Infrastructure.Modules.UIWindows.Data;
 using ShootArena.Infrastructure.MonoComponents.UI.Base;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.RuntimeData;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.ViewModel;
+using ShootArena.Infrastructure.MonoComponents.UI.Windows.Pause.Implementation;
 using UnityEngine;
 
 namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
@@ -12,16 +15,19 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         private const float ULT_MAX_PERCENT_VALUE = 1f;
         private readonly IHUDRuntimeData _hudRuntimeData = null;
         private readonly IDeviceCheckModule _deviceCheckModule = null;
+        private readonly IUIWindowsModule _windowsModule = null;
 
         private IHudViewModel _viewModel = null;
 
         public HudMediator(
             IHUDRuntimeData hudRuntimeData,
-            IDeviceCheckModule deviceCheckModule
+            IDeviceCheckModule deviceCheckModule,
+            IUIWindowsModule windowsModule
             )
         {
             _hudRuntimeData = hudRuntimeData;
             _deviceCheckModule = deviceCheckModule;
+            _windowsModule = windowsModule;
         }
 
         public void SetUpPanel()
@@ -44,8 +50,12 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
             _viewModel = viewModel as IHudViewModel;
         }
 
-        public void OnPauseButtonClick() => 
+        public void OnPauseButtonClick()
+        {
             _hudRuntimeData.OnPauseButtonClick?.Invoke();
+            
+            _windowsModule.ShowWindow<PauseWindow>(UIWindowType.Pause);
+        }
 
         public void OnChangeHpValue() => 
             UpdateHpValue();
