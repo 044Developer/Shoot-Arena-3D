@@ -17,7 +17,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Handlers.EnemyHealth.Implementa
         public EnemyHealthHandler(
             IEnemyRuntimeData enemyRuntimeData,
             IEnemyStateHandler enemyStateHandler,
-            IPlayerUltHandler playerUltHandler, ILevelStatsRuntimeData levelStatsRuntimeData
+            IPlayerUltHandler playerUltHandler,
+            ILevelStatsRuntimeData levelStatsRuntimeData
             )
         {
             _enemyRuntimeData = enemyRuntimeData;

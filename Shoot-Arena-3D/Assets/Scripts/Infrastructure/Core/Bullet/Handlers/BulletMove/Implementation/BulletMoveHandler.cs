@@ -18,7 +18,9 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
         private Vector3 _previousTargetPosition = Vector3.zero;
         private EnemyBulletTargetType _currentEnemyBulletTargetType = EnemyBulletTargetType.Player;
 
-        public BulletMoveHandler(IBulletRuntimeData bulletRuntimeData, IPlayerRuntimeData playerRuntimeData)
+        public BulletMoveHandler(
+            IBulletRuntimeData bulletRuntimeData,
+            IPlayerRuntimeData playerRuntimeData)
         {
             _bulletRuntimeData = bulletRuntimeData;
             _playerRuntimeData = playerRuntimeData;

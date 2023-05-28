@@ -5,7 +5,6 @@ using ShootArena.Infrastructure.Modules.SceneLoader.Data;
 using ShootArena.Infrastructure.Modules.UIPanels;
 using ShootArena.Infrastructure.Modules.UIPanels.Data;
 using ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Implementation;
-using ShootArena.Infrastructure.MonoComponents.UI.Panels.MainMenu.Implementation;
 using UnityEngine.SceneManagement;
 
 namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Implementation
@@ -29,8 +28,6 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Imple
             base.Enter();
 
             OpenLoadingPanel();
-            
-            CloseHud();
         }
 
         private void OpenLoadingPanel()
@@ -48,11 +45,6 @@ namespace ShootArena.Infrastructure.Core.Level.Handlers.LevelStates.States.Imple
         private void EnterMainMenu()
         {
             _appStateMachine.Enter<AppMainMenuState>();
-        }
-
-        private void CloseHud()
-        {
-            //_panelsModule.ClosePanel(UIPanelType.HUD);
         }
     }
 }

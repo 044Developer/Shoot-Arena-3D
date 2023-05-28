@@ -1,4 +1,3 @@
-using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using ShootArena.Infrastructure.Core.Player.Handlers.OutOfBounds;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerControl;

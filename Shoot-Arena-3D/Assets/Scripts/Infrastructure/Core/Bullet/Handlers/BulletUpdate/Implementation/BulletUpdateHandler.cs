@@ -1,6 +1,5 @@
 ﻿using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove;
-using ShootArena.Infrastructure.Core.Level.RuntimeData;
 using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelTimings;
 using Zenject;
 
