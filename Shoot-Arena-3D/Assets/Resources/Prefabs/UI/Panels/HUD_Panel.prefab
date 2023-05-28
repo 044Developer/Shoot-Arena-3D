@@ -1037,7 +1037,7 @@ MonoBehaviour:
     m_key: MouseNew Y
     value: 0
   movementAxes: 0
-  valueMultiplier: 0.5
+  valueMultiplier: 0.3
   thumb: {fileID: 84050261525964007}
   movementAreaRadius: 75
   deadzoneRadius: 0

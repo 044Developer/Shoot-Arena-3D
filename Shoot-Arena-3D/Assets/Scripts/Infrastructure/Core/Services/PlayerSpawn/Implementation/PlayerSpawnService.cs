@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ShootArena.Infrastructure.Core.Level.RuntimeData.LevelArea;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp;
 using ShootArena.Infrastructure.Core.Player.Implementation;
 using ShootArena.Infrastructure.Core.Player.Model;
@@ -19,6 +20,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
         private readonly ISpawnPositionService _spawnPositionService = null;
         private readonly IPlayerSetUpHandler _playerSetUpHandler = null;
         private readonly IEnemyRegistryService _enemyRegistryService = null;
+        private readonly ILevelAreaRuntimeData _levelAreaRuntimeData = null;
 
         public PlayerSpawnService(
             PlayerFacade.Factory playerFactory,
@@ -26,7 +28,8 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
             IPlayerRuntimeData playerRuntimeData,
             ISpawnPositionService spawnPositionService,
             IPlayerSetUpHandler playerSetUpHandler,
-            IEnemyRegistryService enemyRegistryService
+            IEnemyRegistryService enemyRegistryService,
+            ILevelAreaRuntimeData levelAreaRuntimeData
         )
         {
             _playerFactory = playerFactory;
@@ -35,6 +38,7 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
             _spawnPositionService = spawnPositionService;
             _playerSetUpHandler = playerSetUpHandler;
             _enemyRegistryService = enemyRegistryService;
+            _levelAreaRuntimeData = levelAreaRuntimeData;
         }
         
         public void SpawnPlayer()
@@ -47,6 +51,8 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
             Vector3 playerPosition = _spawnPositionService.GetSpawnPositionFromNewArea();
             player.SetPosition(playerPosition);
 
+            player.View.Transform.LookAt(_levelAreaRuntimeData.Arena.ArenaView.ArenaCenter);
+            
             _playerRuntimeData.Player = player;
             _playerSetUpHandler.SetUpPlayer();
         }
@@ -57,6 +63,8 @@ namespace ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation
             
             Vector3 playerPosition = _spawnPositionService.GetFarSpawnPosition(enemiesPositions);
             _playerRuntimeData.Player.SetPosition(playerPosition);
+
+            _playerRuntimeData.Player.View.Transform.LookAt(_levelAreaRuntimeData.Arena.ArenaView.ArenaCenter);
         }
     }
 }

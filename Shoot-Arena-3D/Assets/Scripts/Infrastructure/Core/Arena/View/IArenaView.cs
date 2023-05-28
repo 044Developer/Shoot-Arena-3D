@@ -10,5 +10,6 @@ namespace ShootArena.Infrastructure.Core.Arena.View
         public List<Transform> ArenaObstacles { get; }
         public NavMeshSurface NavMeshSurface { get; }
         public Transform ArenaTransform { get; }
+        public Transform ArenaCenter { get; }
     }
 }
