@@ -38,6 +38,15 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
             UpdateUltHUD();
         }
 
+        public void RestoreRandomUltPoints()
+        {
+            float randomUltPoint = GetRandomRestoreValue();
+
+            IncreaseUltValue(randomUltPoint);
+            
+            UpdateUltHUD();
+        }
+
         public void DecreaseUltPoints(float decreaseValue)
         {
             float newPowerValue = _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue - decreaseValue;
@@ -95,6 +104,11 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
             
             foreach (IEnemy enemy in allActiveEnemies) 
                 enemy.Die();
+        }
+
+        private int GetRandomRestoreValue()
+        {
+            return Random.Range(_playerRuntimeData.PlayerStrengthData.MinStrengthRestoreValue, _playerRuntimeData.PlayerStrengthData.MaxStrengthRestoreValue);
         }
     }
 }

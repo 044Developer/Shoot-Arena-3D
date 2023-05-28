@@ -5,5 +5,6 @@
         void SetUpPlayerHealth();
         void ReceiveDamage(float value);
         void TopUpHealth(float value);
+        void RestoreHalfHp();
     }
 }

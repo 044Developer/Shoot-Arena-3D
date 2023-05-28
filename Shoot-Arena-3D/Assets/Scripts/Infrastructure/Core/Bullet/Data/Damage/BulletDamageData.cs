@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ShootArena.Infrastructure.Core.Enemies.Model;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Bullet.Data.Damage
 {
@@ -9,6 +10,9 @@ namespace ShootArena.Infrastructure.Core.Bullet.Data.Damage
         public Vector3 BulletDirection { get; }
         public float SpawnStartTime { get; }
         public float BulletLifeTime { get; }
+        public bool IsBulletRicochet { get; set; }
+        public bool HasBulletRicocheted { get; set; }
+        public IEnemy NextRicochetTarget { get; set; }
 
         public BulletDamageData(float bulletDamage, Vector3 bulletDirection, float spawnStartTime, float bulletLifeTime, float bulletSpeed)
         {

@@ -44,6 +44,12 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth.Implementa
             UpdateHealthHUD();
         }
 
+        public void RestoreHalfHp()
+        {
+            IncreaseHealth(_playerRuntimeData.HealthData.HealthRestoreValue);
+            UpdateHealthHUD();
+        }
+
         private bool IsPlayerDead() => 
             _playerRuntimeData.HealthData.CurrentHealthValue <= 0;
 

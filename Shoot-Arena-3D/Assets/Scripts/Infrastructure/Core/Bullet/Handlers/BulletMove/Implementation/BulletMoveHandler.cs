@@ -14,13 +14,14 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
         
         private readonly IBulletRuntimeData _bulletRuntimeData = null;
         private readonly IPlayerRuntimeData _playerRuntimeData = null;
-        
+
         private Vector3 _previousTargetPosition = Vector3.zero;
         private EnemyBulletTargetType _currentEnemyBulletTargetType = EnemyBulletTargetType.Player;
 
         public BulletMoveHandler(
             IBulletRuntimeData bulletRuntimeData,
-            IPlayerRuntimeData playerRuntimeData)
+            IPlayerRuntimeData playerRuntimeData
+            )
         {
             _bulletRuntimeData = bulletRuntimeData;
             _playerRuntimeData = playerRuntimeData;
@@ -48,19 +49,82 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
                 MoveEnemyBullet();
             }
         }
-        
+
+        #region Player Bullet
+
         private void MovePlayerBullet()
         {
-            CalculatePlayerBullet();
+            if (_bulletRuntimeData.DamageData.IsBulletRicochet && _bulletRuntimeData.DamageData.HasBulletRicocheted)
+            {
+                CalculatePlayerRicochetBullet();
+            }
+            else
+            {
+                CalculatePlayerRegularBullet();
+            }
         }
-
-        private void CalculatePlayerBullet()
+        
+        private void CalculatePlayerRegularBullet()
         {
             Vector3 bulletForce = _bulletRuntimeData.DamageData.BulletDirection * _bulletRuntimeData.DamageData.BulletSpeed;
 
             _bulletRuntimeData.Bullet.View.Rigidbody.velocity = bulletForce;
         }
 
+        private void CalculatePlayerRicochetBullet()
+        {
+            if (_bulletRuntimeData.DamageData.NextRicochetTarget == null)
+            {
+                _bulletRuntimeData.Bullet.DestroyBullet();
+                return;
+            }
+
+            Vector3 target = _bulletRuntimeData.DamageData.NextRicochetTarget.EnemyView.EnemyTransform.position;
+            
+            Vector3 currentBulletPosition = Vector3.MoveTowards(
+                _bulletRuntimeData.Bullet.View.Transform.position, target,
+                _bulletRuntimeData.DamageData.BulletSpeed * Time.deltaTime);
+
+            _bulletRuntimeData.Bullet.View.Transform.position = currentBulletPosition;
+        }
+        
+        private bool IsPlayerBullet()
+        {
+            return _bulletRuntimeData.Bullet.BulletType == BulletType.Player;
+        }
+        
+        #endregion
+
+        #region Enemy Bullet
+
+        private bool IsEnemyBullet()
+        {
+            return _bulletRuntimeData.Bullet.BulletType == BulletType.Enemy;
+        }
+
+        private void OnPlayerRespawnAction()
+        {
+            _currentEnemyBulletTargetType = EnemyBulletTargetType.LastPlayerPosition;
+            
+            _previousTargetPosition = _playerRuntimeData.Player.View.Transform.position;
+        }
+
+        private void CheckBulletDistance(Vector3 currentTargetPos)
+        {
+            if (_currentEnemyBulletTargetType != EnemyBulletTargetType.LastPlayerPosition)
+                return;
+            
+            float remainingDistance =
+                Vector3.Distance(_bulletRuntimeData.Bullet.View.Transform.position, currentTargetPos);
+
+            if (remainingDistance <= REMAINING_BULLET_DISTANCE_OFFSET)
+            {
+                _currentEnemyBulletTargetType = EnemyBulletTargetType.Player;
+                
+                _bulletRuntimeData.Bullet.DestroyBullet();
+            }
+        }
+        
         private void MoveEnemyBullet()
         {
             Vector3 currentTargetPos = SetBulletTarget();
@@ -91,37 +155,7 @@ namespace ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementati
             _bulletRuntimeData.Bullet.View.Transform.position = currentBulletPosition;
         }
 
-        private bool IsPlayerBullet()
-        {
-            return _bulletRuntimeData.Bullet.BulletType == BulletType.Player;
-        }
+        #endregion
 
-        private bool IsEnemyBullet()
-        {
-            return _bulletRuntimeData.Bullet.BulletType == BulletType.Enemy;
-        }
-
-        private void OnPlayerRespawnAction()
-        {
-            _currentEnemyBulletTargetType = EnemyBulletTargetType.LastPlayerPosition;
-            
-            _previousTargetPosition = _playerRuntimeData.Player.View.Transform.position;
-        }
-
-        private void CheckBulletDistance(Vector3 currentTargetPos)
-        {
-            if (_currentEnemyBulletTargetType != EnemyBulletTargetType.LastPlayerPosition)
-                return;
-            
-            float remainingDistance =
-                Vector3.Distance(_bulletRuntimeData.Bullet.View.Transform.position, currentTargetPos);
-
-            if (remainingDistance <= REMAINING_BULLET_DISTANCE_OFFSET)
-            {
-                _currentEnemyBulletTargetType = EnemyBulletTargetType.Player;
-                
-                _bulletRuntimeData.Bullet.DestroyBullet();
-            }
-        }
     }
 }

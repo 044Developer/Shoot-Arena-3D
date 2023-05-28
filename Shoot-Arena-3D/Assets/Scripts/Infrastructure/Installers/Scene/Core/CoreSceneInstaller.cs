@@ -24,6 +24,8 @@ using ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerInput.Implementation;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerRestore;
+using ShootArena.Infrastructure.Core.Player.Handlers.PlayerRestore.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp.Implementation;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerShoot;
@@ -379,6 +381,8 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             BindPlayerHealthHandler();
 
             BindPlayerUltHandler();
+
+            BindPlayerRestoreHandler();
         }
 
         private void BindPlayerSetUpHandler()
@@ -455,6 +459,14 @@ namespace ShootArena.Infrastructure.Installers.Scene.Core
             Container
                 .Bind<IPlayerUltHandler>()
                 .To<PlayerUltHandler>()
+                .AsSingle();
+        }
+
+        private void BindPlayerRestoreHandler()
+        {
+            Container
+                .Bind<IPlayerRestoreHandler>()
+                .To<PlayerRestoreHandler>()
                 .AsSingle();
         }
 

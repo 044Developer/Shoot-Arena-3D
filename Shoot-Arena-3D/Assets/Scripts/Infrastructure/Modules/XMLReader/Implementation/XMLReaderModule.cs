@@ -209,21 +209,25 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
             string playerRotationSpeedNodeName = "rotationSpeed";
             string minRotateHeightNodeName = "minRotateHeight";
             string maxRotateHeightNodeName = "maxRotateHeight";
-            string playerShootRateNodeName = "shootRate";
             string playerStartHealthNodeName = "startHealthValue";
             string playerMaxHealthNodeName = "maxHealthValue";
             string playerStartStrengthNodeName = "startStrengthValue";
             string playerMaxStrengthNodeName = "maxStrengthValue";
+            string minStrengthRestoreNodeName = "minStrengthRestore";
+            string maxStrengthRestoreNodeName = "maxStrengthRestore";
+            string healthRestoreNodeName = "healthRestore";
 
             float playerMoveSpeed = ParseNodeAttribute<float>(parentNode, playerMoveSpeedNodeName);
             float playerRotationSpeed = ParseNodeAttribute<float>(parentNode, playerRotationSpeedNodeName);
             float playerRotationMinHeight = ParseNodeAttribute<float>(parentNode, minRotateHeightNodeName);
             float playerRotationMaxHeight = ParseNodeAttribute<float>(parentNode, maxRotateHeightNodeName);
-            float playerShootRate = ParseNodeAttribute<float>(parentNode, playerShootRateNodeName);
             float playerStartHealthRate = ParseNodeAttribute<float>(parentNode, playerStartHealthNodeName);
             float playerMaxHealthRate = ParseNodeAttribute<float>(parentNode, playerMaxHealthNodeName);
             float playerStartStrengthRate = ParseNodeAttribute<float>(parentNode, playerStartStrengthNodeName);
             float playerMaxStrengthRate = ParseNodeAttribute<float>(parentNode, playerMaxStrengthNodeName);
+            int minStrengthRestore = ParseNodeAttribute<int>(parentNode, minStrengthRestoreNodeName);
+            int maxStrengthRestore = ParseNodeAttribute<int>(parentNode, maxStrengthRestoreNodeName);
+            int healthRestore = ParseNodeAttribute<int>(parentNode, healthRestoreNodeName);
 
             result = new PlayerConfigurationData
             (
@@ -231,11 +235,13 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                 playerRotationSpeed: playerRotationSpeed,
                 playerMinRotateHeight: playerRotationMinHeight,
                 playerMaxRotateHeight: playerRotationMaxHeight,
-                playerShootRate: playerShootRate,
                 playerStartHealthValue: playerStartHealthRate,
                 playerMaxHealthValue: playerMaxHealthRate,
                 playerStartStrengthValue: playerStartStrengthRate,
-                playerMaxStrengthValue: playerMaxStrengthRate
+                playerMaxStrengthValue: playerMaxStrengthRate,
+                minStrengthRestoreValue: minStrengthRestore,
+                maxStrengthRestoreValue: maxStrengthRestore,
+                healthRestoreValue: healthRestore
             );
 
             return result;

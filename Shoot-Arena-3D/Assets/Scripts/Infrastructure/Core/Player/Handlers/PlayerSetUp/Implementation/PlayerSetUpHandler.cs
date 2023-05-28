@@ -5,6 +5,7 @@ using ShootArena.Infrastructure.Core.Player.Data.Strength;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth;
 using ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt;
 using ShootArena.Infrastructure.Core.Player.RuntimeData;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp.Implementation
 {
@@ -42,7 +43,8 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp.Implementat
             _playerRuntimeData.HealthData = new PlayerHealthData
                 (
                     startHealthValue: _levelConfigDataModel.PlayerConfigurationData.PlayerStartHealthValue,
-                    maxHealthValue: _levelConfigDataModel.PlayerConfigurationData.PlayerMaxHealthValue
+                    maxHealthValue: _levelConfigDataModel.PlayerConfigurationData.PlayerMaxHealthValue,
+                    healthRestoreValue: _levelConfigDataModel.PlayerConfigurationData.HealthRestoreValue
                     );
             
             _playerHealthHandler.SetUpPlayerHealth();
@@ -64,7 +66,9 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerSetUp.Implementat
             _playerRuntimeData.PlayerStrengthData = new PlayerStrengthData
                 (
                     startStrengthValue: _levelConfigDataModel.PlayerConfigurationData.PlayerStartStrengthValue,
-                    maxStrengthValue: _levelConfigDataModel.PlayerConfigurationData.PlayerMaxStrengthValue
+                    maxStrengthValue: _levelConfigDataModel.PlayerConfigurationData.PlayerMaxStrengthValue,
+                    minStrengthRestoreValue: _levelConfigDataModel.PlayerConfigurationData.MinStrengthRestoreValue,
+                    maxStrengthRestoreValue: _levelConfigDataModel.PlayerConfigurationData.MaxStrengthRestoreValue
                     );
             
             _playerUltHandler.SetUpPlayerUlt();

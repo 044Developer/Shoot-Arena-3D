@@ -6,32 +6,38 @@ namespace ShootArena.Infrastructure.Core.Player.Data.Configuration
         public float PlayerRotationSpeed { get; }
         public float PlayerRotationMinHeight { get; }
         public float PlayerRotationMaxHeight { get; }
-        public float PlayerShootRate { get; }
         public float PlayerStartHealthValue { get; }
         public float PlayerMaxHealthValue { get; }
         public float PlayerStartStrengthValue { get; }
         public float PlayerMaxStrengthValue { get; }
+        public int MinStrengthRestoreValue { get; }
+        public int MaxStrengthRestoreValue { get; }
+        public int HealthRestoreValue { get; }
 
         public PlayerConfigurationData(
             float playerMoveSpeed,
             float playerRotationSpeed,
             float playerMinRotateHeight,
             float playerMaxRotateHeight,
-            float playerShootRate,
             float playerStartHealthValue,
             float playerMaxHealthValue,
             float playerStartStrengthValue,
-            float playerMaxStrengthValue)
+            float playerMaxStrengthValue,
+            int minStrengthRestoreValue,
+            int maxStrengthRestoreValue,
+            int healthRestoreValue)
         {
             PlayerMoveSpeed = playerMoveSpeed;
             PlayerRotationSpeed = playerRotationSpeed;
             PlayerRotationMinHeight = playerMinRotateHeight;
             PlayerRotationMaxHeight = playerMaxRotateHeight;
-            PlayerShootRate = playerShootRate;
             PlayerStartHealthValue = playerStartHealthValue;
             PlayerMaxHealthValue = playerMaxHealthValue;
             PlayerStartStrengthValue = playerStartStrengthValue;
             PlayerMaxStrengthValue = playerMaxStrengthValue;
+            MinStrengthRestoreValue = minStrengthRestoreValue;
+            MaxStrengthRestoreValue = maxStrengthRestoreValue;
+            HealthRestoreValue = healthRestoreValue;
         }
     }
 }

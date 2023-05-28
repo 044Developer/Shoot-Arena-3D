@@ -17,7 +17,9 @@ namespace ShootArena.Infrastructure.Core.Player.Implementation
         public IPlayerView View => _view;
 
         [Inject]
-        public void Construct(IPlayerHealthHandler playerHealthHandler, IPlayerUltHandler playerUltHandler)
+        public void Construct(
+            IPlayerHealthHandler playerHealthHandler,
+            IPlayerUltHandler playerUltHandler)
         {
             _playerHealthHandler = playerHealthHandler;
             _playerUltHandler = playerUltHandler;

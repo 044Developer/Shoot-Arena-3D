@@ -3,6 +3,8 @@ using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletLifeTime.Implementation;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletMove.Implementation;
+using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletRicochet;
+using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletRicochet.Implementation;
 using ShootArena.Infrastructure.Core.Bullet.Handlers.BulletUpdate.Implementation;
 using ShootArena.Infrastructure.Core.Bullet.RuntimeData;
 using Zenject;
@@ -33,6 +35,8 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
             BindLifeTimeHandler();
 
             BindBulletUpdateHandler();
+
+            BindBulletRicochetHandler();
         }
 
         private void BindMoveHandler()
@@ -55,6 +59,14 @@ namespace ShootArena.Infrastructure.Installers.MemoryPool
         {
             Container
                 .BindInterfacesAndSelfTo<BulletUpdateHandler>()
+                .AsSingle();
+        }
+
+        private void BindBulletRicochetHandler()
+        {
+            Container
+                .Bind<IBulletRicochetHandler>()
+                .To<BulletRicochetHandler>()
                 .AsSingle();
         }
     }
