@@ -2,6 +2,7 @@
 using System.Linq;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Model;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation
 {
@@ -37,6 +38,20 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation
         {
             _allEnemies.Remove(enemy);
             _enemiesByType[enemy.EnemyType].Remove(enemy);
+        }
+
+        public List<Transform> GetAllActiveEnemiesTransform()
+        {
+            List<Transform> result = new List<Transform>();
+
+            for (int enemyIndex = 0; enemyIndex < _allEnemies.Count; enemyIndex++)
+            {
+                Transform tempTransform = _allEnemies[enemyIndex].EnemyView.EnemyTransform;
+                
+                result.Add(tempTransform);
+            }
+
+            return result;
         }
 
         public void StopAllEnemies()

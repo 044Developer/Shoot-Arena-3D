@@ -1100,20 +1100,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402ee1b29bcd4a09a7a00a947d984413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshCollider: {fileID: 640258857918307935}
-  _arenaObstacles:
-  - {fileID: 640258856345698557}
-  - {fileID: 640258856948154814}
-  - {fileID: 640258857360420134}
-  - {fileID: 640258856290900618}
-  - {fileID: 640258856914524686}
-  - {fileID: 640258857630859337}
-  - {fileID: 640258856253215740}
-  - {fileID: 640258857648088793}
-  - {fileID: 640258856174878014}
-  - {fileID: 640258856925402495}
-  - {fileID: 640258855866256888}
-  _navMeshSurface: {fileID: 4180954040626215328}
+  _view:
+    _meshCollider: {fileID: 640258857918307935}
+    _arenaObstacles:
+    - {fileID: 640258856345698557}
+    - {fileID: 640258856948154814}
+    - {fileID: 640258857360420134}
+    - {fileID: 640258856290900618}
+    - {fileID: 640258856914524686}
+    - {fileID: 640258857630859337}
+    - {fileID: 640258856253215740}
+    - {fileID: 640258857648088793}
+    - {fileID: 640258856174878014}
+    - {fileID: 640258856925402495}
+    - {fileID: 640258855866256888}
+    _navMeshSurface: {fileID: 4180954040626215328}
+    _arenaTransform: {fileID: 640258857918307934}
 --- !u!1 &640258857630859336
 GameObject:
   m_ObjectHideFlags: 0

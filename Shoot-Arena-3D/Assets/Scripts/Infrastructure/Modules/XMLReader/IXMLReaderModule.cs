@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ShootArena.Infrastructure.Core.Arena.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Level.Data;
@@ -12,5 +13,6 @@ namespace ShootArena.Infrastructure.Modules.XMLReader
         IPlayerConfigurationData ReadPlayerScenario();
         List<IEnemyConfigurationData> ReadEnemyScenario();
         List<IBulletConfigurationData> ReadBulletScenario();
+        IArenaConfigurationData ReadArenaScenario();
     }
 }

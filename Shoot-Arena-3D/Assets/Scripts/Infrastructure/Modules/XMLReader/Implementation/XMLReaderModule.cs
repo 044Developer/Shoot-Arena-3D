@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using ModestTree;
+using ShootArena.Infrastructure.Core.Arena.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Data.Type;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
@@ -94,6 +95,17 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                 result.Add(tempBullet);
             }
 
+            return result;
+        }
+
+        public IArenaConfigurationData ReadArenaScenario()
+        {
+            PrepareCurrentScenario(XMLScenarioType.Arena);
+            
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("arena");
+
+            IArenaConfigurationData result = ParseArenaConfig(parentNode);
+            
             return result;
         }
 
@@ -214,6 +226,25 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
                 playerMaxHealthValue: playerMaxHealthRate,
                 playerStartStrengthValue: playerStartStrengthRate,
                 playerMaxStrengthValue: playerMaxStrengthRate
+            );
+
+            return result;
+        }
+
+        private IArenaConfigurationData ParseArenaConfig(XmlNode parentNode)
+        {
+            IArenaConfigurationData result;
+            
+            string arenaAreasNodeName = "arenaAreas";
+            string offsetFromClosestObstacleNodeName = "offsetFromClosestObstacle";
+
+            int arenaAreasCount = ParseNodeAttribute<int>(parentNode, arenaAreasNodeName);
+            float offsetFromClosestObstacleValue = ParseNodeAttribute<float>(parentNode, offsetFromClosestObstacleNodeName);
+
+            result = new ArenaConfigurationData
+            (
+                numberOfArenaAreas: arenaAreasCount,
+                offsetFromClosestObstacle: offsetFromClosestObstacleValue
             );
 
             return result;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ShootArena.Infrastructure.Core.Arena.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Level.Data;
@@ -11,6 +12,7 @@ namespace ShootArena.Infrastructure.Core.Level.Model
         IPlayerConfigurationData PlayerConfigurationData { get; set; } 
         List<IEnemyConfigurationData> EnemyConfigurationDataList { get; set; }
         ILevelConfigurationData LevelConfigurationData { get; set; } 
+        IArenaConfigurationData ArenaConfigurationData { get; set; }
         List<IBulletConfigurationData> bulletConfigurationData { get; set; }
     }
 }

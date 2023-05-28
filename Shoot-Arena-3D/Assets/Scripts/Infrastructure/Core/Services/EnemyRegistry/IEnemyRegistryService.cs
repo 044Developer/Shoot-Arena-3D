@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Model;
+using UnityEngine;
 
 namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry
 {
@@ -13,6 +14,7 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry
         int TotalRangedCount { get; }
         void AddEnemy(IEnemy enemy);
         void RemoveEnemy(IEnemy enemy);
+        List<Transform> GetAllActiveEnemiesTransform();
         void StopAllEnemies();
         void ResumeAllEnemies();
         void KillAllEnemies();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ShootArena.Infrastructure.Core.Enemies.Data.Configuration;
 using ShootArena.Infrastructure.Core.Enemies.Data.Types;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
@@ -108,9 +109,14 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
         {
             int neededSpawnCount = NeedToRespawn(EnemyType.MeleeEnemy);
 
+            if (neededSpawnCount <= 0)
+                return;
+
+            List<Vector3> spawnPositions = _spawnPositionService.GetMultipleSpawnPositionsFromNewArea(neededSpawnCount, 2f);
+
             for (int index = 0; index < neededSpawnCount; index++)
             {
-                Vector3 tempPos = _spawnPositionService.GetEnemySpawnPosition();
+                Vector3 tempPos = spawnPositions[index];
                 SpawnEnemy(EnemyType.MeleeEnemy, tempPos);
             }
         }
@@ -119,9 +125,14 @@ namespace ShootArena.Infrastructure.Core.Services.EnemySpawn.Implementation
         {
             int neededSpawnCount = NeedToRespawn(EnemyType.RangeEnemy);
 
+            if (neededSpawnCount <= 0)
+                return;
+
+            List<Vector3> spawnPositions = _spawnPositionService.GetMultipleSpawnPositionsFromNewArea(neededSpawnCount, 2f);
+
             for (int index = 0; index < neededSpawnCount; index++)
             {
-                Vector3 tempPos = _spawnPositionService.GetEnemySpawnPosition();
+                Vector3 tempPos = spawnPositions[index];
                 SpawnEnemy(EnemyType.RangeEnemy, tempPos);
             }
         }

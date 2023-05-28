@@ -28,14 +28,14 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
             _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue =
                 _playerRuntimeData.PlayerStrengthData.StartStrengthValue;
 
-            UpdateHealthHUD();
+            UpdateUltHUD();
         }
 
         public void AddUltPoints(float newPoints)
         {
             IncreaseUltValue(newPoints);
             
-            UpdateHealthHUD();
+            UpdateUltHUD();
         }
 
         public void DecreaseUltPoints(float decreaseValue)
@@ -43,6 +43,9 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
             float newPowerValue = _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue - decreaseValue;
             _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue =
                 Mathf.Max(_playerRuntimeData.PlayerStrengthData.MinStrengthValue, newPowerValue);
+            
+            
+            UpdateUltHUD();
         }
 
         public void UseUlt()
@@ -52,7 +55,7 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
 
             DecreaseAllPoints();
             
-            UpdateHealthHUD();
+            UpdateUltHUD();
 
             KillAllActiveEnemies();
         }
@@ -71,7 +74,7 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerUlt.Implementatio
                 _playerRuntimeData.PlayerStrengthData.MinStrengthValue;
         }
 
-        private void UpdateHealthHUD()
+        private void UpdateUltHUD()
         {
             _hudRuntimeData.CurrentStrengthPercentValue = _playerRuntimeData.PlayerStrengthData.CurrentStrengthValue /
                                                         _playerRuntimeData.PlayerStrengthData.MaxStrengthValue;

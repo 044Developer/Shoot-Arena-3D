@@ -1,4 +1,5 @@
 using System;
+using ShootArena.Infrastructure.Core.Arena.Implementation;
 using ShootArena.Infrastructure.Core.Bullet.Data.Configuration;
 using ShootArena.Infrastructure.Core.Bullet.Implementation;
 using ShootArena.Infrastructure.Core.ControlFlow;
@@ -49,7 +50,6 @@ using ShootArena.Infrastructure.Core.Services.PlayerSpawn.Implementation;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition;
 using ShootArena.Infrastructure.Core.Services.SpawnPosition.Implementation;
 using ShootArena.Infrastructure.Installers.MemoryPool;
-using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.StaticContainers.Containers.Core;

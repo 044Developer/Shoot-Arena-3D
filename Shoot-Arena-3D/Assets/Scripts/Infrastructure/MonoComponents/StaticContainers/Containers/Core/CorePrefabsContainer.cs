@@ -1,7 +1,7 @@
-﻿using ShootArena.Infrastructure.Core.Bullet.Implementation;
+﻿using ShootArena.Infrastructure.Core.Arena.Implementation;
+using ShootArena.Infrastructure.Core.Bullet.Implementation;
 using ShootArena.Infrastructure.Core.Enemies.Implementation;
 using ShootArena.Infrastructure.Core.Player.Implementation;
-using ShootArena.Infrastructure.MonoComponents.Core.ArenaFacade.Implementation;
 using ShootArena.Infrastructure.MonoComponents.Core.PrefabsFacade.Implementation;
 using UnityEngine;
 
