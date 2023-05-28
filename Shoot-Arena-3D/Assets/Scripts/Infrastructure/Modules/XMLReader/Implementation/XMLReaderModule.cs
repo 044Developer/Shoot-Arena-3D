@@ -91,7 +91,7 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
         {
             PrepareCurrentScenario(XMLScenarioType.Bullet);
 
-            string scenarioParentNodeName = "enemies";
+            string scenarioParentNodeName = "bullets";
             
             List<IBulletConfigurationData> result = new List<IBulletConfigurationData>();
             XmlNode parentNode = _currentXmlDocument.SelectSingleNode(scenarioParentNodeName);
