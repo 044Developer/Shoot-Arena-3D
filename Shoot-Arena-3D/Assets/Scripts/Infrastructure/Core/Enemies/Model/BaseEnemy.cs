@@ -30,6 +30,16 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
             enemyHealthHandler.ReceiveDamage(damageValue);
             healthBarHandler.UpdateHealthBar();
         }
+        
+        public void StopEnemy()
+        {
+            _enemyView.NavMeshAgent.speed = 0;
+        }
+
+        public void ResumeEnemy()
+        {
+            _enemyView.NavMeshAgent.speed = enemyConfiguration.EnemyMoveSpeed;
+        }
 
         public void Die()
         {

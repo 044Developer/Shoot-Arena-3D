@@ -13,5 +13,8 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry
         int TotalRangedCount { get; }
         void AddEnemy(IEnemy enemy);
         void RemoveEnemy(IEnemy enemy);
+        void StopAllEnemies();
+        void ResumeAllEnemies();
+        void KillAllEnemies();
     }
 }

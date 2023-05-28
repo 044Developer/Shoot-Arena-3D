@@ -38,5 +38,23 @@ namespace ShootArena.Infrastructure.Core.Services.EnemyRegistry.Implementation
             _allEnemies.Remove(enemy);
             _enemiesByType[enemy.EnemyType].Remove(enemy);
         }
+
+        public void StopAllEnemies()
+        {
+            for (int enemyIndex = 0; enemyIndex < _allEnemies.Count; enemyIndex++) 
+                _allEnemies[enemyIndex].StopEnemy();
+        }
+
+        public void ResumeAllEnemies()
+        {
+            for (int enemyIndex = 0; enemyIndex < _allEnemies.Count; enemyIndex++) 
+                _allEnemies[enemyIndex].ResumeEnemy();
+        }
+
+        public void KillAllEnemies()
+        {
+            for (int enemyIndex = 0; enemyIndex < _allEnemies.Count; enemyIndex++) 
+                _allEnemies[enemyIndex].Die();
+        }
     }
 }

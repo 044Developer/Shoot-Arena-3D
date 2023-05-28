@@ -7,6 +7,8 @@ namespace ShootArena.Infrastructure.Core.Enemies.Model
     {
         public EnemyType EnemyType { get; }
         public IEnemyView EnemyView { get; }
+        void StopEnemy();
+        void ResumeEnemy();
         void Die();
         void ReceiveDamage(float damageValue);
     }
