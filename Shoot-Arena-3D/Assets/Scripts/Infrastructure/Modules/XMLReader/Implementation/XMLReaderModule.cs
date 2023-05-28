@@ -45,8 +45,10 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
         public ILevelConfigurationData ReadLevelScenario()
         {
             PrepareCurrentScenario(XMLScenarioType.Level);
+
+            string scenarioParentNodeName = "level";
             
-            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("level");
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode(scenarioParentNodeName);
 
             ILevelConfigurationData result = ParseLevelConfig(parentNode);
             
@@ -56,8 +58,10 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
         public IPlayerConfigurationData ReadPlayerScenario()
         {
             PrepareCurrentScenario(XMLScenarioType.Player);
+
+            string scenarioParentNodeName = "player";
             
-            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("player");
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode(scenarioParentNodeName);
 
             IPlayerConfigurationData result = ParsePlayerConfig(parentNode);
             
@@ -67,9 +71,11 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
         public List<IEnemyConfigurationData> ReadEnemyScenario()
         {
             PrepareCurrentScenario(XMLScenarioType.Enemies);
+
+            string scenarioParentNodeName = "enemies";
             
             List<IEnemyConfigurationData> result = new List<IEnemyConfigurationData>();
-            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("enemies");
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode(scenarioParentNodeName);
 
             foreach (XmlNode enemyNode in parentNode.ChildNodes)
             {
@@ -84,9 +90,11 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
         public List<IBulletConfigurationData> ReadBulletScenario()
         {
             PrepareCurrentScenario(XMLScenarioType.Bullet);
+
+            string scenarioParentNodeName = "enemies";
             
             List<IBulletConfigurationData> result = new List<IBulletConfigurationData>();
-            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("bullets");
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode(scenarioParentNodeName);
             
             foreach (XmlNode bulletNode in parentNode.ChildNodes)
             {
@@ -101,8 +109,10 @@ namespace ShootArena.Infrastructure.Modules.XMLReader.Implementation
         public IArenaConfigurationData ReadArenaScenario()
         {
             PrepareCurrentScenario(XMLScenarioType.Arena);
+
+            string scenarioParentNodeName = "arena";
             
-            XmlNode parentNode = _currentXmlDocument.SelectSingleNode("arena");
+            XmlNode parentNode = _currentXmlDocument.SelectSingleNode(scenarioParentNodeName);
 
             IArenaConfigurationData result = ParseArenaConfig(parentNode);
             
