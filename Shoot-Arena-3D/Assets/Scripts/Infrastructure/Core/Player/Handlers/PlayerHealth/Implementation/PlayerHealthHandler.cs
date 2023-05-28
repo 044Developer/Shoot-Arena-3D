@@ -64,7 +64,7 @@ namespace ShootArena.Infrastructure.Core.Player.Handlers.PlayerHealth.Implementa
         {
             float newHealthValue = _playerRuntimeData.HealthData.CurrentHealthValue + value;
             _playerRuntimeData.HealthData.CurrentHealthValue =
-                Mathf.Max(_playerRuntimeData.HealthData.MaxHealthValue, newHealthValue);
+                Mathf.Min(_playerRuntimeData.HealthData.MaxHealthValue, newHealthValue);
         }
 
         private void UpdateHealthHUD()

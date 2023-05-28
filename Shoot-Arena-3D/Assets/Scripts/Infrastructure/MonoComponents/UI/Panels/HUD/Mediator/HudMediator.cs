@@ -34,6 +34,8 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         {
             UpdateHpValue();
             UpdateUltValue();
+            
+            _viewModel.MobileInputHolder.SetActive(false);
             UpdateHudViewState(false);
         }
         
