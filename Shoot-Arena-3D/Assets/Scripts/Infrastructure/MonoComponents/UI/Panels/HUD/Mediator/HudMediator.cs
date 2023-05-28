@@ -32,15 +32,6 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
 
         public void SetUpPanel()
         {
-            if (_deviceCheckModule.CurrentDeviceType.HasFlag(CurrentDeviceType.Mobile))
-            {
-                _viewModel.MobileInputHolder.SetActive(true);
-            }
-            else
-            {
-                _viewModel.MobileInputHolder.SetActive(false);
-            }
-
             UpdateHpValue();
             UpdateUltValue();
             UpdateHudViewState(false);
@@ -67,10 +58,12 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         public void OnLevelStart()
         {
             UpdateHudViewState(true);
+            CheckForInputView();
         }
 
         public void OnLevelReset()
         {
+            _viewModel.MobileInputHolder.SetActive(false);
             UpdateHudViewState(false);
         }
 
@@ -108,6 +101,18 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.HUD.Mediator
         private void UpdateHudViewState(bool viewState)
         {
             _viewModel.GamePlayPanel.SetActive(viewState);
+        }
+
+        private void CheckForInputView()
+        {
+            if (_deviceCheckModule.CurrentDeviceType.HasFlag(CurrentDeviceType.Mobile))
+            {
+                _viewModel.MobileInputHolder.SetActive(true);
+            }
+            else
+            {
+                _viewModel.MobileInputHolder.SetActive(false);
+            }
         }
     }
 }
