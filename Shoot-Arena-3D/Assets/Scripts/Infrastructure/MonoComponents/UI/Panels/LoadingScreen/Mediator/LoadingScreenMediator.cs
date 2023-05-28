@@ -11,7 +11,6 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
     {
         private readonly IUIPanelsModule _panelsModule = null;
         private ILoadingScreenViewModel _viewModel = null;
-        private Sequence _loadingBarSequence = null;
 
         public LoadingScreenMediator(IUIPanelsModule panelsModule)
         {
@@ -38,15 +37,15 @@ namespace ShootArena.Infrastructure.MonoComponents.UI.Panels.LoadingScreen.Media
             float progressWidth = GetProgressWidth();
             Vector2 progressEndValue = new Vector2(progressWidth, _viewModel.ProgressBarRect.sizeDelta.y);
 
-            _loadingBarSequence = DOTween.Sequence();
-            _loadingBarSequence.SetRecyclable(true);
-            _loadingBarSequence.Append(_viewModel.ProgressBarRect.DOSizeDelta(progressEndValue, _viewModel.LoadingDuration));
-            _loadingBarSequence.AppendCallback(OnLoadingAnimationFinished);
+            Tween loadingTween = _viewModel.ProgressBarRect
+                .DOSizeDelta(progressEndValue, _viewModel.LoadingDuration)
+                .OnComplete(OnLoadingAnimationFinished)
+                .SetRecyclable(true);
 
-            _loadingBarSequence.Play();
+            loadingTween.Play();
         }
 
-        private void OnLoadingAnimationFinished() =>
+        private void OnLoadingAnimationFinished() => 
             CloseLoadingPanel();
 
         private float GetProgressWidth()
