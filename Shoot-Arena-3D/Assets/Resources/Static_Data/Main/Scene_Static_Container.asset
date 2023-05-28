@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51bcdcaa5c0f4620b5065821c87e345e, type: 3}
+  m_Name: Scene_Static_Container
+  m_EditorClassIdentifier: 
+  _scenesStaticList:
+  - _sceneType: 1
+    _sceneName: Bootstrap
+  - _sceneType: 2
+    _sceneName: MainMenu
+  - _sceneType: 3
+    _sceneName: Core

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dd1e294aaa413f92fd69fd1b939492, type: 3}
+  m_Name: Core_Prefab_Container
+  m_EditorClassIdentifier: 
+  _dynamicPrefabsFacade: {fileID: 6908941359659252355, guid: 2537354ecc69d2346bdbba8d2b57570f, type: 3}
+  _arenaFacade: {fileID: -2250460692191508148, guid: 7c1e3ef85694b2946a681506010ff938, type: 3}
+  _playerFacade: {fileID: 14681402421048235, guid: 996d4e97a11edad4cb9a7d49f90d9c6f, type: 3}
+  _meleeEnemyFacade: {fileID: 2314093726992474086, guid: a9313315cbeaf1c418ab6b2227a0bc1d, type: 3}
+  _rangedEnemyFacade: {fileID: 4656408076496224482, guid: d7f402acc095b7641bf20701d715e3fc, type: 3}
+  _playerBullet: {fileID: 9143157606687989002, guid: 45581fcbda3fcd14c9138b6138299ae8, type: 3}
+  _enemyBullet: {fileID: 7133590761632263798, guid: c7594bc93ac69ad46b91701d18e3ec2f, type: 3}
