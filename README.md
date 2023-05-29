@@ -2,28 +2,33 @@
 
 ## Unity version - 2020.3.27f1
 
-# Frameworks:
-Extenject
+## Frameworks:
+Extenject - Project Architecture, Pools, Factories
 
-# Plugins
-DoTween
+## Plugins
+DoTween - UI Animations
 
-# Configuration Data
-Configiration is stored in XML files.
+## Patterns
+- State
+- Factory
+- Mediator
+
+## Configuration Data
+
+All configuration data is stored in XML files located in Resources/Scenario folder.
 
 ### Where to start
 
-Game should be launched from Bootstrap scene
-When launched on PC, but want a mobile input, it could be enabled in settings SO.
-Settings SO located in Resources folder, under name - application_settings
-Just enable Overrride device type to true. 
-And select device type - Mobile
+To properly start the game, please enter **Bootstrap** scene.
+Game has 2 types of control: Standalone keyboard and Mobile joystics.
+When launched on PC, but Mobile input needed, please switch **Override** bool to true in app settings Scriptable Object.
+This settings file is located in Resources folder.
 
-### Actual build for Android
+# Actual build for Android
 
 Is located under this link - [Download Link](https://drive.google.com/file/d/1TpAAEnbxWi8ldHHm1oXixf65U8Kf6-Oe/view?usp=drive_link)
 
-### Gameplay
+# Gameplay
 
 ## Player stats
 
@@ -31,7 +36,7 @@ Health - just health by itself.
 
 Ult points - when we reach 100 ult points, we can Ult and all active enemies will die.
 
-We get 50 ult points when kill ranged enemy and 15 for a melee one.
+We get 50 ult points when ranged enemy killed and 15 points for a melee one.
 
 ## Player Control
 
@@ -41,17 +46,20 @@ Standalone - WASD movement, LMB - shoot, RMB - Ult.
 
 ## Enemies
 
-Ranged - Ranged enemy shoot a bullet, when it hits player, we loose ult power.
-To avoid the bullet we can jump off the arena and his bullet with loose the target.
+Ranged - Ranged enemy shoot a bullet, when it hits a player, we loose ult power.
+To avoid the bullet we can jump off the arena and that bullet with loose the target.
 
 Melee - attacks from above, when reached a player, he deals damage to player.
 
-Ranged has 100 hp, 25 damage
-Melee has 50 hp, 15 damage
+Ranged has 100 hp and deals 25 damage
+Melee has 50 hp and deals 15 damage
 
 ## Waves 
 
-Each wave has 4 melee and 1 range enemy.
+1 respawn wave consists of 4 melee enemies and 1 ranged one.
 
 Each 5 sec is new respawn.
-During each respawn its time decrease by 0.2 sec up until 2 sec min.
+During this time, we check the survived enemies on scene, and spawn the rest.
+During each respawn, the respawn time decreases by 0.2 seconds.
+When respawn time reach 2 seconds, we will no longer decrease the time.
+But we spawn 4 melee and 1 ranged enemy on arena, not matter how many of them survived.
